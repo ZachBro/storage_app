@@ -1,0 +1,32 @@
+<p>
+  <%= f.label :number %><br>
+  <%= f.text_field :number %>
+</p>
+
+<p>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %>
+</p>
+
+<%= f.fields_for :details do |d| %>
+  <p>
+    <%= d.label :amount %> <br>
+    <%= d.text_field :amount %>
+  </p>
+
+  <p>
+    <%= d.label :location %> <br>
+    <%= d.text_field :location %>
+  </p>
+
+  <p>
+    <%= d.label :employee %> <br>
+    <%= d.text_field :stored_employee_id %>
+  </p>
+<% end %>
+
+<p>
+  <%= f.submit %>
+</p>
+
+<a href="/">Back</a>

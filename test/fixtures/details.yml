@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ticket_id: 1
+  amount: 1
+  location: MyString
+  stored_employee_id: 1
+  retrieved_employee_id: 1
+  active: false
+
+two:
+  ticket_id: 1
+  amount: 1
+  location: MyString
+  stored_employee_id: 1
+  retrieved_employee_id: 1
+  active: false
