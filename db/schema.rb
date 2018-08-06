@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2018_08_03_014226) do
     t.string "location"
     t.integer "stored_employee_id"
     t.integer "retrieved_employee_id"
-    t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -36,8 +35,11 @@ ActiveRecord::Schema.define(version: 2018_08_03_014226) do
   create_table "tickets", force: :cascade do |t|
     t.integer "number"
     t.string "name"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tickets_on_name"
+    t.index ["number"], name: "index_tickets_on_number", unique: true
   end
 
 end

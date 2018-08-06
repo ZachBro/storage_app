@@ -1,0 +1,35 @@
+<h1>Search</h1>
+
+<a href="/">Back</a>
+
+<p>Search Ticket Number
+  <%= form_tag("/search", method: :get) do %>
+  <%= label_tag(:search_for_ticket, "Search for ticket:") %>
+  <%= text_field_tag(:search_for_ticket, params[:search_for_ticket]) %>
+  <%= submit_tag("Search", name: nil) %>
+<% end %>
+</p>
+<p>Search Name
+  <%= form_tag("/search", method: :get) do %>
+  <%= label_tag(:search_for_name, "Search for name:") %>
+  <%= text_field_tag(:search_for_name, params[:search_for_name]) %>
+  <%= submit_tag("Search", name: nil) %>
+<% end %>
+</p>
+<% if params[:search_for_ticket].present? %>
+  <% if @ticket.present? %>
+    <%= render "tickets/show", ticket: @ticket %>
+  <% else %>
+    <p> No Records Found </p>
+  <% end %>
+<% elsif params[:search_for_name].present? %>
+  <% if @ticket.present? %>
+    <% @ticket.each do |ticket| %>
+      <% if ticket.active %>
+        <%= render "tickets/show", ticket: ticket %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p> No Records Found </p>
+  <% end %>
+<% end %>

@@ -1,0 +1,24 @@
+<% @current_tickets.each do |f| %>
+  <p>
+    <strong>Ticket number:</strong>
+    <%= f.number %>
+
+    <strong>Name:</strong>
+    <%= f.name %>
+
+    <strong>Amount:</strong>
+    <%= f.details[0].amount %>
+
+    <strong>Location:</strong>
+    <%= f.details[0].location %>
+
+    <strong>Stored by:</strong>
+    <%= f.details[0].stored_employee.id_number %> -
+    <%= f.details[0].stored_employee.name %>
+
+    <strong>Time:</strong>
+    <%= f.details[0].created_at.in_time_zone("Melbourne") %>
+
+    <a href="/tickets/<%= f.id %>">Edit</a>
+  </p>
+<% end %>

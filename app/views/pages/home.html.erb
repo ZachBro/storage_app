@@ -1,4 +1,9 @@
 <h1>Storage App</h1>
 
 <a href="/tickets/new">New ticket</a>
-<!-- <a href="/search/">Not implemented yet</a> -->
+<a href="/search/">Search</a>
+
+<h1>Current tickets</h1>
+<% if @current_tickets.any? %>
+  <%= render "current" %>
+<% end %>
