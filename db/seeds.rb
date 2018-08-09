@@ -11,19 +11,19 @@ Employee.create!(id_number: "300001",
                  name:  "Bob")
 
 Detail.create!(ticket_id: "1", amount: "1", location: "1A",
-                stored_employee_id: "1")
+                search_id: "300000")
 
 Detail.create!(ticket_id: "1", amount: "2", location: "1B",
-                stored_employee_id: "2")
+                search_id: "300001")
 
 Detail.create!(ticket_id: "1", amount: "4", location: "1C",
-                stored_employee_id: "1")
+                search_id: "300000")
 
 Detail.create!(ticket_id: "2", amount: "7", location: "5C",
-                stored_employee_id: "2")
+                search_id: "300000")
 
 Detail.create!(ticket_id: "2", amount: "1", location: "1A",
-                stored_employee_id: "1")
+                search_id: "300001")
 
 Detail.create!(ticket_id: "3", amount: "1", location: "2B",
-                stored_employee_id: "1", retrieved_employee_id: "2")
+                search_id: "300000", retrieved_employee_id: "2")

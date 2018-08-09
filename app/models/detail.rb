@@ -1,4 +1,5 @@
 class Detail < ApplicationRecord
+  attr_accessor :search_id
   belongs_to :ticket
   belongs_to :stored_employee, class_name: 'Employee',
                                foreign_key: 'stored_employee_id', optional: true
@@ -6,10 +7,13 @@ class Detail < ApplicationRecord
                                foreign_key: 'stored_employee_id', optional: true
   default_scope -> { order(created_at: :desc) }
 
-  # before_save :find_employee
+  after_create :find_employee
 
-  # def find_employee
-  #   stored_employee = Employee.find_by(id_number: "385518")
-  #   stored_employee = stored_employee.id
-  # end
+  private
+
+    def find_employee
+      employee_test = Employee.find_by(id_number: @search_id)
+      employee_test_id = employee_test.id
+      self.update_attribute(:stored_employee_id, employee_test_id)
+    end
 end
