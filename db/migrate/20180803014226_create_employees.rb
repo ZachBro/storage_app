@@ -6,5 +6,6 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+    add_index :employees, :id_number, unique: true
   end
 end
