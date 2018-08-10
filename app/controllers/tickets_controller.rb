@@ -19,7 +19,7 @@ class TicketsController < ApplicationController
 
     def ticket_params
       params.require(:ticket).permit(:number, :name, details_attributes:
-                                     [:amount, :location, :search_id, :stored_employee_id])
+                                     [:amount, :location, :search_id, :stored_employee_id, :retrieved_employee_id])
     end
 
     def set_ticket

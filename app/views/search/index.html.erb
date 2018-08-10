@@ -18,16 +18,14 @@
 </p>
 <% if params[:search_for_ticket].present? %>
   <% if @ticket.present? %>
-    <%= render "tickets/show", ticket: @ticket %>
+    <%= render "tickets/show", ticket: @ticket%>
   <% else %>
     <p> No Records Found </p>
   <% end %>
 <% elsif params[:search_for_name].present? %>
   <% if @ticket.present? %>
     <% @ticket.each do |ticket| %>
-      <% if ticket.active %>
-        <%= render "tickets/show", ticket: ticket %>
-      <% end %>
+      <%= render "tickets/show", ticket: ticket %>
     <% end %>
   <% else %>
     <p> No Records Found </p>

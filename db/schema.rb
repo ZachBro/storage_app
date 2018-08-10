@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2018_08_03_014226) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id_number"], name: "index_employees_on_id_number", unique: true
   end
 
   create_table "tickets", force: :cascade do |t|
