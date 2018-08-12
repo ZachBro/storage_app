@@ -1,6 +1,6 @@
 <h2>
   <strong>Ticket number:</strong>
-  <a href="tickets/<%= "#{ticket.id}" %>"> <%= ticket.number %> </a>
+  <a href="<%= ticket_path(ticket.id) %>"> <%= ticket.number %> </a>
 </h2>
 
 <p>

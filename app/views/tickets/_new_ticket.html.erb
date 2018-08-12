@@ -1,0 +1,11 @@
+<%= flash[:danger]%>
+
+<p>
+  <%= form_tag("/tickets", method: :get) do %>
+  <%= label_tag(:temp_number, "Ticket number") %><br>
+  <%= text_field_tag(:temp_number, params[:temp_number]) %><br><br>
+  <%= submit_tag("Submit", name: nil) %>
+<% end %>
+</p>
+
+<a href="/">Back</a>

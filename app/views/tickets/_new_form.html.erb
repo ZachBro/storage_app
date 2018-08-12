@@ -1,6 +1,7 @@
+<h2>Number: <%= params[:number] %> </h1>
+
 <p>
-  <%= f.label :number %><br>
-  <%= f.text_field :number %>
+  <%= f.hidden_field :number, value: params[:number] %>
 </p>
 
 <p>
