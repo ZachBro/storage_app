@@ -30,4 +30,19 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+    errors:
+      models:
+        detail:
+          attributes:
+            amount:
+              blank: "Amount is required"
+            location:
+              blank: "Location is required"
+            s_employee_id:
+              inclusion: "Employee ID incorrect"
+        ticket:
+          attributes:
+            name:
+              blank: "Name is required"

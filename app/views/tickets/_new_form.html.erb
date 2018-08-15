@@ -1,10 +1,15 @@
 <%= flash[:danger]%>
+<% if @ticket.number.nil? %>
+  <% @ticket.number = params[:number] %>
+<% end %>
+<h2>Number: <%= @ticket.number %> </h1>
 
-<h2>Number: <%= params[:number] %> </h1>
 
 <p>
-  <%= f.hidden_field :number, value: params[:number] %>
+  <%= f.hidden_field :number %>
 </p>
+
+  <%= render 'shared/error_messages' %>
 
 <p>
   <%= f.label :name %><br>

@@ -1,11 +1,11 @@
 class Ticket < ApplicationRecord
   attr_accessor :r_employee_id
+  validates :number, presence: true, length: { is: 6 }, uniqueness: true, on: :create
+  validates :name, presence: true, on: :create  
   has_many :details
-  accepts_nested_attributes_for :details
   has_many :stored_employees,    through: :details
   has_many :retrieved_employees, through: :details
-  validates :number, presence: true, length: { is: 6 }, uniqueness: true, on: :create
-  validates :name, presence: true, on: :create
+  accepts_nested_attributes_for :details
   before_save  { self.name = name.upcase }
   after_update :toggle_active
 

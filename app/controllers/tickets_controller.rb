@@ -1,4 +1,5 @@
 class TicketsController < ApplicationController
+  attr_accessor :number
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -8,8 +9,11 @@ class TicketsController < ApplicationController
 
   def create
     @ticket = Ticket.new(ticket_params)
-    @ticket.save
-    redirect_to @ticket
+    if @ticket.save
+      redirect_to @ticket
+    else
+      render :action => "new"
+    end
   end
 
   def index
@@ -20,7 +24,6 @@ class TicketsController < ApplicationController
         if @ticket
           redirect_to @ticket
         else
-          flash[:success] = "Create new ticket"
           redirect_to new_ticket_path(:number => params[:ticket_number])
         end
       else
@@ -48,8 +51,7 @@ class TicketsController < ApplicationController
     def ticket_params
       params.require(:ticket).permit(:number, :name,
                               details_attributes:
-                              [:amount, :location, :room, :s_employee_id,
-                              :stored_employee_id, :retrieved_employee_id, :id])
+                              [:amount, :location, :room, :s_employee_id, :id])
     end
 
     def update_params
@@ -59,7 +61,7 @@ class TicketsController < ApplicationController
 
     def detail_params
       params.require(:ticket).permit(details_attributes:
-                              [:amount, :location, :room, :s_employee_id, :stored_employee_id, :id])
+                              [:amount, :location, :room, :s_employee_id, :id])
     end
 
     def set_ticket
