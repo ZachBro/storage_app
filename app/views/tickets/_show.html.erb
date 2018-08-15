@@ -60,8 +60,38 @@
         <%= d.text_field :r_employee_id %>
       <% end %>
     <p>
-      <%= f.submit %>
+      <%= f.submit "Sign Out" %>
     </p>
     <% end %>
   <% end %>
+</p>
+
+
+<p>
+  <%= form_for @ticket, method: "post" do |f| %>
+    <%= f.fields_for :details, f.object.new_detail do |d| %>
+      <p>
+        <%= d.label :amount %> <br>
+        <%= d.text_field :amount %>
+      </p>
+
+      <p>
+        <%= d.label :location %> <br>
+        <%= d.text_field :location %>
+      </p>
+
+      <p>
+        <%= d.label :room %> <br>
+        <%= d.text_field :room %>
+      </p>
+
+      <p>
+        <%= d.label :s_employee_id, "Stored employee" %> <br>
+        <%= d.text_field :s_employee_id %>
+      </p>
+    <% end %>
+
+    <%= f.submit "Update ticket details" %>
+  <% end %>
+
 </p>

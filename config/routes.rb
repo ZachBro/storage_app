@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   root 'pages#home'
   get  'pages/new'
   resources :search
-  resources :tickets
-  post "/tickets/:id/edit" => "tickets#new_detail", :as => :create_detail
+  resources :tickets do
+    resources :details
+  end
+  post "/tickets/:id" => "tickets#edit", :as => :create_detail
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

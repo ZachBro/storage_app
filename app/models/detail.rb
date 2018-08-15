@@ -6,13 +6,14 @@ class Detail < ApplicationRecord
   belongs_to :retrieved_employee, class_name: 'Employee',
               foreign_key: 'retrieved_employee_id', optional: true
   default_scope -> { order(created_at: :desc) }
-  validates :amount, :location, presence: true, on: :create
+  validates :amount, :location, presence: true, on: [:create, :edit]
   validates :s_employee_id, inclusion:
-                    { in: Employee.pluck(:id_number).map!(&:to_s) }, on: :create
+          { in: Employee.pluck(:id_number).map!(&:to_s) }, on: [:create, :edit]
   validates :r_employee_id, inclusion:
-                    { in: Employee.pluck(:id_number).map!(&:to_s) }, on: :update
+          { in: Employee.pluck(:id_number).map!(&:to_s) }, on: :update
   before_save { self.location = location.upcase }
   after_create :store_employee
+  after_update :store_employee
   after_update :retrieve_employee
 
 
@@ -20,9 +21,11 @@ class Detail < ApplicationRecord
   private
 
     def store_employee
-      if @s_employee_id
-        self.update_attribute(:stored_employee_id,
+      if self.stored_employee_id.nil?
+        if @s_employee_id
+          self.update_attribute(:stored_employee_id,
                                 Employee.find_by(id_number: @s_employee_id).id)
+        end
       end
     end
 

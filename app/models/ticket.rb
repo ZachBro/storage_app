@@ -7,24 +7,28 @@ class Ticket < ApplicationRecord
   validates :number, presence: true, length: { is: 6 }, uniqueness: true, on: :create
   validates :name, presence: true, on: :create
   before_save  { self.name = name.upcase }
-  after_update :deactivate
+  after_update :toggle_active
 
 
     def latest_details
       self.details.first
     end
 
-    def new_details
+    def new_detail
       self.details.build
     end
 
   private
 
-    def deactivate
-      if self.active == true
-        if self.details.first.retrieved_employee_id.present?
-          self.update_attribute(:active, false)
-        end
+  def toggle_active
+    if self.active == true
+      if self.details.first.retrieved_employee_id.present?
+        self.update_attribute(:active, false)
+      end
+    elsif self.active == false
+      if self.details.first.retrieved_employee_id.blank?
+        self.update_attribute(:active, true)
       end
     end
+  end
 end

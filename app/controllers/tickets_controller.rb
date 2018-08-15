@@ -1,14 +1,9 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: [:show, :edit, :update, :destroy, :new_detail]
+  before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
   def new
     @ticket = Ticket.new
     @ticket.details.build
-  end
-
-  def new_detail
-    @new_detail = @ticket.details.build
-    redirect_to @ticket
   end
 
   def create
@@ -29,7 +24,7 @@ class TicketsController < ApplicationController
           redirect_to new_ticket_path(:number => params[:ticket_number])
         end
       else
-        flash[:danger] = "Please enter a valid ticket number"
+        flash[:danger] = "Please enter a valid ticket number (6 digit number)"
         redirect_to "/tickets/"
       end
     end
@@ -43,6 +38,11 @@ class TicketsController < ApplicationController
     redirect_to @ticket
   end
 
+  def edit
+    @ticket.update(detail_params)
+    redirect_to @ticket
+  end
+
   private
 
     def ticket_params
@@ -53,7 +53,13 @@ class TicketsController < ApplicationController
     end
 
     def update_params
-      params.require(:ticket).permit(:id, details_attributes: [:amount, :updated_at, :retrieved_employee_id, :r_employee_id, :id])
+      params.require(:ticket).permit(:id, details_attributes:
+                              [:updated_at, :r_employee_id, :id])
+    end
+
+    def detail_params
+      params.require(:ticket).permit(details_attributes:
+                              [:amount, :location, :room, :s_employee_id, :stored_employee_id, :id])
     end
 
     def set_ticket
