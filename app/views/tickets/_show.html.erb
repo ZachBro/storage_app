@@ -1,16 +1,16 @@
 <h2>
   <strong>Ticket number:</strong>
-  <a href="<%= ticket_path(ticket.id) %>"> <%= ticket.number %> </a>
+  <a href="<%= ticket_path(@ticket.id) %>"> <%= @ticket.number %> </a>
 </h2>
 
 <p>
   <strong>Name:</strong>
-  <%= ticket.name %>
+  <%= @ticket.name %>
 </p>
 
 <br><br>
 
-<% ticket.details.each do |d| %>
+<% @ticket.details.each do |d| %>
   <p>
     <strong>Amount:</strong>
     <%= d.amount %>
@@ -22,14 +22,46 @@
   </p>
 
   <p>
+    <strong>Room:</strong>
+    <%= d.room %>
+  </p>
+
+  <p>
     <strong>Stored by:</strong>
     <%= d.stored_employee.id_number %> -
     <%= d.stored_employee.name %>
   </p>
 
   <p>
-    <strong>Time:</strong>
+    <strong>Stored at:</strong>
     <%= d.created_at.in_time_zone("Melbourne") %>
   </p>
+
+  <p>
+    <strong>Retrieved by:</strong>
+    <% if d.retrieved_employee %>
+      <%= d.retrieved_employee.id_number %> -
+      <%= d.retrieved_employee.name %><br><br>
+
+      <strong>Retrieved at:</strong>
+      <%= d.updated_at.in_time_zone("Melbourne") %>
+    <% end %>
+  </p>
+
   <br>
 <% end %>
+
+<p>
+  <% if @ticket.details.first.retrieved_employee.nil? %>
+    <strong>Sign out:</strong>
+    <%= form_for @ticket do |f| %>
+      <%= f.fields_for :details, f.object.latest_details do |d| %>
+        <%= d.hidden_field :updated_at, value: Time.now %>
+        <%= d.text_field :r_employee_id %>
+      <% end %>
+    <p>
+      <%= f.submit %>
+    </p>
+    <% end %>
+  <% end %>
+</p>
