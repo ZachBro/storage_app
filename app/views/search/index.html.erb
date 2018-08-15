@@ -1,33 +1,52 @@
-<h1>Search</h1>
+<div class="container">
+  <h1>Search</h1>
 
-<a href="/">Back</a>
+  <a href="/">Back</a>
 
-<p>Search Ticket Number
-  <%= form_tag("/search", method: :get) do %>
-  <%= label_tag(:search_for_ticket, "Search for ticket:") %>
-  <%= text_field_tag(:search_for_ticket, params[:search_for_ticket]) %>
-  <%= submit_tag("Search", name: nil) %>
-<% end %>
-</p>
-<p>Search Name
-  <%= form_tag("/search", method: :get) do %>
-  <%= label_tag(:search_for_name, "Search for name:") %>
-  <%= text_field_tag(:search_for_name, params[:search_for_name]) %>
-  <%= submit_tag("Search", name: nil) %>
-<% end %>
-</p>
-<% if params[:search_for_ticket].present? %>
-  <% if @ticket.present? %>
-    <%= render "tickets/show", ticket: @ticket%>
-  <% else %>
-    <p> No Records Found </p>
+  <p>Search Ticket Number
+    <%= form_tag("/search", method: :get) do %>
+    <%= label_tag(:search_for_ticket, "Search for ticket:") %>
+    <%= text_field_tag(:search_for_ticket, params[:search_for_ticket]) %>
+    <%= submit_tag("Search", name: nil) %>
   <% end %>
-<% elsif params[:search_for_name].present? %>
-  <% if @tickets.present? %>
-    <% @tickets.each do |ticket| %>
-      <%= render "tickets/search", ticket: ticket %>
+  </p>
+  <p>Search Name
+    <%= form_tag("/search", method: :get) do %>
+    <%= label_tag(:search_for_name, "Search for name:") %>
+    <%= text_field_tag(:search_for_name, params[:search_for_name]) %>
+    <%= submit_tag("Search", name: nil) %>
+  <% end %>
+  </p>
+  <% if params[:search_for_ticket].present? %>
+    <% if @ticket.present? %>
+      <%= render "tickets/show", ticket: @ticket%>
+    <% else %>
+      <p> No Records Found </p>
     <% end %>
-  <% else %>
-    <p> No Records Found </p>
+  <% elsif params[:search_for_name].present? %>
+    <% if @tickets.present? %>
+      <table class="table table-striped table-dark table-sm">
+        <thead>
+          <tr>
+            <th style="width: auto">Number</th>
+            <th style="width: 20%">Name</th>
+            <th style="width: auto">Amount</th>
+            <th style="width: auto">Location</th>
+            <th style="width: auto">Room</th>
+            <th style="width: 15%">Stored by</th>
+            <th style="width: 20%">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tickets.each do |ticket| %>
+            <tr>
+              <%= render "tickets/search", ticket: ticket %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p> No Records Found </p>
+    <% end %>
   <% end %>
-<% end %>
+</div>

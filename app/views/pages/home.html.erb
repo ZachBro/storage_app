@@ -1,9 +1,15 @@
-<h1>Storage App</h1>
+<div class="container">
+  <div class="text-center">
+    <h1 class="headings">Storage</h1>
 
-<a href="/tickets/">New ticket</a>
-<a href="/search/">Search</a>
+    <a href="/tickets/" class="btn btn-secondary btn-lg">New ticket</a>
+    <a href="/search/" class="btn btn-secondary btn-lg">Search</a>
 
-<h1>Current tickets</h1>
-<% if @current_tickets.any? %>
-  <%= render "current" %>
-<% end %>
+    <h2>Current tickets</h1>
+  </div>
+  <div class="container">
+    <% if @current_tickets.any? %>
+      <%= render "current" %>
+    <% end %>
+  </div>
+</div>

@@ -1,11 +1,15 @@
 <%= flash[:danger]%>
 
-<p>
+<div class="container">
   <%= form_tag("/tickets", method: :get) do %>
   <%= label_tag(:ticket_number, "Ticket number") %><br>
-  <%= text_field_tag(:ticket_number) %><br><br>
-  <%= submit_tag("Submit", name: nil) %>
+  <div class="input-group">
+    <%= text_field_tag(:ticket_number, "", :class => "form-control") %>
+    <div class="input-group-append">
+      <%= submit_tag("Submit", name: nil, :class => "btn btn-secondary") %>
+    </div>
+  </div>
 <% end %>
-</p>
-
-<a href="/">Back</a>
+<br>
+<a class="btn btn-secondary btn-lg" href="/">Back</a>
+</div>
