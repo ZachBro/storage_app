@@ -1,37 +1,13 @@
-<% @current_tickets.each do |f| %>
+<% @current_tickets.each do |ticket| %>
   <p>
-    <strong>Ticket number:</strong>
-    <%= f.number %>
+    <%= render 'tickets/search', ticket: ticket %>
 
-    <strong>Name:</strong>
-    <%= f.name %>
-
-    <strong>Amount:</strong>
-    <%= f.details[0].amount %>
-
-    <strong>Location:</strong>
-    <%= f.details[0].location %>
-
-    <strong>Room:</strong>
-    <%= f.details[0].room %>
-
-    <strong>Stored by:</strong>
-    <%= f.details[0].stored_employee.id_number %> -
-    <%= f.details[0].stored_employee.name %>
-
-    <strong>Time:</strong>
-    <%= f.details[0].created_at.in_time_zone("Melbourne") %>
-
-    <a href="/tickets/<%= f.id %>">Edit</a>
-
-    <%= form_for f do |f| %>
+    <%= form_for ticket do |f| %>
       <%= f.fields_for :details, f.object.latest_details do |d| %>
         <%= d.hidden_field :updated_at, value: Time.now %>
         <%= d.text_field :r_employee_id %>
       <% end %>
-    <p>
-      <%= f.submit %>
-    </p>
+      <%= f.submit "Sign out" %>
     <% end %>
   </p>
 <% end %>

@@ -34,7 +34,7 @@
 
   <p>
     <strong>Stored at:</strong>
-    <%= d.created_at.in_time_zone("Melbourne") %>
+    <%= d.created_at.in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %>
   </p>
 
   <p>
@@ -44,7 +44,7 @@
       <%= d.retrieved_employee.name %><br><br>
 
       <strong>Retrieved at:</strong>
-      <%= d.updated_at.in_time_zone("Melbourne") %>
+      <%= d.updated_at.in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %>
     <% end %>
   </p>
 

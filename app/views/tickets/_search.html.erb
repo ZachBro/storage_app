@@ -1,0 +1,34 @@
+<p>
+  <strong>Ticket number:</strong>
+  <%= ticket.number %>
+  <strong>Name:</strong>
+  <%= ticket.name %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= ticket.details.first.amount %>
+
+  <strong>Location:</strong>
+  <%= ticket.details.first.location %>
+
+  <strong>Room:</strong>
+  <%= ticket.details.first.room %>
+
+  <strong>Stored by:</strong>
+  <%= ticket.details.first.stored_employee.id_number %> -
+  <%= ticket.details.first.stored_employee.name %>
+
+  <strong>Time:</strong>
+  <%= ticket.details.first.created_at.in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %>
+
+  <% if ticket.details.first.retrieved_employee %>
+    <strong>Retrieved by:</strong>
+    <%= ticket.details.first.retrieved_employee.id_number %> -
+    <%= ticket.details.first.retrieved_employee.name %><br><br>
+
+    <strong>Retrieved at:</strong>
+    <%= ticket.details.first.updated_at.in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %>
+  <% end %>
+  <a href="/tickets/<%= ticket.id %>">Edit</a>
+</p>

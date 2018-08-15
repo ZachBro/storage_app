@@ -23,9 +23,9 @@
     <p> No Records Found </p>
   <% end %>
 <% elsif params[:search_for_name].present? %>
-  <% if @ticket.present? %>
-    <% @ticket.each do |ticket| %>
-      <%= render "tickets/show", ticket: ticket %>
+  <% if @tickets.present? %>
+    <% @tickets.each do |ticket| %>
+      <%= render "tickets/search", ticket: ticket %>
     <% end %>
   <% else %>
     <p> No Records Found </p>
