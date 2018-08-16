@@ -1,97 +1,138 @@
-<h2>
-  <strong>Ticket number:</strong>
-  <a href="<%= ticket_path(@ticket.id) %>"> <%= @ticket.number %> </a>
-</h2>
+<div class="text-center">
+  <h1>
+    <strong>
+      <a href="<%= ticket_path(@ticket.id) %>"> <%= @ticket.number %> </a>
+    </strong>
+  </h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @ticket.name %>
-</p>
+  <h3>
+    <strong><%= @ticket.name %></strong>
+  </h3>
 
-<br><br>
+  <h3>Current details</h3>
+</div>
 
-<% @ticket.details.each do |d| %>
-  <p>
-    <strong>Amount:</strong>
-    <%= d.amount %>
-  </p>
+<table class="table table-striped table-dark table-sm">
+  <thead>
+    <tr>
+      <th style="width: auto">Amount</th>
+      <th style="width: auto">Location</th>
+      <th style="width: auto">Room</th>
+      <th style="width: auto%">Stored by</th>
+      <th style="width: 20%">Time</th>
+      <% if @ticket.details.first.retrieved_employee.nil? %>
+        <th style="width: auto%">Sign out</th>
+      <% else %>
+        <th style="width: auto%">Retrieved by</th>
+        <th style="width: auto">Time</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="align-middle"><%= @ticket.details.first.amount %></td>
+      <td class="align-middle"><%= @ticket.details.first.location %></td>
+      <td class="align-middle"><%= @ticket.details.first.room %></td>
+      <td class="align-middle"><%= @ticket.details.first.stored_employee.id_number %>
+        - <%= @ticket.details.first.stored_employee.name %></td>
+      <td class="align-middle"><%= @ticket.details.first.created_at.
+            in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %></td>
+      <% if @ticket.details.first.retrieved_employee.nil? %>
+        <td>
+          <%= form_for @ticket do |f| %>
+            <%= f.fields_for :details, f.object.latest_details do |d| %>
+              <%= d.hidden_field :updated_at, value: Time.now %>
+              <div class="input-group input-group-sm">
+                <%= d.text_field :r_employee_id , :class => "form-control", :style => "width: 50px" %>
+            <% end %>
+              <div class="input-group-append">
+                <%= f.submit "Sign out", :class => "btn btn-outline-secondary btn-sm" %>
+              </div>
+            </div>
+          <% end %>
+        </td>
+      <% else %>
+        <td class="align-middle"><%= @ticket.details.first.retrieved_employee.id_number %>
+          - <%= @ticket.details.first.retrieved_employee.name %></td>
+        <td class="align-middle"><%= @ticket.details.first.updated_at.
+            in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
 
-  <p>
-    <strong>Location:</strong>
-    <%= d.location %>
-  </p>
-
-  <p>
-    <strong>Room:</strong>
-    <%= d.room %>
-  </p>
-
-  <p>
-    <strong>Stored by:</strong>
-    <%= d.stored_employee.id_number %> -
-    <%= d.stored_employee.name %>
-  </p>
-
-  <p>
-    <strong>Time:</strong>
-    <%= d.created_at.in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %>
-  </p>
-
-  <p>
-    <strong>Retrieved by:</strong>
-    <% if d.retrieved_employee %>
-      <%= d.retrieved_employee.id_number %> -
-      <%= d.retrieved_employee.name %><br><br>
-
-      <strong>Retrieved at:</strong>
-      <%= d.updated_at.in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %>
-    <% end %>
-  </p>
-
-  <br>
+<% if @ticket.details.count > 1 %>
+  <div class="text-center">
+    <h3>Previous details</h3>
+  </div>
+  <table class="table table-striped table-dark table-sm">
+    <thead>
+      <tr>
+        <th style="width: auto">Amount</th>
+        <th style="width: auto">Location</th>
+        <th style="width: auto">Room</th>
+        <th style="width: auto%">Stored by</th>
+        <th style="width: 20%">Time</th>
+        <th style="width: auto%">Retrieved by</th>
+        <th style="width: auto">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @ticket.details.drop(1).each do |d| %>
+        <tr>
+          <td class="align-middle"><%= d.amount %></td>
+          <td class="align-middle"><%= d.location %></td>
+          <td class="align-middle"><%= d.room %></td>
+          <td class="align-middle"><%= d.stored_employee.id_number %>
+            - <%= d.stored_employee.name %></td>
+          <td class="align-middle"><%= d.created_at.in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %></td>
+          <% if d.retrieved_employee %>
+            <td class="align-middle"><%= d.retrieved_employee.id_number %>
+             - <%= d.retrieved_employee.name %></td>
+            <td class="align-middle"><%= d.updated_at.in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %></td>
+          <% else %>
+          <td class="align-middle"> - </td>
+          <td class="align-middle"> - </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% end %>
 
-<p>
-  <% if @ticket.details.first.retrieved_employee.nil? %>
-    <strong>Sign out:</strong>
-    <%= form_for @ticket do |f| %>
-      <%= f.fields_for :details, f.object.latest_details do |d| %>
-        <%= d.hidden_field :updated_at, value: Time.now %>
-        <%= d.text_field :r_employee_id %>
-      <% end %>
-    <p>
-      <%= f.submit "Sign Out" %>
-    </p>
-    <% end %>
-  <% end %>
-</p>
-
-
-<p>
+<div class="text-center">
+  <h1>Update details</h1>
+</div>
+<div class="form-container">
   <%= form_for @ticket, method: "post" do |f| %>
     <%= f.fields_for :details, f.object.new_detail do |d| %>
-      <p>
-        <%= d.label :amount %> <br>
-        <%= d.text_field :amount %>
-      </p>
-
-      <p>
-        <%= d.label :location %> <br>
-        <%= d.text_field :location %>
-      </p>
-
-      <p>
-        <%= d.label :room %> <br>
-        <%= d.text_field :room %>
-      </p>
-
-      <p>
-        <%= d.label :s_employee_id, "Stored employee" %> <br>
-        <%= d.text_field :s_employee_id %>
-      </p>
-    <% end %>
-
-    <%= f.submit "Update ticket details" %>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <%= d.label :amount, :class => "input-group-text input-group-addon" %>
+        </div>
+        <%= d.text_field :amount, :class => "form-control" %>
+      </div>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <%= d.label :location, :class => "input-group-text input-group-addon" %>
+        </div>
+        <%= d.text_field :location, :class => "form-control" %>
+      </div>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <%= d.label :room, :class => "input-group-text input-group-addon" %>
+        </div>
+        <%= d.text_field :room, :class => "form-control" %>
+      </div>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <%= d.label :s_employee_id, "Employee", :class => "input-group-text input-group-addon" %>
+        </div>
+        <%= d.text_field :s_employee_id, :class => "form-control" %>
+      </div>
+    <% end %><br>
+    <div class="text-center">
+      <%= f.submit "Update details", :class => "btn btn-secondary"  %>
+    </div>
   <% end %>
-
-</p>
+</div>

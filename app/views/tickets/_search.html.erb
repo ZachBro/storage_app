@@ -5,12 +5,3 @@
 <td class="align-middle"><%= ticket.details.first.room %></td>
 <td class="align-middle"><%= ticket.details.first.stored_employee.id_number %> - <%= ticket.details.first.stored_employee.name %></td>
 <td class="align-middle"><%= ticket.details.first.created_at.in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %></td>
-
-  <!-- <td><% if ticket.details.first.retrieved_employee %>
-    <strong>Retrieved by:</strong>
-    <%= ticket.details.first.retrieved_employee.id_number %> -
-    <%= ticket.details.first.retrieved_employee.name %><br><br>
-
-    <strong>Retrieved at:</strong>
-    <%= ticket.details.first.updated_at.in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %>
-  <% end %></td> -->

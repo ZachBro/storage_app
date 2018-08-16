@@ -1,22 +1,33 @@
 <div class="container">
-  <h1>Search</h1>
+  <div class="text-center">
+    <h1>Search</h1>
+  </div>
 
-  <a href="/">Back</a>
+  <%= form_tag("/search", method: :get) do %>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <%= label_tag(:search_for_ticket, "Ticket number:", :class => "input-group-text search-form-addon") %>
+      </div>
+        <%= text_field_tag(:search_for_ticket, params[:search_for_ticket], :class => "form-control") %>
+        <div class="input-group-append">
+          <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
+        </div>
+    </div>
+  <% end %><br>
 
-  <p>Search Ticket Number
-    <%= form_tag("/search", method: :get) do %>
-    <%= label_tag(:search_for_ticket, "Search for ticket:") %>
-    <%= text_field_tag(:search_for_ticket, params[:search_for_ticket]) %>
-    <%= submit_tag("Search", name: nil) %>
+  <%= form_tag("/search", method: :get) do %>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <%= label_tag(:search_for_name, "Guest name:", :class => "input-group-text search-form-addon") %>
+      </div>
+        <%= text_field_tag(:search_for_name, params[:search_for_name], :class => "form-control") %>
+        <div class="input-group-append">
+          <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
+        </div>
+      </div>
   <% end %>
-  </p>
-  <p>Search Name
-    <%= form_tag("/search", method: :get) do %>
-    <%= label_tag(:search_for_name, "Search for name:") %>
-    <%= text_field_tag(:search_for_name, params[:search_for_name]) %>
-    <%= submit_tag("Search", name: nil) %>
-  <% end %>
-  </p>
+  <br>
+
   <% if params[:search_for_ticket].present? %>
     <% if @ticket.present? %>
       <%= render "tickets/show", ticket: @ticket%>
@@ -49,4 +60,6 @@
       <p> No Records Found </p>
     <% end %>
   <% end %>
+  <br>
+  <a class="btn btn-secondary btn-lg" href="/">Home</a>
 </div>
