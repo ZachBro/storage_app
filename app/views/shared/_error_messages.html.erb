@@ -1,14 +1,16 @@
-<% if @ticket.errors.any? %>
-  <div id="error_explanation">
-    <div class="alert alert-danger">
-      The form contains <%= pluralize(@ticket.errors.count, "error") %>.
-    </div>
-    <ul>
-    <% @ticket.errors.messages.values.each do |msg| %>
-      <% msg.each do |m| %>
-        <li><%= m %></li>
+<% unless @ticket.details.first.errors[:r_employee_id].present? %>
+  <% if @ticket.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        The form contains <%= pluralize(@ticket.errors.count, "error") %>.
+      </div>
+      <ul>
+      <% @ticket.errors.messages.values.each do |msg| %>
+        <% msg.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
       <% end %>
-    <% end %>
-    </ul>
-  </div>
+      </ul>
+    </div>
+  <% end %>
 <% end %>

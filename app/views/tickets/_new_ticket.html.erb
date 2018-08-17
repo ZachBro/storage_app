@@ -1,7 +1,6 @@
-<%= flash[:danger]%>
-
 <div class="container">
-  <div class="new-ticket-container">
+  <div class="form-container">
+    <%= flash[:danger] %>
     <%= form_tag("/tickets", method: :get) do %>
     <div class="input-group">
       <div class="input-group-prepend">

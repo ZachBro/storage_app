@@ -37,13 +37,19 @@ class TicketsController < ApplicationController
   end
 
   def update
-    @ticket.update(update_params)
-    redirect_to @ticket
+    if @ticket.update(sign_out_params)
+      redirect_to @ticket
+    else
+      render :action => "show"
+    end
   end
 
   def edit
-    @ticket.update(detail_params)
-    redirect_to @ticket
+    if @ticket.update(update_detail_params)
+      redirect_to @ticket
+    else
+      render :action => "show"
+    end
   end
 
   private
@@ -54,12 +60,12 @@ class TicketsController < ApplicationController
                               [:amount, :location, :room, :s_employee_id, :id])
     end
 
-    def update_params
+    def sign_out_params
       params.require(:ticket).permit(:id, details_attributes:
                               [:updated_at, :r_employee_id, :id])
     end
 
-    def detail_params
+    def update_detail_params
       params.require(:ticket).permit(details_attributes:
                               [:amount, :location, :room, :s_employee_id, :id])
     end

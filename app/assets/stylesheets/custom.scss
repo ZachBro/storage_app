@@ -12,7 +12,7 @@ table {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 3em;
 }
 
 .headings {
@@ -28,15 +28,22 @@ h1 {
 }
 
 .form-container {
-  max-width: 35%;
-  margin: auto;
-}
-
-.new-ticket-container {
-  max-width: 50%;
+  max-width: 555px;
   margin: auto;
 }
 
 .search-form-addon {
   width: 132px;
+}
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.input-group {
+  margin-bottom: 1px;
 }

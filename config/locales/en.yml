@@ -42,6 +42,8 @@ en:
               blank: "Location is required"
             s_employee_id:
               inclusion: "Employee ID incorrect"
+            r_employee_id:
+              inclusion: "Employee ID incorrect"
         ticket:
           attributes:
             name:
