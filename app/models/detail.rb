@@ -8,9 +8,9 @@ class Detail < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
   validates :amount, :location, presence: true, on: [:create, :edit]
   validates :s_employee_id, inclusion:
-          { in: Employee.pluck(:id_number).map!(&:to_s) }, on: [:create, :edit]
+          { in: Employee.where(active: true).pluck(:id_number).map!(&:to_s) }, on: [:create, :edit]
   validates :r_employee_id, inclusion:
-          { in: Employee.pluck(:id_number).map!(&:to_s) }, on: :update
+          { in: Employee.where(active: true).pluck(:id_number).map!(&:to_s) }, on: :update
   before_save { self.location = location.upcase }
   after_create :store_employee
   after_update :store_employee

@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2018_08_03_014226) do
   create_table "employees", force: :cascade do |t|
     t.integer "id_number"
     t.string "name"
+    t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id_number"], name: "index_employees_on_id_number", unique: true

@@ -5,7 +5,7 @@ class SearchController < ApplicationController
     elsif params[:search_for_name]
       @tickets = Ticket.where("name like ?", "#{params[:search_for_name].upcase}%").where(active: true)
     elsif params[:search_for_room]
-      @ticket = Ticket.joins(:details).where("room = ?", "#{params[:search_for_room]}").distinct
+      @ticket = Ticket.joins(:details).where("room = ?", "#{params[:search_for_room]}").where(active: true).distinct
     end
   end
 end
