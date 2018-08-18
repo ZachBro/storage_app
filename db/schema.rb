@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2018_08_03_014226) do
     t.integer "retrieved_employee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["room"], name: "index_details_on_room"
   end
 
   create_table "employees", force: :cascade do |t|
