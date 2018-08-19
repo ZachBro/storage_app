@@ -1,5 +1,6 @@
 <th scope="row" class="align-middle"><a href="/tickets/<%= ticket.id %>"><%= ticket.number %></a></th>
 <td class="align-middle"><%= ticket.name %></td>
+<td class="align-middle"><%= ticket.details.first.aasm_state %></td>
 <td class="align-middle"><%= ticket.details.first.amount %></td>
 <td class="align-middle"><%= ticket.details.first.location %></td>
 <td class="align-middle"><%= ticket.details.first.room %></td>

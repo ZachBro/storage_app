@@ -57,7 +57,7 @@ class TicketsController < ApplicationController
     def ticket_params
       params.require(:ticket).permit(:number, :name,
                               details_attributes:
-                              [:amount, :location, :room, :s_employee_id, :id])
+                              [:amount, :location, :room, :aasm_state, :s_employee_id, :id])
     end
 
     def sign_out_params

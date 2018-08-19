@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2018_08_03_014226) do
     t.integer "amount"
     t.string "location"
     t.integer "room"
+    t.string "aasm_state"
     t.integer "stored_employee_id"
     t.integer "retrieved_employee_id"
     t.datetime "created_at", null: false

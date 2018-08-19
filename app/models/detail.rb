@@ -1,4 +1,5 @@
 class Detail < ApplicationRecord
+  include AASM
   attr_accessor :s_employee_id, :r_employee_id
   belongs_to :ticket
   belongs_to :stored_employee, class_name: 'Employee',
@@ -15,6 +16,24 @@ class Detail < ApplicationRecord
   after_create :store_employee
   after_update :store_employee
   after_update :retrieve_employee
+
+  aasm do
+    state :ST
+    state :RNR
+    state :LT
+
+    event :st do
+      transitions to: :ST
+    end
+
+    event :rnr do
+      transitions to: :RNR
+    end
+
+    event :lt do
+      transitions to: :LT
+    end
+  end
 
 
 
