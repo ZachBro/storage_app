@@ -49,18 +49,7 @@
     <% end %>
   <% elsif params[:search_for_name].present? %>
     <% if @tickets.present? %>
-      <table class="table table-striped table-dark table-sm">
-        <thead>
-          <tr>
-            <th style="width: auto">Number</th>
-            <th style="width: 20%">Name</th>
-            <th style="width: auto">Amount</th>
-            <th style="width: auto">Location</th>
-            <th style="width: auto">Room</th>
-            <th style="width: 15%">Stored by</th>
-            <th style="width: 20%">Time</th>
-          </tr>
-        </thead>
+      <%= render 'pages/table_head' %>
         <tbody>
           <% @tickets.each do |ticket| %>
             <tr>
@@ -74,18 +63,7 @@
     <% end %>
   <% elsif params[:search_for_room].present? %>
     <% if @ticket.present? %>
-      <table class="table table-striped table-dark table-sm">
-        <thead>
-          <tr>
-            <th style="width: auto">Number</th>
-            <th style="width: 20%">Name</th>
-            <th style="width: auto">Amount</th>
-            <th style="width: auto">Location</th>
-            <th style="width: auto">Room</th>
-            <th style="width: 15%">Stored by</th>
-            <th style="width: 20%">Time</th>
-          </tr>
-        </thead>
+      <%= render 'pages/table_head' %>
         <tbody>
           <% @ticket.each do |ticket| %>
             <tr>

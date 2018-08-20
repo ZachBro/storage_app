@@ -1,7 +1,6 @@
 class TicketsController < ApplicationController
   attr_accessor :number
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
-  before_action :set_tdf, only: [:show, :edit, :update]
 
   def new
     @ticket = Ticket.new
@@ -73,9 +72,5 @@ class TicketsController < ApplicationController
 
     def set_ticket
       @ticket = Ticket.find(params[:id])
-    end
-
-    def set_tdf
-      @tdf = @ticket.details.first
     end
 end
