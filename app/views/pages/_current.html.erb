@@ -3,7 +3,7 @@
     <% current.each do |ticket| %>
       <tr>
         <%= render 'tickets/search', ticket: ticket %>
-        <td>
+        <td class="align-middle">
           <%= form_for ticket do |f| %>
             <%= f.fields_for :details, ticket.latest_details do |d| %>
               <%= d.hidden_field :updated_at, value: Time.now %>

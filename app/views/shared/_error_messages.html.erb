@@ -2,12 +2,12 @@
   <% if @ticket.errors.any? %>
     <div id="error_explanation">
       <div class="alert alert-danger">
-        The form contains <%= pluralize(@ticket.errors.count, "error") %>.
+        The form contains <%= pluralize(@ticket.errors.keys.count, "error") %>.
       </div>
       <ul>
-      <% @ticket.errors.messages.values.each do |msg| %>
-        <% msg.each do |m| %>
-          <li><%= m %></li>
+      <% @ticket.errors.each do |attr, msg| %>
+        <% if @ticket.errors[attr].first == msg %>
+          <li><%= msg %></li>
         <% end %>
       <% end %>
       </ul>
