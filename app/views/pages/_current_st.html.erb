@@ -1,0 +1,7 @@
+<div>
+  <% if @current_st.any? %>
+    <%= render "current", current: @current_st %>
+  <% else %>
+    <p>No ST right now</p>
+  <% end %>
+</div>

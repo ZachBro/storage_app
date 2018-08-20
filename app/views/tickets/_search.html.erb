@@ -1,8 +1,9 @@
 <th scope="row" class="align-middle"><a href="/tickets/<%= ticket.id %>"><%= ticket.number %></a></th>
 <td class="align-middle"><%= ticket.name %></td>
-<td class="align-middle"><%= ticket.details.first.aasm_state %></td>
-<td class="align-middle"><%= ticket.details.first.amount %></td>
-<td class="align-middle"><%= ticket.details.first.location %></td>
-<td class="align-middle"><%= ticket.details.first.room %></td>
-<td class="align-middle"><%= ticket.details.first.stored_employee.id_number %> - <%= ticket.details.first.stored_employee.name %></td>
-<td class="align-middle"><%= ticket.details.first.created_at.in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %></td>
+<% tdf = ticket.details.first %>
+<td class="align-middle"><%= tdf.amount %></td>
+<td class="align-middle"><%= tdf.location %></td>
+<td class="align-middle"><%= tdf.room %></td>
+<td class="align-middle"><%= tdf.stored_employee.id_number %>
+  - <%= ticket.details.first.stored_employee.name %>
+  @ <%= tdf.created_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>

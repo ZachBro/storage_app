@@ -3,13 +3,21 @@
     <h1 class="headings">Storage</h1>
 
     <a href="/tickets/" class="btn btn-secondary btn-lg">New ticket</a>
-    <a href="/search/" class="btn btn-secondary btn-lg">Search</a>
+    <a href="/search/" class="btn btn-secondary btn-lg">Search</a><br><br>
 
-    <h2>Current tickets</h1>
+    <h2>Current tickets</h2>
   </div>
-  <div>
-    <% if @current_tickets.any? %>
-      <%= render "current" %>
-    <% end %>
+
+  <div class="text-center">
+    <div class="btn-group btn-group-toggle btn-group-justified" data-toggle="buttons">
+      <%= link_to "ST", "pages/current_st", :class => "btn btn-group-toggle btn-secondary active", :id => "st", remote: true %>
+      <%= link_to "RNR", "pages/current_rnr", :class => "btn btn-group-toggle btn-secondary", :id => "rnr", remote: true %>
+      <%= link_to "LT", "pages/current_lt", :class => "btn  btn-group-toggle btn-secondary", :id => "lt", remote: true %>
+    </div>
+  </div>
+  <br><br>
+
+  <div id="content">
+    <%= render 'current_st' %>
   </div>
 </div>

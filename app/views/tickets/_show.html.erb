@@ -40,11 +40,11 @@
       <td class="align-middle"><%= @ticket.details.first.stored_employee.id_number %>
         - <%= @ticket.details.first.stored_employee.name %></td>
       <td class="align-middle"><%= @ticket.details.first.created_at.
-            in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %></td>
+            in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
       <% if @ticket.details.first.retrieved_employee.nil? %>
         <td>
           <%= form_for @ticket do |f| %>
-            <%= f.fields_for :details, f.object.latest_details do |d| %>
+            <%= f.fields_for :details, @ticket.latest_details do |d| %>
               <%= d.hidden_field :updated_at, value: Time.now %>
               <div class="input-group input-group-sm">
                 <%= d.text_field :r_employee_id , :class => "form-control", :style => "width: 50px" %>
@@ -59,7 +59,7 @@
         <td class="align-middle"><%= @ticket.details.first.retrieved_employee.id_number %>
           - <%= @ticket.details.first.retrieved_employee.name %></td>
         <td class="align-middle"><%= @ticket.details.first.updated_at.
-            in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %></td>
+            in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
       <% end %>
     </tr>
   </tbody>
@@ -90,11 +90,11 @@
             <td class="align-middle"><%= d.room %></td>
             <td class="align-middle"><%= d.stored_employee.id_number %>
               - <%= d.stored_employee.name %></td>
-            <td class="align-middle"><%= d.created_at.in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %></td>
+            <td class="align-middle"><%= d.created_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
             <% if d.retrieved_employee %>
               <td class="align-middle"><%= d.retrieved_employee.id_number %>
                - <%= d.retrieved_employee.name %></td>
-              <td class="align-middle"><%= d.updated_at.in_time_zone("Melbourne").strftime('%B %e at %l:%M %p') %></td>
+              <td class="align-middle"><%= d.updated_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
             <% else %>
             <td class="align-middle"> - </td>
             <td class="align-middle"> - </td>
@@ -114,30 +114,46 @@
 </div>
 <div class="form-container">
   <%= form_for @ticket, method: "post" do |f| %>
-    <%= f.fields_for :details, f.object.new_detail do |d| %>
+    <%= f.fields_for :details, @ticket.new_detail do |d| %>
       <div class="input-group">
         <div class="input-group-prepend">
           <%= d.label :amount, :class => "input-group-text input-group-addon" %>
         </div>
-        <%= d.text_field :amount, :class => "form-control" %>
+        <% if @ticket.errors.any? %>
+          <%= d.text_field :amount, :value => params[:ticket][:details_attributes]['0'][:amount], :class => "form-control" %>
+        <% else %>
+          <%= d.text_field :amount, :value => @tdf.amount, :class => "form-control" %>
+        <% end %>
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
           <%= d.label :location, :class => "input-group-text input-group-addon" %>
         </div>
-        <%= d.text_field :location, :class => "form-control" %>
+        <% if @ticket.errors.any? %>
+          <%= d.text_field :location, :value => params[:ticket][:details_attributes]['0'][:location], :class => "form-control" %>
+        <% else %>
+          <%= d.text_field :location, :value => @tdf.location, :class => "form-control" %>
+        <% end %>
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
           <%= d.label :room, :class => "input-group-text input-group-addon" %>
         </div>
-        <%= d.text_field :room, :class => "form-control" %>
+        <% if @ticket.errors.any? %>
+          <%= d.text_field :room, :value => params[:ticket][:details_attributes]['0'][:room], :class => "form-control" %>
+        <% else %>
+          <%= d.text_field :room, :value => @tdf.room, :class => "form-control" %>
+        <% end %>
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
           <%= d.label :s_employee_id, "Employee", :class => "input-group-text input-group-addon" %>
         </div>
-        <%= d.text_field :s_employee_id, :class => "form-control" %>
+        <% if @ticket.errors.any? %>
+          <%= d.text_field :s_employee_id, :value => params[:ticket][:details_attributes]['0'][:s_employee_id], :class => "form-control" %>
+        <% else %>
+          <%= d.text_field :s_employee_id, :class => "form-control" %>
+        <% end %>
       </div>
     <% end %><br>
     <div class="text-center">

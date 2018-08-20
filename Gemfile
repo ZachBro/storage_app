@@ -12,6 +12,7 @@ gem 'puma', '~> 3.11'
 
 gem 'bootstrap', '~> 4.1.3'
 
+gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 
 gem 'faker', '~> 1.7.3'
 

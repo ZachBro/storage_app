@@ -1,0 +1,7 @@
+<div>
+  <% if @current_lt.any? %>
+    <%= render "current", current: @current_lt %>
+  <% else %>
+    <p>No LT right now</p>
+  <% end %>
+</div>

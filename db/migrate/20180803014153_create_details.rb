@@ -4,7 +4,7 @@ class CreateDetails < ActiveRecord::Migration[5.2]
       t.integer :ticket_id
       t.integer :amount
       t.string  :location
-      t.integer :room      
+      t.integer :room
       t.string  :aasm_state
       t.integer :stored_employee_id
       t.integer :retrieved_employee_id
@@ -12,5 +12,6 @@ class CreateDetails < ActiveRecord::Migration[5.2]
       t.timestamps
     end
     add_index :details, :room
+    add_index :details, :aasm_state
   end
 end

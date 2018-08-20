@@ -22,12 +22,19 @@ Ticket.create!(number: "300002", name: "O'Brien. T", active: false, details_attr
             retrieved_employee_id: "2"}])
 
 Ticket.create!(number: "300003", name: "Zhao. Y", details_attributes:
-          [{amount: "4", location: "2C", room: "1010", aasm_state: "RNR", s_employee_id: "300003"},
+          [{amount: "4", location: "4C", room: "1010", aasm_state: "RNR", s_employee_id: "300003"},
            {amount: "3", location: "2A", room: "1810", aasm_state: "ST", s_employee_id: "300002"}])
 
 Ticket.create!(number: "300005", name: "Jones. S", details_attributes:
           [{amount: "1", location: "3A", room: "1710", aasm_state: "ST", s_employee_id: "300004"},
-           {amount: "2", location: "2b", room: "1210", aasm_state: "RNR", s_employee_id: "300004"}])
+           {amount: "1", location: "4A", room: "1210", aasm_state: "RNR", s_employee_id: "300004"}])
+
+Ticket.create!(number: "300006", name: "Allen. L", details_attributes:
+          [{amount: "3", location: "4C", room: "1515", aasm_state: "RNR", s_employee_id: "300002"},
+           {amount: "3", location: "7C", room: "1010", aasm_state: "LT", s_employee_id: "300004"}])
+
+Ticket.create!(number: "300007", name: "McDonald. R", details_attributes:
+          [{amount: "2", location: "4B", room: "1515", aasm_state: "RNR", s_employee_id: "300002"}])
 
 Employee.find(5).update_attribute(:active, false)
 

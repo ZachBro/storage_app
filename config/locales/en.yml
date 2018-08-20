@@ -40,10 +40,12 @@ en:
               blank: "Amount is required"
             location:
               blank: "Location is required"
+            room:
+              inclusion: "Invalid Room No."
             s_employee_id:
-              inclusion: "Employee ID incorrect"
+              inclusion: "Invalid Employee ID"
             r_employee_id:
-              inclusion: "Employee ID incorrect"
+              inclusion: "Invalid Employee ID"
         ticket:
           attributes:
             name:

@@ -1,0 +1,7 @@
+<div>
+  <% if @current_rnr.any? %>
+    <%= render "current", current: @current_rnr %>
+  <% else %>
+    <p>No RNR right now</p>
+  <% end %>
+</div>

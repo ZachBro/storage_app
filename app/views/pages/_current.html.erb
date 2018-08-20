@@ -1,27 +1,14 @@
-<table class="table table-striped table-dark table-sm">
-  <thead>
-    <tr>
-      <th style="width: auto">Number</th>
-      <th style="width: 20%">Name</th>
-      <th style="width: auto">Type</th>
-      <th style="width: auto">Amount</th>
-      <th style="width: auto">Location</th>
-      <th style="width: auto">Room</th>
-      <th style="width: 15%">Stored by</th>
-      <th style="width: 20%">Time</th>
-      <th style="width: 15%">Sign out</th>
-    </tr>
-  </thead>
+<%= render 'table_head' %>
   <tbody>
-    <% @current_tickets.each do |ticket| %>
+    <% current.each do |ticket| %>
       <tr>
         <%= render 'tickets/search', ticket: ticket %>
         <td>
           <%= form_for ticket do |f| %>
-            <%= f.fields_for :details, f.object.latest_details do |d| %>
+            <%= f.fields_for :details, ticket.latest_details do |d| %>
               <%= d.hidden_field :updated_at, value: Time.now %>
               <div class="input-group input-group-sm">
-              <%= d.text_field :r_employee_id , :class => "form-control", :style => "width: 50px" %>
+              <%= d.text_field :r_employee_id , :class => "form-control" %>
             <% end %>
             <div class="input-group-append">
               <%= f.submit "Sign out", :class => "btn btn-outline-secondary btn-sm" %>

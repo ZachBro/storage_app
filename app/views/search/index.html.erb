@@ -43,7 +43,7 @@
 
   <% if params[:search_for_ticket].present? %>
     <% if @ticket.present? %>
-      <%= render "tickets/show", ticket: @ticket%>
+      <%= render "tickets/show", ticket: @ticket %>
     <% else %>
       <p> No Records Found </p>
     <% end %>
