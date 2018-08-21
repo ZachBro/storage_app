@@ -7,27 +7,31 @@ class Ticket < ApplicationRecord
   has_many :retrieved_employees, through: :details
   accepts_nested_attributes_for :details
   before_save  { self.name = name.upcase }
-  after_update :toggle_active
+  after_update :assign_active
 
 
-    def latest_details
-      self.details.first
-    end
+  def latest_details
+    self.details.first
+  end
 
-    def new_detail
-      self.details.build
-    end
+  def new_detail
+    self.details.build
+  end
+
+  def latest_details_has_retrieved_employee?
+    latest_details.retrieved_employee_id.present?
+  end
 
   private
 
-  def toggle_active
-    if self.active == true
-      if self.details.first.retrieved_employee_id.present?
-        self.update_attribute(:active, false)
+  def assign_active
+    if active?
+      if latest_details_retrieved_employee?
+        update_attribute(:active, false)
       end
-    elsif self.active == false
-      if self.details.first.retrieved_employee_id.blank?
-        self.update_attribute(:active, true)
+    else
+      unless latest_details_retrieved_employee?
+        update_attribute(:active, true)
       end
     end
   end
