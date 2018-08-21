@@ -11,11 +11,11 @@ class Ticket < ApplicationRecord
 
 
   def latest_details
-    self.details.first
+    details.first
   end
 
   def new_detail
-    self.details.build
+    details.build
   end
 
   def latest_details_has_retrieved_employee?
@@ -25,14 +25,14 @@ class Ticket < ApplicationRecord
   private
 
   def assign_active
-    if active?
-      if latest_details_retrieved_employee?
-        update_attribute(:active, false)
-      end
+    if should_be_active?
+      update_attribute(:active, false)
     else
-      unless latest_details_retrieved_employee?
-        update_attribute(:active, true)
-      end
+      update_attribute(:active, true)
     end
+  end
+
+  def should_be_active?
+    active? && latest_details_has_retrieved_employee?
   end
 end
