@@ -1,13 +1,13 @@
 class Ticket < ApplicationRecord
-  attr_accessor :r_employee_id
+  attr_accessor :r_employee_id, :assigning_active
   validates :number, presence: true, length: { is: 6 }, uniqueness: true, on: :create
-  validates :name, presence: true, length: { maximum: 25 }, on: :create
+  validates :name,   presence: true, length: { maximum: 25 }, on: :create
   has_many :details
   has_many :stored_employees,    through: :details
   has_many :retrieved_employees, through: :details
   accepts_nested_attributes_for :details
   before_save  { self.name = name.upcase }
-  after_update :assign_active
+  after_update :assign_active, unless: :assigning_active
 
 
   def latest_details
@@ -25,14 +25,7 @@ class Ticket < ApplicationRecord
   private
 
   def assign_active
-    if should_be_active?
-      update_attribute(:active, false)
-    else
-      update_attribute(:active, true)
-    end
-  end
-
-  def should_be_active?
-    active? && latest_details_has_retrieved_employee?
+    self.assigning_active = true
+    update_attribute(:active, !latest_details_has_retrieved_employee?)
   end
 end

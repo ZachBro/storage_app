@@ -4,7 +4,7 @@ class TicketsController < ApplicationController
 
   def new
     @ticket = Ticket.new
-    @ticket.details.build
+    @ticket.new_detail
   end
 
   def create
@@ -55,8 +55,7 @@ class TicketsController < ApplicationController
   private
 
     def ticket_params
-      params.require(:ticket).permit(:number, :name,
-                              details_attributes:
+      params.require(:ticket).permit(:number, :name, details_attributes:
                               [:amount, :location, :room, :aasm_state, :s_employee_id, :id])
     end
 

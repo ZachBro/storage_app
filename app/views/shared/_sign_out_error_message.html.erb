@@ -1,4 +1,4 @@
-<% if @ticket.details.first.errors[:r_employee_id].present? %>
+<% if @ticket.latest_details.errors[:r_employee_id].present? %>
   <div id="error_explanation">
     <div class="alert alert-danger">
       The form contains <%= pluralize(@ticket.errors.count, "error") %>.

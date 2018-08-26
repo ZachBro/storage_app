@@ -15,9 +15,9 @@ class Detail < ApplicationRecord
   validates :r_employee_id, inclusion:
           { in: Employee.where(active: true).pluck(:id_number).map!(&:to_s) }, on: :update
   before_save { self.location = location.upcase }
-  after_create :store_employee
-  after_update :store_employee
-  after_update :retrieve_employee
+  before_save :store_employee
+  before_update :store_employee
+  before_update :retrieve_employee
 
   aasm do
     state :ST
@@ -42,20 +42,16 @@ class Detail < ApplicationRecord
   private
 
     def store_employee
-      if self.stored_employee_id.nil?
-        if @s_employee_id
-          self.update_attribute(:stored_employee_id,
-                                Employee.find_by(id_number: @s_employee_id).id)
-        end
+      return unless stored_employee_id.nil?
+      if s_employee_id
+        self.stored_employee = Employee.find_by_id_number(s_employee_id)
       end
     end
 
     def retrieve_employee
-      if self.retrieved_employee_id.nil?
-        if @r_employee_id
-          self.update_attribute(:retrieved_employee_id,
-                                Employee.find_by(id_number: @r_employee_id).id)
-        end
+      return unless retrieved_employee_id.nil?
+      if r_employee_id
+        self.retrieved_employee = Employee.find_by_id_number(r_employee_id)
       end
     end
 end

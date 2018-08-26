@@ -23,7 +23,7 @@
       <th style="width: auto">Room</th>
       <th style="width: auto%">Stored by</th>
       <th style="width: 20%">Time</th>
-      <% if @ticket.details.first.retrieved_employee.nil? %>
+      <% if @ticket.latest_details.retrieved_employee.nil? %>
         <th style="width: auto%">Sign out</th>
       <% else %>
         <th style="width: auto%">Retrieved by</th>
@@ -33,15 +33,15 @@
   </thead>
   <tbody>
     <tr>
-      <td class="align-middle"><%= @ticket.details.first.aasm_state %></td>
-      <td class="align-middle"><%= @ticket.details.first.amount %></td>
-      <td class="align-middle"><%= @ticket.details.first.location %></td>
-      <td class="align-middle"><%= @ticket.details.first.room %></td>
-      <td class="align-middle"><%= @ticket.details.first.stored_employee.id_number %>
-        - <%= @ticket.details.first.stored_employee.name %></td>
-      <td class="align-middle"><%= @ticket.details.first.created_at.
+      <td class="align-middle"><%= @ticket.latest_details.aasm_state %></td>
+      <td class="align-middle"><%= @ticket.latest_details.amount %></td>
+      <td class="align-middle"><%= @ticket.latest_details.location %></td>
+      <td class="align-middle"><%= @ticket.latest_details.room %></td>
+      <td class="align-middle"><%= @ticket.latest_details.stored_employee.id_number %>
+        - <%= @ticket.latest_details.stored_employee.name %></td>
+      <td class="align-middle"><%= @ticket.latest_details.created_at.
             in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
-      <% if @ticket.details.first.retrieved_employee.nil? %>
+      <% if @ticket.latest_details.retrieved_employee.nil? %>
         <td class="align-middle">
           <%= form_for @ticket do |f| %>
             <%= f.fields_for :details, @ticket.latest_details do |d| %>
@@ -56,9 +56,9 @@
           <% end %>
         </td>
       <% else %>
-        <td class="align-middle"><%= @ticket.details.first.retrieved_employee.id_number %>
-          - <%= @ticket.details.first.retrieved_employee.name %>
-          @ <%= @ticket.details.first.updated_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
+        <td class="align-middle"><%= @ticket.latest_details.retrieved_employee.id_number %>
+          - <%= @ticket.latest_details.retrieved_employee.name %>
+          @ <%= @ticket.latest_details.updated_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
       <% end %>
     </tr>
   </tbody>
@@ -121,7 +121,7 @@
         <% if @ticket.errors.any? %>
           <%= d.text_field :amount, :value => params[:ticket][:details_attributes]['0'][:amount], :class => "form-control" %>
         <% else %>
-          <%= d.text_field :amount, :value => @ticket.details.first.amount, :class => "form-control" %>
+          <%= d.text_field :amount, :value => @ticket.latest_details.amount, :class => "form-control" %>
         <% end %>
       </div>
       <div class="input-group">
@@ -131,7 +131,7 @@
         <% if @ticket.errors.any? %>
           <%= d.text_field :location, :value => params[:ticket][:details_attributes]['0'][:location], :class => "form-control" %>
         <% else %>
-          <%= d.text_field :location, :value => @ticket.details.first.location, :class => "form-control" %>
+          <%= d.text_field :location, :value => @ticket.latest_details.location, :class => "form-control" %>
         <% end %>
       </div>
       <div class="input-group">
@@ -141,7 +141,7 @@
         <% if @ticket.errors.any? %>
           <%= d.text_field :room, :value => params[:ticket][:details_attributes]['0'][:room], :class => "form-control" %>
         <% else %>
-          <%= d.text_field :room, :value => @ticket.details.first.room, :class => "form-control" %>
+          <%= d.text_field :room, :value => @ticket.latest_details.room, :class => "form-control" %>
         <% end %>
       </div>
       <div class="input-group">
