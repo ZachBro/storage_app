@@ -3,57 +3,48 @@ class PagesController < ApplicationController
   end
 
   def current_st
-    current_st = Ticket.joins(:details).where("aasm_state = ?", "ST").where(active: true).distinct.to_a
-    @current_st = []
-    current_st.each do |c|
-      if c.latest_details.aasm_state == "ST"
-        @current_st.push(c)
-      end
-    end
+    @current_st = find_tickets("ST")
 
-    respond_to do |format|
-      format.html {redirect_to "/"}
-      format.js
-    end
+    ajax_request
   end
 
   def current_rnr
-    current_rnr = Ticket.joins(:details).where("aasm_state = ?", "RNR").where(active: true).distinct.to_a
-    @current_rnr = []
-    current_rnr.each do |c|
-      if c.latest_details.aasm_state == "RNR"
-        @current_rnr.push(c)
-      end
-    end
+    @current_rnr = find_tickets("RNR")
 
-    respond_to do |format|
-      format.html {redirect_to "/"}
-      format.js
-    end
+    ajax_request
   end
 
   def current_lt
-    current_lt = Ticket.joins(:details).where("aasm_state = ?", "LT").where(active: true).distinct.to_a
-    @current_lt = []
-    current_lt.each do |c|
-      if c.latest_details.aasm_state == "LT"
-        @current_lt.push(c)
-      end
-    end
+    @current_lt = find_tickets("LT")
 
-    respond_to do |format|
-      format.html {redirect_to "/"}
-      format.js
-    end
+    ajax_request
   end
 
   def home
-    current_st = Ticket.joins(:details).where("aasm_state = ?", "ST").where(active: true).distinct.to_a
-    @current_st = []
-    current_st.each do |c|
-      if c.latest_details.aasm_state == "ST"
-        @current_st.push(c)
+    @current_st = find_tickets("ST")
+  end
+
+  private
+
+    def find_tickets(state)
+      match_state = Ticket.joins(:details).where("aasm_state = ?", state).where(active: true).distinct.to_a
+      only_details_first_match_state(state, match_state)
+    end
+
+    def only_details_first_match_state(state, match_state)
+      details_first_match_state = []
+      match_state.each do |f|
+        if f.latest_details.aasm_state == state
+          details_first_match_state.push(f)
+        end
+      end
+    return details_first_match_state
+    end
+
+    def ajax_request
+      respond_to do |format|
+        format.html {redirect_to "/"}
+        format.js
       end
     end
-  end
 end

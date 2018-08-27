@@ -49,7 +49,7 @@
     <% end %>
   <% elsif params[:search_for_name].present? %>
     <% if @tickets.present? %>
-      <%= render 'pages/table_head' %>
+      <%= render 'pages/current_table_head' %>
         <tbody>
           <% @tickets.each do |ticket| %>
             <tr>
@@ -63,7 +63,7 @@
     <% end %>
   <% elsif params[:search_for_room].present? %>
     <% if @ticket.present? %>
-      <%= render 'pages/table_head' %>
+      <%= render 'pages/current_table_head' %>
         <tbody>
           <% @ticket.each do |ticket| %>
             <tr>

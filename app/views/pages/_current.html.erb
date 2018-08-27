@@ -1,21 +1,9 @@
-<%= render 'table_head' %>
+<%= render 'current_table_head' %>
   <tbody>
     <% current.each do |ticket| %>
       <tr>
         <%= render 'tickets/search', ticket: ticket %>
-        <td class="align-middle">
-          <%= form_for ticket do |f| %>
-            <%= f.fields_for :details, ticket.latest_details do |d| %>
-              <%= d.hidden_field :updated_at, value: Time.now %>
-              <div class="input-group input-group-sm">
-              <%= d.text_field :r_employee_id , :class => "form-control" %>
-            <% end %>
-            <div class="input-group-append">
-              <%= f.submit "Sign out", :class => "btn btn-outline-secondary btn-sm" %>
-            </div>
-            </div>
-          <% end %>
-        </td>
+
       </tr>
     <% end %>
   </tbody>
