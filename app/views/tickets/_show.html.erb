@@ -14,88 +14,29 @@
   <%= render 'shared/sign_out_error_message' %>
 </div>
 
-<table class="table table-striped table-dark table-sm">
-  <thead>
-    <tr>
-      <th style="width: auto">Type</th>
-      <th style="width: auto">Amount</th>
-      <th style="width: auto">Location</th>
-      <th style="width: auto">Room</th>
-      <th style="width: auto%">Stored by</th>
-      <th style="width: 20%">Time</th>
-      <% if @ticket.latest_details.retrieved_employee.nil? %>
-        <th style="width: auto%">Sign out</th>
-      <% else %>
-        <th style="width: auto%">Retrieved by</th>
-        <th style="width: auto">Time</th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="align-middle"><%= @ticket.latest_details.aasm_state %></td>
-      <td class="align-middle"><%= @ticket.latest_details.amount %></td>
-      <td class="align-middle"><%= @ticket.latest_details.location %></td>
-      <td class="align-middle"><%= @ticket.latest_details.room %></td>
-      <td class="align-middle"><%= @ticket.latest_details.stored_employee.id_number %>
-        - <%= @ticket.latest_details.stored_employee.name %></td>
-      <td class="align-middle"><%= @ticket.latest_details.created_at.
-            in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
-      <% if @ticket.latest_details.retrieved_employee.nil? %>
-        <td class="align-middle">
-          <%= form_for @ticket do |f| %>
-            <%= f.fields_for :details, @ticket.latest_details do |d| %>
-              <%= d.hidden_field :updated_at, value: Time.now %>
-              <div class="input-group input-group-sm">
-                <%= d.text_field :r_employee_id , :class => "form-control", :style => "width: 50px" %>
-            <% end %>
-              <div class="input-group-append">
-                <%= f.submit "Sign out", :class => "btn btn-outline-secondary btn-sm" %>
-              </div>
-            </div>
-          <% end %>
-        </td>
-      <% else %>
-        <td class="align-middle"><%= @ticket.latest_details.retrieved_employee.id_number %>
-          - <%= @ticket.latest_details.retrieved_employee.name %>
-          @ <%= @ticket.latest_details.updated_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
+<%= render 'ticket_table_head' %>
+<%= render 'ticket_table', ticket: @ticket %>
 
 <% if @ticket.details.count > 1 %>
   <div class="text-center">
     <h3>Previous details</h3>
   </div>
-  <table class="table table-striped table-dark table-sm">
-    <thead>
-      <tr>
-        <th style="width: auto">Amount</th>
-        <th style="width: auto">Location</th>
-        <th style="width: auto">Room</th>
-        <th style="width: auto%">Stored by</th>
-        <th style="width: 20%">Time</th>
-        <th style="width: auto%">Retrieved by</th>
-        <th style="width: auto">Time</th>
-      </tr>
-    </thead>
-    <tbody>
+    <%= render 'ticket_table_head' %>
       <% @ticket.details.drop(1).each do |d| %>
         <% if d.stored_employee %>
           <tr>
+            <td class="align-middle"><%= d.aasm_state %></td>
             <td class="align-middle"><%= d.amount %></td>
             <td class="align-middle"><%= d.location %></td>
             <td class="align-middle"><%= d.room %></td>
             <td class="align-middle"><%= d.stored_employee.id_number %>
-              - <%= d.stored_employee.name %></td>
-            <td class="align-middle"><%= d.created_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
+              - <%= d.stored_employee.name %>
+              @ <%= d.created_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
             <% if d.retrieved_employee %>
               <td class="align-middle"><%= d.retrieved_employee.id_number %>
                - <%= d.retrieved_employee.name %></td>
               <td class="align-middle"><%= d.updated_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
             <% else %>
-            <td class="align-middle"> - </td>
             <td class="align-middle"> - </td>
             <% end %>
           </tr>
@@ -153,6 +94,21 @@
         <% else %>
           <%= d.text_field :s_employee_id, :class => "form-control" %>
         <% end %>
+      </div><br>
+      <div class="text-center">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <%= d.label :aasm_state, 'ST', :class => "btn btn-secondary active" do %>ST
+            <%= d.radio_button :aasm_state, :ST, :id => "option1", :autocomplete => "off" %>
+          <% end %>
+
+          <%= d.label :aasm_state, 'RNR', :class => "btn btn-secondary" do %>RNR
+            <%= d.radio_button :aasm_state, :RNR, :id => "option2", :autocomplete => "off" %>
+          <% end %>
+
+          <%= d.label :aasm_state, 'LT', :class => "btn btn-secondary" do %>LT
+            <%= d.radio_button :aasm_state, :LT, :id => "option3", :autocomplete => "off" %>
+          <% end %>
+        </div>
       </div>
     <% end %><br>
     <div class="text-center">

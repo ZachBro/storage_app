@@ -66,7 +66,7 @@ class TicketsController < ApplicationController
 
     def update_detail_params
       params.require(:ticket).permit(details_attributes:
-                              [:amount, :location, :room, :s_employee_id, :id])
+                              [:amount, :location, :room, :aasm_state, :s_employee_id, :id])
     end
 
     def set_ticket
