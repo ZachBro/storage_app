@@ -14,14 +14,14 @@
   <%= render 'shared/sign_out_error_message' %>
 </div>
 
-<%= render 'tickets/ticket_table_head' %>
-<%= render 'tickets/ticket_table', ticket: @ticket %>
+<%= render 'shared/ticket_table_head' %>
+<%= render 'shared/ticket_table_body', ticket: @ticket %>
 
 <% if @ticket.details.count > 1 %>
   <div class="text-center">
     <h3>Previous details</h3>
   </div>
-    <%= render 'tickets/ticket_table_head' %>
+    <%= render 'shared/ticket_table_head' %>
       <% @ticket.details.drop(1).each do |d| %>
         <% if d.stored_employee %>
           <tr>

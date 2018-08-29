@@ -7,7 +7,7 @@ class Ticket < ApplicationRecord
   has_many :retrieved_employees, through: :details
   accepts_nested_attributes_for :details
   before_save  { self.name = name.upcase }
-  after_update :assign_active, unless: :assigning_active
+  after_update :assign_active
 
 
   def latest_details
@@ -25,7 +25,8 @@ class Ticket < ApplicationRecord
   private
 
   def assign_active
-    self.assigning_active = true
-    update_attribute(:active, !latest_details_has_retrieved_employee?)
+    unless active == !latest_details_has_retrieved_employee?
+      update_attribute(:active, !latest_details_has_retrieved_employee?)
+    end
   end
 end
