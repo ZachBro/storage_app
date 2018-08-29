@@ -14,14 +14,14 @@
   <%= render 'shared/sign_out_error_message' %>
 </div>
 
-<%= render 'ticket_table_head' %>
-<%= render 'ticket_table', ticket: @ticket %>
+<%= render 'tickets/ticket_table_head' %>
+<%= render 'tickets/ticket_table', ticket: @ticket %>
 
 <% if @ticket.details.count > 1 %>
   <div class="text-center">
     <h3>Previous details</h3>
   </div>
-    <%= render 'ticket_table_head' %>
+    <%= render 'tickets/ticket_table_head' %>
       <% @ticket.details.drop(1).each do |d| %>
         <% if d.stored_employee %>
           <tr>
@@ -34,8 +34,8 @@
               @ <%= d.created_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
             <% if d.retrieved_employee %>
               <td class="align-middle"><%= d.retrieved_employee.id_number %>
-               - <%= d.retrieved_employee.name %></td>
-              <td class="align-middle"><%= d.updated_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
+               - <%= d.retrieved_employee.name %>
+               @ <%= d.updated_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
             <% else %>
             <td class="align-middle"> - </td>
             <% end %>
