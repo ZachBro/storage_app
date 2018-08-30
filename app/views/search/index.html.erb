@@ -6,9 +6,9 @@
     <%= form_tag("/search", method: :get) do %>
       <div class="input-group">
         <div class="input-group-prepend">
-          <%= label_tag(:search_for_ticket, "Ticket number", :class => "input-group-text search-form-addon") %>
+          <%= label_tag(:ticket, "Ticket number", :class => "input-group-text search-form-addon") %>
         </div>
-          <%= text_field_tag(:search_for_ticket, params[:search_for_ticket], :class => "form-control", :autofocus => true) %>
+          <%= text_field_tag(:ticket, params[:ticket], :class => "form-control", :autofocus => true) %>
           <div class="input-group-append">
             <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
           </div>
@@ -18,9 +18,9 @@
     <%= form_tag("/search", method: :get) do %>
       <div class="input-group">
         <div class="input-group-prepend">
-          <%= label_tag(:search_for_name, "Guest name", :class => "input-group-text search-form-addon") %>
+          <%= label_tag(:name, "Guest name", :class => "input-group-text search-form-addon") %>
         </div>
-          <%= text_field_tag(:search_for_name, params[:search_for_name], :class => "form-control") %>
+          <%= text_field_tag(:name, params[:name], :class => "form-control") %>
           <div class="input-group-append">
             <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
           </div>
@@ -30,24 +30,37 @@
     <%= form_tag("/search", method: :get) do %>
       <div class="input-group">
         <div class="input-group-prepend">
-          <%= label_tag(:search_for_room, "Room number", :class => "input-group-text search-form-addon") %>
+          <%= label_tag(:room, "Room number", :class => "input-group-text search-form-addon") %>
         </div>
-          <%= text_field_tag(:search_for_room, params[:search_for_room], :class => "form-control") %>
+          <%= text_field_tag(:room, params[:room], :class => "form-control") %>
           <div class="input-group-append">
             <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
           </div>
         </div>
-    <% end %>
+    <% end %><br>
+
+    <%= form_tag("/search", method: :get) do %>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <%= label_tag(:name_date, "Guest name", :class => "input-group-text search-form-addon") %>
+        </div>
+          <%= text_field_tag(:name_date, params[:name_date], :class => "form-control") %>
+          <%= date_select(:date, :date, { :order => [:day, :month, :year], :start_year => 2018, :end_year => Date.current.year, :use_month_numbers => true }, :class => "form-control") %>
+          <div class="input-group-append">
+            <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
+          </div>
+        </div>
+    <% end %><br>
   </div>
   <br>
 
-  <% if params[:search_for_ticket].present? %>
+  <% if params[:ticket].present? %>
     <% if @ticket.present? %>
       <%= render "shared/show_ticket", ticket: @ticket %>
     <% else %>
       <p> No Records Found </p>
     <% end %>
-  <% elsif params[:search_for_name].present? %>
+  <% elsif params[:name].present? %>
     <% if @tickets.present? %>
       <%= render 'pages/current_table_head' %>
         <tbody>
@@ -61,7 +74,21 @@
     <% else %>
       <p> No Records Found </p>
     <% end %>
-  <% elsif params[:search_for_room].present? %>
+    <% elsif params[:name_date].present? %>
+      <% if @tickets.present? %>
+        <%= render 'pages/current_table_head' %>
+          <tbody>
+            <% @tickets.each do |ticket| %>
+              <tr>
+                <%= render "tickets/search", ticket: ticket %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p> No Records Found </p>
+      <% end %>
+  <% elsif params[:room].present? %>
     <% if @ticket.present? %>
       <%= render 'pages/current_table_head' %>
         <tbody>
