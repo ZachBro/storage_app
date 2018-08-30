@@ -28,7 +28,7 @@ class TicketsController < ApplicationController
         end
       else
         flash[:danger] = "Please enter a valid ticket number (6 digit number)"
-        redirect_to "/tickets/"
+        redirect_to "/"
       end
     end
   end

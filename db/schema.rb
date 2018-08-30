@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2018_08_03_014226) do
   end
 
   create_table "tickets", force: :cascade do |t|
-    t.integer "number"
+    t.string "number"
     t.string "name"
     t.boolean "active", default: true
     t.datetime "created_at", null: false
