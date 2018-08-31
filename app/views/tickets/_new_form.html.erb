@@ -1,7 +1,6 @@
 <div class="container">
   <% if @ticket.number.nil? %>
     <% @ticket.number = params[:number] %>
-    <% @ticket.number.rjust(6, "0") %>
   <% end %>
   <div class="text-center">
     <h1><%= @ticket.number %> </h1>

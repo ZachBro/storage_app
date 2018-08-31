@@ -18,6 +18,8 @@ gem 'faker', '~> 1.7.3'
 
 gem 'aasm', '~> 5.0'
 
+gem 'bootstrap-datepicker-rails', '~> 1.6', '>= 1.6.1.1'
+
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

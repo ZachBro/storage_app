@@ -60,9 +60,9 @@
           <%= d.label :amount, :class => "input-group-text input-group-addon" %>
         </div>
         <% if @ticket.errors.any? %>
-          <%= d.text_field :amount, :value => params[:ticket][:details_attributes]['0'][:amount], :class => "form-control" %>
+          <%= d.text_field :amount, :autocomplete => "off", :value => params[:ticket][:details_attributes]['0'][:amount], :class => "form-control" %>
         <% else %>
-          <%= d.text_field :amount, :value => @ticket.latest_details.amount, :class => "form-control" %>
+          <%= d.text_field :amount, :autocomplete => "off", :value => @ticket.latest_details.amount, :class => "form-control" %>
         <% end %>
       </div>
       <div class="input-group">
@@ -70,9 +70,9 @@
           <%= d.label :location, :class => "input-group-text input-group-addon" %>
         </div>
         <% if @ticket.errors.any? %>
-          <%= d.text_field :location, :value => params[:ticket][:details_attributes]['0'][:location], :class => "form-control" %>
+          <%= d.text_field :location, :autocomplete => "off", :value => params[:ticket][:details_attributes]['0'][:location], :class => "form-control" %>
         <% else %>
-          <%= d.text_field :location, :value => @ticket.latest_details.location, :class => "form-control" %>
+          <%= d.text_field :location, :autocomplete => "off", :value => @ticket.latest_details.location, :class => "form-control" %>
         <% end %>
       </div>
       <div class="input-group">
@@ -80,9 +80,9 @@
           <%= d.label :room, :class => "input-group-text input-group-addon" %>
         </div>
         <% if @ticket.errors.any? %>
-          <%= d.text_field :room, :value => params[:ticket][:details_attributes]['0'][:room], :class => "form-control" %>
+          <%= d.text_field :room, :autocomplete => "off", :value => params[:ticket][:details_attributes]['0'][:room], :class => "form-control" %>
         <% else %>
-          <%= d.text_field :room, :value => @ticket.latest_details.room, :class => "form-control" %>
+          <%= d.text_field :room, :autocomplete => "off", :value => @ticket.latest_details.room, :class => "form-control" %>
         <% end %>
       </div>
       <div class="input-group">
@@ -90,9 +90,9 @@
           <%= d.label :s_employee_id, "Employee", :class => "input-group-text input-group-addon" %>
         </div>
         <% if @ticket.errors.any? %>
-          <%= d.text_field :s_employee_id, :value => params[:ticket][:details_attributes]['0'][:s_employee_id], :class => "form-control" %>
+          <%= d.text_field :s_employee_id, :autocomplete => "off", :value => params[:ticket][:details_attributes]['0'][:s_employee_id], :class => "form-control" %>
         <% else %>
-          <%= d.text_field :s_employee_id, :class => "form-control" %>
+          <%= d.text_field :s_employee_id, :autocomplete => "off", :class => "form-control" %>
         <% end %>
       </div><br>
       <div class="text-center">

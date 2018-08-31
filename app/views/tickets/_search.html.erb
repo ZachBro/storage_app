@@ -17,7 +17,7 @@
     <%= f.fields_for :details, ticket.latest_details do |d| %>
       <%= d.hidden_field :updated_at, value: Time.now %>
       <div class="input-group input-group-sm">
-      <%= d.text_field :r_employee_id , :class => "form-control" %>
+      <%= d.text_field :r_employee_id, :autocomplete => "off", :class => "form-control" %>
     <% end %>
     <div class="input-group-append">
       <%= f.submit "Sign out", :class => "btn btn-outline-secondary btn-sm" %>

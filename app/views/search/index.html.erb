@@ -3,7 +3,7 @@
     <h1>Search</h1>
   </div>
   <div class="form-container">
-    <%= form_tag("/search", method: :get) do %>
+    <%= form_tag("/search", :autocomplete => "off", method: :get) do %>
       <div class="input-group">
         <div class="input-group-prepend">
           <%= label_tag(:name, "Guest name", :class => "input-group-text search-form-addon") %>
@@ -18,42 +18,17 @@
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
-          <%= label_tag(:date_start, "Created between", :class => "input-group-text search-form-addon") %>
+          <%= label_tag(:date_start, "Created from", :class => "input-group-text search-form-addon") %>
         </div>
-        <%= date_select(:ds, :ds, { :order => [:day, :month, :year], :start_year => 2018, :end_year => Date.current.year, :use_month_numbers => true }, :class => "form-control") %>
-        - <%= date_select(:de, :de, { :order => [:day, :month, :year], :start_year => 2018, :end_year => Date.current.year, :use_month_numbers => true }, :class => "form-control") %>
-      </div>
+        <%= text_field_tag(:ds, params[:ds], data:{ provide:'datepicker' }, "data-date-format" => 'dd/mm/yyyy', "orientation" => "top", :class => "form-control" ) %>
+        -<%= text_field_tag(:de, params[:de], data:{ provide:'datepicker' }, "data-date-format" => 'dd/mm/yyyy', :class => "form-control" ) %>
+      </div><br>
         <div class="input-group-append">
           <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
         </div>
       </div>
     <% end %><br>
 
-    <!-- <%= form_tag("/search", method: :get) do %>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <%= label_tag(:room, "Room number", :class => "input-group-text search-form-addon") %>
-        </div>
-        <%= text_field_tag(:room, params[:room], :class => "form-control") %>
-          <div class="input-group-append">
-            <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
-          </div>
-        </div>
-    <% end %><br>
-
-    <%= form_tag("/search", method: :get) do %>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <%= label_tag(:name_date, "Guest name", :class => "input-group-text search-form-addon") %>
-        </div>
-          <%= text_field_tag(:name_date, params[:name_date], :class => "form-control") %>
-          <%= date_select(:date, :date, { :order => [:day, :month, :year], :start_year => 2018, :end_year => Date.current.year, :use_month_numbers => true }, :class => "form-control") %>
-          <div class="input-group-append">
-            <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
-          </div>
-        </div>
-    <% end %><br>
-  </div> -->
   <br>
 
   <% if params[:name].present? || params[:room].present? %>

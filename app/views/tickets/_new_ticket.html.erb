@@ -1,6 +1,6 @@
 <div class="form-container">
   <%= flash[:danger] %>
-  <%= form_tag("/tickets", method: :get) do %>
+  <%= form_tag("/tickets", :autocomplete => "off", method: :get) do %>
   <div class="input-group">
     <div class="input-group-prepend">
       <%= label_tag(:ticket_number, "Ticket number", :class => "input-group-text") %><br>
