@@ -20,8 +20,10 @@
         <div class="input-group-prepend">
           <%= label_tag(:date_start, "Created from", :class => "input-group-text search-form-addon") %>
         </div>
-        <%= text_field_tag(:ds, params[:ds], data:{ provide:'datepicker' }, "data-date-format" => 'dd/mm/yyyy', "orientation" => "top", :class => "form-control" ) %>
-        -<%= text_field_tag(:de, params[:de], data:{ provide:'datepicker' }, "data-date-format" => 'dd/mm/yyyy', :class => "form-control" ) %>
+        <%= text_field_tag(:ds, params[:ds], data:{ provide:'datepicker' },
+          "data-date-format" => 'dd/mm/yyyy', :value => (params[:ds] ||= Time.now.strftime('%d/%m/%Y')), :class => "form-control" ) %>
+        -<%= text_field_tag(:de, params[:de], data:{ provide:'datepicker' },
+          "data-date-format" => 'dd/mm/yyyy', :value => (params[:de] ||= Time.now.strftime('%d/%m/%Y')), :class => "form-control" ) %>
       </div><br>
         <div class="input-group-append">
           <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>

@@ -6,12 +6,12 @@ class SearchController < ApplicationController
       @tickets = Ticket.joins(:details).where("room = ?", "#{params[:room]}").
         where("name like ?", "#{params[:name].upcase}%").
         where(:created_at => search_start..search_end).distinct
-    elsif params[:name]
+    elsif params[:name].present?
       @tickets = Ticket.where("name like ?", "#{params[:name].upcase}%").where(active: true).or(
-                Ticket.where("name like ?", "#{params[:name].upcase}%").where("updated_at > ?", 1.day.ago))
-    elsif params[:room]
+                 Ticket.where("name like ?", "#{params[:name].upcase}%").where("updated_at > ?", 1.day.ago))
+    elsif params[:room].present?
       @tickets = Ticket.joins(:details).where("room = ?", "#{params[:room]}").where(active: true).distinct.or(
-        Ticket.joins(:details).where("room = ?", "#{params[:room]}").where("tickets.updated_at > ?", 1.day.ago).distinct)
+                 Ticket.joins(:details).where("room = ?", "#{params[:room]}").where("tickets.updated_at > ?", 1.day.ago).distinct)
     end
   end
 end
