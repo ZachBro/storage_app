@@ -1,0 +1,16 @@
+<% if params[:name].present? || params[:room].present? %>
+  <% if @tickets.present? %>
+    <%= render 'pages/current_table_head' %>
+      <tbody>
+        <% @tickets.each do |ticket| %>
+          <tr>
+            <%= render "tickets/search", ticket: ticket %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p> No Records Found </p>
+  <% end %>
+<% end %>
+<br>

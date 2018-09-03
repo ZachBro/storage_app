@@ -3,7 +3,7 @@
   <%= form_tag("/tickets", :autocomplete => "off", method: :get) do %>
   <div class="input-group">
     <div class="input-group-prepend">
-      <%= label_tag(:ticket_number, "Ticket number", :class => "input-group-text") %><br>
+      <%= label_tag(:ticket_number, "Ticket number", :class => "input-group-text search-form-addon") %><br>
     </div>
     <%= text_field_tag(:ticket_number, "", :class => "form-control", :autofocus => true) %>
     <div class="input-group-append">

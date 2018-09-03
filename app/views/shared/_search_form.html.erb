@@ -1,0 +1,35 @@
+<div class="text-center">
+  <h1>Search</h1>
+</div>
+<div class="form-container">
+  <%= form_tag("/search", :autocomplete => "off", method: :get) do %>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <%= label_tag(:name, "Guest name", :class => "input-group-text search-form-addon") %>
+      </div>
+      <%= text_field_tag(:name, params[:name], :class => "form-control") %>
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <%= label_tag(:room, "Room number", :class => "input-group-text search-form-addon") %>
+      </div>
+      <%= text_field_tag(:room, params[:room], :class => "form-control") %>
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <%= label_tag(:date_start, "Created from", :class => "input-group-text search-form-addon") %>
+      </div>
+      <%= text_field_tag(:ds, params[:ds], data:{ provide:'datepicker' },
+        "data-date-format" => 'dd/mm/yyyy', :value => (params[:ds] ||=
+          Time.now.in_time_zone("Melbourne").strftime('%d/%m/%Y')),
+          :class => "form-control" ) %>
+      -<%= text_field_tag(:de, params[:de], data:{ provide:'datepicker' },
+        "data-date-format" => 'dd/mm/yyyy', :value => (params[:de] ||=
+          Time.now.in_time_zone("Melbourne").strftime('%d/%m/%Y')),
+          :class => "form-control" ) %>
+    </div><br>
+    <div class="input-group-append">
+      <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
+    </div>
+  </div>
+  <% end %><br>
