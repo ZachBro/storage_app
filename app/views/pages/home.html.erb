@@ -1,48 +1,48 @@
-<div class="container">
-  <div class="text-center">
-    <h1 class="headings">Storage</h1>
+<div class="text-center">
+  <h1 class="headings">Storage</h1>
 
-    <%= render 'tickets/new_ticket' %>
+  <%= render 'tickets/new_ticket' %>
 
-    <div class="form-container">
-      <%= form_tag("/search/show", :autocomplete => "off", remote: true, method: :get) do %>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <%= label_tag(:name, "Guest name", :class => "input-group-text search-form-addon") %>
-          </div>
-          <%= text_field_tag(:name, params[:name], :class => "form-control") %>
-          <div class="input-group-append">
-            <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
-          </div>
+  <div class="form-container">
+    <%= form_tag("/search/show", :autocomplete => "off", remote: true, method: :get) do %>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <%= label_tag(:name, "Guest name", :class => "input-group-text search-form-addon") %>
         </div>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <%= label_tag(:room, "Room number", :class => "input-group-text search-form-addon") %>
-          </div>
-          <%= text_field_tag(:room, params[:room], :class => "form-control") %>
-          <div class="input-group-append">
-            <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
-          </div>
+        <%= text_field_tag(:name, params[:name], :class => "form-control") %>
+        <div class="input-group-append">
+          <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
         </div>
-      <% end %>
-    </div><br>
-    <div id="search"></div>
+      </div>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <%= label_tag(:room, "Room number", :class => "input-group-text search-form-addon") %>
+        </div>
+        <%= text_field_tag(:room, params[:room], :class => "form-control") %>
+        <div class="input-group-append">
+          <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
+        </div>
+      </div>
+    <% end %>
+  </div><br>
+</div>
+<div id="search"></div>
 
-    <a href="/search/" class="btn btn-secondary btn-lg">Advanced Search</a><br><br>
+<div class="text-center">
+  <a href="/search/" class="btn btn-secondary btn-lg">Advanced Search</a><br><br>
 
-    <h2>Current tickets</h2>
+  <h2>Current tickets</h2>
+</div>
+
+<div class="text-center">
+  <div class="btn-group btn-group-toggle btn-group-justified" data-toggle="buttons">
+    <%= link_to "ST", "pages/current_st", :class => "btn btn-group-toggle btn-secondary active", :id => "st", remote: true %>
+    <%= link_to "RNR", "pages/current_rnr", :class => "btn btn-group-toggle btn-secondary", :id => "rnr", remote: true %>
+    <%= link_to "LT", "pages/current_lt", :class => "btn  btn-group-toggle btn-secondary", :id => "lt", remote: true %>
   </div>
+</div>
+<br><br>
 
-  <div class="text-center">
-    <div class="btn-group btn-group-toggle btn-group-justified" data-toggle="buttons">
-      <%= link_to "ST", "pages/current_st", :class => "btn btn-group-toggle btn-secondary active", :id => "st", remote: true %>
-      <%= link_to "RNR", "pages/current_rnr", :class => "btn btn-group-toggle btn-secondary", :id => "rnr", remote: true %>
-      <%= link_to "LT", "pages/current_lt", :class => "btn  btn-group-toggle btn-secondary", :id => "lt", remote: true %>
-    </div>
-  </div>
-  <br><br>
-
-  <div id="content">
-    <%= render 'current_st' %>
-  </div>
+<div id="content">
+  <%= render 'current_st' %>
 </div>

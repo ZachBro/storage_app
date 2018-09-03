@@ -43,10 +43,10 @@ Employee.find(5).update_attribute(:active, false)
 # 100000.times do |d|
 #   if (rand(1..1000) > 999)
 #     Ticket.create!(number: d.to_s.rjust(6, "100000"), name: Faker::Name.name, details_attributes:
-#           [{amount: rand(1..10), location: (rand(1..7).to_s + "B"), room: rand(1000..1480), s_employee_id: rand(300000..300003).to_s}])
+#           [{amount: rand(1..10), location: (rand(1..7).to_s + "B"), room: 1010, aasm_state: "ST", s_employee_id: rand(300000..300003).to_s}])
 #   else
 #     Ticket.create!(number: d.to_s.rjust(6, "100000"), name: Faker::Name.name, active: false, details_attributes:
-#           [{amount: rand(1..10), location: (rand(1..7).to_s + "B"), room: rand(1000..1480), s_employee_id: rand(300000..300003).to_s, retrieved_employee_id: "1"}])
+#           [{amount: rand(1..10), location: (rand(1..7).to_s + "B"), room: 1010, aasm_state: "ST", s_employee_id: rand(300000..300003).to_s, retrieved_employee_id: "1"}])
 #   end
 # end
 # time_two = Time.now

@@ -1,71 +1,69 @@
-<div class="container">
-  <% if @ticket.number.nil? %>
-    <% @ticket.number = params[:number] %>
-  <% end %>
-  <div class="text-center">
-    <h1><%= @ticket.number %> </h1>
+<% if @ticket.number.nil? %>
+  <% @ticket.number = params[:number] %>
+<% end %>
+<div class="text-center">
+  <h1><%= @ticket.number %> </h1>
+</div>
+<br>
+<%= f.hidden_field :number %>
+
+<div class="form-container">
+  <%= render 'shared/error_messages' %>
+
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <%= f.label :name, :class => "input-group-text input-group-addon" %>
+    </div>
+    <%= f.text_field :name, :autocomplete => "off", :class => "form-control", :autofocus => true %>
   </div>
-  <br>
-  <%= f.hidden_field :number %>
 
-  <div class="form-container">
-    <%= render 'shared/error_messages' %>
-
+  <%= f.fields_for :details do |d| %>
     <div class="input-group">
       <div class="input-group-prepend">
-        <%= f.label :name, :class => "input-group-text input-group-addon" %>
+        <%= d.label :amount, :class => "input-group-text input-group-addon" %>
       </div>
-      <%= f.text_field :name, :class => "form-control", :autofocus => true %>
+      <%= d.text_field :amount, :autocomplete => "off", :class => "form-control" %>
     </div>
-
-    <%= f.fields_for :details do |d| %>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <%= d.label :amount, :class => "input-group-text input-group-addon" %>
-        </div>
-        <%= d.text_field :amount, :class => "form-control" %>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <%= d.label :location, :class => "input-group-text input-group-addon" %>
       </div>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <%= d.label :location, :class => "input-group-text input-group-addon" %>
-        </div>
-        <%= d.text_field :location, :class => "form-control" %>
+      <%= d.text_field :location, :autocomplete => "off", :class => "form-control" %>
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <%= d.label :room, :class => "input-group-text input-group-addon" %>
       </div>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <%= d.label :room, :class => "input-group-text input-group-addon" %>
-        </div>
-        <%= d.text_field :room, :class => "form-control" %>
+      <%= d.text_field :room, :autocomplete => "off", :class => "form-control" %>
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <%= d.label :s_employee_id, "Employee", :class => "input-group-text input-group-addon" %>
       </div>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <%= d.label :s_employee_id, "Employee", :class => "input-group-text input-group-addon" %>
-        </div>
-        <%= d.text_field :s_employee_id, :class => "form-control" %>
-      </div><br>
-      <div class="text-center">
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <%= d.label :aasm_state, 'ST', :class => "btn btn-secondary active" do %>ST
-            <%= d.radio_button :aasm_state, :ST, :id => "option1", :autocomplete => "off" %>
-          <% end %>
-
-          <%= d.label :aasm_state, 'RNR', :class => "btn btn-secondary" do %>RNR
-            <%= d.radio_button :aasm_state, :RNR, :id => "option2", :autocomplete => "off" %>
-          <% end %>
-
-          <%= d.label :aasm_state, 'LT', :class => "btn btn-secondary" do %>LT
-            <%= d.radio_button :aasm_state, :LT, :id => "option3", :autocomplete => "off" %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-    <br>
+      <%= d.text_field :s_employee_id, :autocomplete => "off", :class => "form-control" %>
+    </div><br>
     <div class="text-center">
-      <%= f.submit "Submit ticket", :class => "btn btn-secondary" %>
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <%= d.label :aasm_state, 'ST', :class => "btn btn-secondary active" do %>ST
+          <%= d.radio_button :aasm_state, :ST, :id => "option1", :autocomplete => "off" %>
+        <% end %>
+
+        <%= d.label :aasm_state, 'RNR', :class => "btn btn-secondary" do %>RNR
+          <%= d.radio_button :aasm_state, :RNR, :id => "option2", :autocomplete => "off" %>
+        <% end %>
+
+        <%= d.label :aasm_state, 'LT', :class => "btn btn-secondary" do %>LT
+          <%= d.radio_button :aasm_state, :LT, :id => "option3", :autocomplete => "off" %>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
   <br>
   <div class="text-center">
-    <a class="btn btn-secondary btn-lg" href="/">Home</a>
+    <%= f.submit "Submit ticket", :class => "btn btn-secondary" %>
   </div>
+</div>
+<br>
+<div class="text-center">
+  <a class="btn btn-secondary btn-lg" href="/">Home</a>
 </div>

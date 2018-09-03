@@ -18,7 +18,12 @@ class SearchController < ApplicationController
   end
 
   def show
-    if params[:name].present?
+    if params[:name].present? && params[:room].present?
+      @tickets = Ticket.joins(:details).where("room = ?", "#{params[:room]}").
+        where("name like ?", "#{params[:name].upcase}%").where(active: true).distinct.or(
+        Ticket.joins(:details).where("room = ?", "#{params[:room]}").
+        where("name like ?", "#{params[:name].upcase}%").where(active: true).distinct)
+    elsif params[:name].present?
       @tickets = Ticket.where("name like ?", "#{params[:name].upcase}%").where(active: true).or(
                  Ticket.where("name like ?", "#{params[:name].upcase}%").where("updated_at > ?", 1.day.ago))
     elsif params[:room].present?

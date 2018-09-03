@@ -10,7 +10,8 @@ class TicketsController < ApplicationController
   def create
     @ticket = Ticket.new(ticket_params)
     if @ticket.save
-      redirect_to @ticket
+      flash[:success] = "Successfully created ticket #{@ticket.number}"
+      redirect_to '/'
     else
       render :action => "new"
     end
@@ -38,7 +39,8 @@ class TicketsController < ApplicationController
 
   def update
     if @ticket.update(sign_out_params)
-      redirect_to @ticket
+      flash[:success] = "Successfully signed out ticket #{@ticket.number}"
+      redirect_to '/'
     else
       render :action => "show"
     end
@@ -46,7 +48,8 @@ class TicketsController < ApplicationController
 
   def edit
     if @ticket.update(update_detail_params)
-      redirect_to @ticket
+      flash[:success] = "Successfully updated ticket #{@ticket.number}"
+      redirect_to '/'
     else
       render :action => "show"
     end
