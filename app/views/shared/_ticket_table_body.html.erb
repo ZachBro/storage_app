@@ -3,6 +3,7 @@
       <td class="align-middle"><%= ticket.latest_details.amount %></td>
       <td class="align-middle"><%= ticket.latest_details.location %></td>
       <td class="align-middle"><%= ticket.latest_details.room %></td>
+      <td class="align-middle"><%= ticket.latest_details.comment %></td>
       <td class="align-middle"><%= ticket.latest_details.stored_employee.id_number %>
         - <%= ticket.latest_details.stored_employee.name %>
         @ <%= ticket.latest_details.created_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>

@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2018_08_03_014226) do
     t.string "location"
     t.integer "room"
     t.string "aasm_state"
+    t.string "comment"
     t.integer "stored_employee_id"
     t.integer "retrieved_employee_id"
     t.datetime "created_at", null: false
@@ -44,8 +45,10 @@ ActiveRecord::Schema.define(version: 2018_08_03_014226) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_tickets_on_created_at"
     t.index ["name"], name: "index_tickets_on_name"
     t.index ["number"], name: "index_tickets_on_number", unique: true
+    t.index ["updated_at"], name: "index_tickets_on_updated_at"
   end
 
 end

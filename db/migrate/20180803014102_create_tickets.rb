@@ -9,5 +9,7 @@ class CreateTickets < ActiveRecord::Migration[5.2]
     end
     add_index :tickets, :number, unique: true
     add_index :tickets, :name
+    add_index :tickets, :created_at
+    add_index :tickets, :updated_at
   end
 end

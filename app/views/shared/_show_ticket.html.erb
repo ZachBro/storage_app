@@ -29,6 +29,7 @@
             <td class="align-middle"><%= d.amount %></td>
             <td class="align-middle"><%= d.location %></td>
             <td class="align-middle"><%= d.room %></td>
+            <td class="align-middle"><%= d.comment %></td>
             <td class="align-middle"><%= d.stored_employee.id_number %>
               - <%= d.stored_employee.name %>
               @ <%= d.created_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
@@ -54,46 +55,46 @@
 </div>
 <div class="form-container">
   <%= form_for @ticket, method: "post" do |f| %>
-    <%= f.fields_for :details, @ticket.new_detail do |d| %>
+    <%= f.fields_for :details, f.object.new_detail do |d| %>
       <div class="input-group">
         <div class="input-group-prepend">
           <%= d.label :amount, :class => "input-group-text input-group-addon" %>
         </div>
-        <% if @ticket.errors.any? %>
-          <%= d.text_field :amount, :autocomplete => "off", :value => params[:ticket][:details_attributes]['0'][:amount], :class => "form-control" %>
-        <% else %>
-          <%= d.text_field :amount, :autocomplete => "off", :value => @ticket.latest_details.amount, :class => "form-control" %>
-        <% end %>
+        <%= d.text_field :amount, :autocomplete => "off", :value =>
+        (@ticket.errors.any? ? params[:ticket][:details_attributes]['0'][:amount]
+          : @ticket.latest_details.amount), :class => "form-control" %>
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
           <%= d.label :location, :class => "input-group-text input-group-addon" %>
         </div>
-        <% if @ticket.errors.any? %>
-          <%= d.text_field :location, :autocomplete => "off", :value => params[:ticket][:details_attributes]['0'][:location], :class => "form-control" %>
-        <% else %>
-          <%= d.text_field :location, :autocomplete => "off", :value => @ticket.latest_details.location, :class => "form-control" %>
-        <% end %>
+        <%= d.text_field :location, :autocomplete => "off", :value =>
+        (@ticket.errors.any? ? params[:ticket][:details_attributes]['0'][:location]
+          : @ticket.latest_details.location), :class => "form-control" %>
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
           <%= d.label :room, :class => "input-group-text input-group-addon" %>
         </div>
-        <% if @ticket.errors.any? %>
-          <%= d.text_field :room, :autocomplete => "off", :value => params[:ticket][:details_attributes]['0'][:room], :class => "form-control" %>
-        <% else %>
-          <%= d.text_field :room, :autocomplete => "off", :value => @ticket.latest_details.room, :class => "form-control" %>
-        <% end %>
+        <%= d.text_field :room, :autocomplete => "off", :value =>
+        (@ticket.errors.any? ? params[:ticket][:details_attributes]['0'][:room]
+          : @ticket.latest_details.room), :class => "form-control" %>
+      </div>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <%= d.label :comment, :class => "input-group-text input-group-addon" %>
+        </div>
+        <%= d.text_field :comment, :autocomplete => "off", :value =>
+        (@ticket.errors.any? ? params[:ticket][:details_attributes]['0'][:comment]
+          : @ticket.latest_details.comment), :class => "form-control" %>
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
           <%= d.label :s_employee_id, "Employee", :class => "input-group-text input-group-addon" %>
         </div>
-        <% if @ticket.errors.any? %>
-          <%= d.text_field :s_employee_id, :autocomplete => "off", :value => params[:ticket][:details_attributes]['0'][:s_employee_id], :class => "form-control" %>
-        <% else %>
-          <%= d.text_field :s_employee_id, :autocomplete => "off", :class => "form-control" %>
-        <% end %>
+        <%= d.text_field :s_employee_id, :autocomplete => "off", :value =>
+        (@ticket.errors.any? ? params[:ticket][:details_attributes]['0'][:s_employee_id]
+          : nil), :class => "form-control" %>
       </div><br>
       <div class="text-center">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">

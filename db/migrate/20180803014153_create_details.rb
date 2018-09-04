@@ -6,6 +6,7 @@ class CreateDetails < ActiveRecord::Migration[5.2]
       t.string  :location
       t.integer :room
       t.string  :aasm_state
+      t.string  :comment
       t.integer :stored_employee_id
       t.integer :retrieved_employee_id
 
