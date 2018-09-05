@@ -3,32 +3,31 @@ class PagesController < ApplicationController
   end
 
   def current_st
-    @current_st = find_tickets("ST").paginate(:page => params[:page])
+    @current_st = find_tickets("ST")
 
     ajax_request
   end
 
   def current_rnr
-    @current_rnr = find_tickets("RNR").paginate(:page => params[:page])
-
+    @current_rnr = find_tickets("RNR")
     ajax_request
   end
 
   def current_lt
-    @current_lt = find_tickets("LT").paginate(:page => params[:page])
+    @current_lt = find_tickets("LT")
 
     ajax_request
   end
 
   def home
-    @current_st = find_tickets("ST").paginate(:page => params[:page])
+    @current_st = find_tickets("ST")
   end
 
   private
 
     def find_tickets(state)
-      match_state = Ticket.joins(:details).where("aasm_state = ?", state).where(active: true).distinct.to_a
-      only_details_first_match_state(state, match_state)
+      @match_state = Ticket.joins(:details).where("aasm_state = ?", state).where(active: true).paginate(:page => params[:page]).distinct.to_a
+      only_details_first_match_state(state, @match_state)
     end
 
     def only_details_first_match_state(state, match_state)
