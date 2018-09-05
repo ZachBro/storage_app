@@ -8,6 +8,7 @@ class Ticket < ApplicationRecord
   accepts_nested_attributes_for :details
   before_save  { self.name = name.upcase }
   after_update :assign_active
+  default_scope -> { order(updated_at: :desc) }
 
 
   def latest_details

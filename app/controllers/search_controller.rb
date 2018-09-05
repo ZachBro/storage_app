@@ -6,13 +6,13 @@ class SearchController < ApplicationController
       if params[:name].present? && params[:room].present?
         @tickets = Ticket.joins(:details).where("room = ?", "#{params[:room]}").
           where("name like ?", "#{params[:name].upcase}%").
-          where(:created_at => search_start..search_end).distinct
+          where(:created_at => search_start..search_end).distinct.paginate(:page => params[:page])
       elsif params[:name].present?
         @tickets = Ticket.where("name like ?", "#{params[:name].upcase}%").
-        where(:created_at => search_start..search_end).distinct
+        where(:created_at => search_start..search_end).distinct.paginate(:page => params[:page])
       elsif params[:room].present?
-        @tickets = Ticket.joins(:details).where("room = ?", "#{params[:room]}").where(active: true).distinct.
-        where(:created_at => search_start..search_end).distinct
+        @tickets = Ticket.joins(:details).where("room = ?", "#{params[:room]}").
+        where(:created_at => search_start..search_end).distinct.paginate(:page => params[:page])
       end
     end
   end

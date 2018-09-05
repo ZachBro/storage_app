@@ -37,8 +37,6 @@ class Detail < ApplicationRecord
     end
   end
 
-
-
   private
 
     def store_employee

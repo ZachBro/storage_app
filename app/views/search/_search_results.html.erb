@@ -1,5 +1,6 @@
 <% if params[:name].present? || params[:room].present? %>
   <% if @tickets.present? %>
+    <%= will_paginate @tickets %>
     <%= render 'pages/current_table_head' %>
       <tbody>
         <% @tickets.each do |ticket| %>
@@ -9,6 +10,7 @@
         <% end %>
       </tbody>
     </table>
+    <%= will_paginate @tickets %>
   <% else %>
     <p> No Records Found </p>
   <% end %>

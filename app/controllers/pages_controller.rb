@@ -3,25 +3,25 @@ class PagesController < ApplicationController
   end
 
   def current_st
-    @current_st = find_tickets("ST")
+    @current_st = find_tickets("ST").paginate(:page => params[:page])
 
     ajax_request
   end
 
   def current_rnr
-    @current_rnr = find_tickets("RNR")
+    @current_rnr = find_tickets("RNR").paginate(:page => params[:page])
 
     ajax_request
   end
 
   def current_lt
-    @current_lt = find_tickets("LT")
+    @current_lt = find_tickets("LT").paginate(:page => params[:page])
 
     ajax_request
   end
 
   def home
-    @current_st = find_tickets("ST")
+    @current_st = find_tickets("ST").paginate(:page => params[:page])
   end
 
   private

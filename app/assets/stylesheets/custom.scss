@@ -51,3 +51,36 @@ h1 {
 .input-group {
   margin-bottom: 1px;
 }
+
+.pagination > li > a
+{
+    background-color: #6c757d;
+    color: white;
+    border-color: #6c757d;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: white;
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+.page-item.active .page-link {
+  background-color: #545b62;
+  border-color: #4e555b;
+}
+
+.page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+}
+
+.page-item.disabled .page-link {
+  background-color: #6c757d;
+  color: white;
+  border-color: #6c757d;
+  opacity: .50;
+}
