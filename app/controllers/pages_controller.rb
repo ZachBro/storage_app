@@ -3,25 +3,42 @@ class PagesController < ApplicationController
   end
 
   def current_st
-    @current_st = find_tickets("ST")
+    home
 
-    ajax_request
+    respond_to do |format|
+      format.html {redirect_to st_path(params.permit(:pageST))}
+      format.js
+    end
   end
 
   def current_rnr
-    @current_rnr = find_tickets("RNR")
+    home_rnr
 
-    ajax_request
+    respond_to do |format|
+      format.html {redirect_to rnr_path(params.permit(:pageRNR))}
+      format.js
+    end
   end
 
   def current_lt
-    @current_lt = find_tickets("LT")
+    home_lt
 
-    ajax_request
+    respond_to do |format|
+      format.html {redirect_to lt_path(params.permit(:pageLT))}
+      format.js
+    end
   end
 
   def home
     @current_st = find_tickets("ST")
+  end
+
+  def home_rnr
+    @current_rnr = find_tickets("RNR")
+  end
+
+  def home_lt
+    @current_lt = find_tickets("LT")
   end
 
   private
@@ -39,12 +56,5 @@ class PagesController < ApplicationController
         end
       end
     return details_first_match_state
-    end
-
-    def ajax_request
-      respond_to do |format|
-        format.html {redirect_to "/"}
-        format.js
-      end
     end
 end
