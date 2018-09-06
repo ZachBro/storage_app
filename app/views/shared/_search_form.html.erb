@@ -17,19 +17,19 @@
     </div>
     <div class="input-group input-daterange">
       <div class="input-group-prepend">
-        <%= label_tag(:date_start, "Created from", :class => "input-group-text search-form-addon") %>
+        <%= label_tag(:ds, "Created from", :class => "input-group-text search-form-addon") %>
       </div>
       <%= text_field_tag(:ds, params[:ds], data:{ provide:'datepicker' },
           :value => (params[:ds] ||=
           Time.now.in_time_zone("Melbourne").strftime('%d/%m/%Y')),
           :class => "form-control" ) %>
-      <div class="input-group-text input-group-append input-group-prepend">to</div>
+      <label class="input-group-text input-group-append input-group-prepend" for="de">to</label>
       <%= text_field_tag(:de, params[:de], data:{ provide:'datepicker'},
           :value => (params[:de] ||=
           Time.now.in_time_zone("Melbourne").strftime('%d/%m/%Y')),
           :class => "form-control" ) %>
     </div><br>
-    <div class="input-group-append">
+    <div class="text-center">
       <%= submit_tag("Search", name: nil, :class => "btn btn-secondary") %>
     </div>
   </div>
@@ -39,7 +39,8 @@
      $('.input-daterange').datepicker({
        orientation: 'bottom',
        format: 'dd/mm/yyyy',
-       weekStart: 1
+       weekStart: 1,
+       endDate: "0d"
             });
   });
 </script>

@@ -85,12 +85,22 @@ h1 {
   opacity: .50;
 }
 
-.datepicker-days > table > tbody > tr > td.active {
+.datepicker-days > table > tbody > tr > td.active,
+.datepicker-months > table > tbody > tr > td > span.active,
+.datepicker-years > table > tbody > tr > td > span.active,
+.datepicker-decades > table > tbody > tr > td > span.active,
+.datepicker-centuries > table > tbody > tr > td > span.active
+{
   background-color: #6c757d;
-  background-image: linear-gradient(to bottom, #6c757d, #596168);
+  background-image: linear-gradient(to bottom, #a7acb1, #6c757d);
 }
 
-.datepicker-days > table > tbody > tr > td.active:hover {
+.datepicker-days > table > tbody > tr > td.active:hover,
+.datepicker-months > table > tbody > tr > td > span.active:hover,
+.datepicker-years > table > tbody > tr > td > span.active:hover,
+.datepicker-decades > table > tbody > tr > td > span.active:hover,
+.datepicker-centuries > table > tbody > tr > td > span.active:hover
+{
   background-color: #6c757d;
-  background-image: linear-gradient(to bottom, #545b62, #545b62);
+  background-image: linear-gradient(to bottom, #989da1, #545b62);
 }
