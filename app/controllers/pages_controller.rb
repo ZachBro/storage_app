@@ -11,10 +11,7 @@ class PagesController < ApplicationController
   def current_rnr
     @current_rnr = find_tickets("RNR")
 
-    respond_to do |format|
-      format.html {redirect_to "/"}
-      format.js
-    end
+    ajax_request
   end
 
   def current_lt
