@@ -84,3 +84,13 @@ h1 {
   border-color: #6c757d;
   opacity: .50;
 }
+
+.datepicker-days > table > tbody > tr > td.active {
+  background-color: #6c757d;
+  background-image: linear-gradient(to bottom, #6c757d, #596168);
+}
+
+.datepicker-days > table > tbody > tr > td.active:hover {
+  background-color: #6c757d;
+  background-image: linear-gradient(to bottom, #545b62, #545b62);
+}

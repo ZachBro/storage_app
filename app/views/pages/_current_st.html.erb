@@ -1,6 +1,8 @@
 <div>
   <% if @current_st.any? %>
+  <%= will_paginate @match_state, :param_name => 'pageST' %>
     <%= render "current", current: @current_st %>
+  <%= will_paginate @match_state, :param_name => 'pageST' %>
   <% else %>
     <p>No ST right now</p>
   <% end %>

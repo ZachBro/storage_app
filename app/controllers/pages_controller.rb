@@ -10,7 +10,11 @@ class PagesController < ApplicationController
 
   def current_rnr
     @current_rnr = find_tickets("RNR")
-    ajax_request
+
+    respond_to do |format|
+      format.html {redirect_to "/"}
+      format.js
+    end
   end
 
   def current_lt
@@ -26,7 +30,7 @@ class PagesController < ApplicationController
   private
 
     def find_tickets(state)
-      @match_state = Ticket.joins(:details).where("aasm_state = ?", state).where(active: true).paginate(:page => params[:page]).distinct.to_a
+      @match_state = Ticket.joins(:details).where("aasm_state = ?", state).where(active: true).paginate(:page => params[:"page#{state}"]).distinct.to_a
       only_details_first_match_state(state, @match_state)
     end
 
