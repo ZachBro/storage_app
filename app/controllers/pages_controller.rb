@@ -3,30 +3,32 @@ class PagesController < ApplicationController
   end
 
   def current_st
-    home
-
     respond_to do |format|
       format.html {redirect_to st_path(params.permit(:pageST))}
       format.js
     end
+
+    home
   end
 
   def current_rnr
-    home_rnr
-
     respond_to do |format|
       format.html {redirect_to rnr_path(params.permit(:pageRNR))}
       format.js
     end
+
+
+    home_rnr
   end
 
   def current_lt
-    home_lt
 
     respond_to do |format|
       format.html {redirect_to lt_path(params.permit(:pageLT))}
       format.js
     end
+
+    home_lt
   end
 
   def home

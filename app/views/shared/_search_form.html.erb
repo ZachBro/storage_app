@@ -2,7 +2,7 @@
   <h1>Search</h1>
 </div>
 <div class="form-container">
-  <%= form_tag("/search", :autocomplete => "off", method: :get) do %>
+  <%= form_tag("/search", :autocomplete => "off", remote: true, method: :get) do %>
     <div class="input-group">
       <div class="input-group-prepend">
         <%= label_tag(:name, "Guest name", :class => "input-group-text search-form-addon") %>
