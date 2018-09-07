@@ -1,6 +1,8 @@
 <div>
   <% if @current_lt.any? %>
+  <%= will_paginate @match_state, :param_name => 'pageLT' %>
     <%= render "current", current: @current_lt %>
+  <%= will_paginate @match_state, :param_name => 'pageLT' %>
   <% else %>
     <p>No LT right now</p>
   <% end %>
