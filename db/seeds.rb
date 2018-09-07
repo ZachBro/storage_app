@@ -26,25 +26,28 @@ Ticket.create!(number: "300003", name: "Zhao. Y", details_attributes:
            {amount: "3", location: "2A + 1 in fridge", room: "1810", aasm_state: "ST", s_employee_id: "300002"}])
 
 Ticket.create!(number: "300005", name: "Jones. S", details_attributes:
-          [{amount: "1", location: "3A", room: "1710", aasm_state: "ST", s_employee_id: "300004"},
-           {amount: "1", location: "4A", room: "1210", aasm_state: "RNR", s_employee_id: "300004"}])
+          [{amount: "1", location: "4A", aasm_state: "RNR", s_employee_id: "300004"}])
 
 Ticket.create!(number: "300006", name: "Allen. L", details_attributes:
           [{amount: "3", location: "4C", room: "1515", aasm_state: "RNR", s_employee_id: "300002"},
-           {amount: "3", location: "7C", room: "1010", aasm_state: "LT", s_employee_id: "300004"}])
+           {amount: "3", location: "7C", room: "1515", aasm_state: "LT", s_employee_id: "300004"}])
 
 Ticket.create!(number: "300007", name: "McDonald. R", details_attributes:
-          [{amount: "2", location: "4B", room: "1515", aasm_state: "RNR", s_employee_id: "300002"}])
+          [{amount: "2", location: "4B", aasm_state: "RNR", s_employee_id: "300002"}])
 
 Employee.find(5).update_attribute(:active, false)
 
 
 # time_one = Time.now
 # 100000.times do |d|
-#   if (rand(1..1000) > 997)
-#     Ticket.create!(number: d.to_s.rjust(6, "100000"), name: Faker::Name.name[0..24], details_attributes:
-#     [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample), room: ApplicationHelper::ROOMS.sample,
-#     aasm_state: (rand(1..10) > 8 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"), s_employee_id: rand(300000..300003).to_s}])
+#   if (rand(1..1000) > 996)
+#     a = Ticket.create!(number: d.to_s.rjust(6, "100000"), name: Faker::Name.name[0..24], details_attributes:
+#     [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample),
+#     aasm_state: (rand(1..10) > 8 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"),
+#     s_employee_id: rand(300000..300003).to_s}])
+#     unless a.details.first.aasm_state == "RNR"
+#       a.details.first.update_attribute(:room, ApplicationHelper::ROOMS.sample)
+#     end
 #   else
 #     Ticket.create!(number: d.to_s.rjust(6, "100000"), name: Faker::Name.name[0..24], active: false, details_attributes:
 #     [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample), room: ApplicationHelper::ROOMS.sample,

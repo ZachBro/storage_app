@@ -31,7 +31,7 @@ class SearchController < ApplicationController
                  Ticket.joins(:details).where("room = ?", "#{params[:room]}").where("tickets.updated_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day).distinct).paginate(:page => params[:page])
     end
     respond_to do |format|
-      format.html { redirect_to root_path(params.permit(:utf8, :room, :name)) }
+      format.html { redirect_to root_path(params.permit(:room, :name)) }
       format.js
     end
   end
