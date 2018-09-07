@@ -33,6 +33,19 @@ class PagesController < ApplicationController
 
   def home
     @current_st = find_tickets("ST")
+
+    if params[:name].present? && params[:room].present?
+      @tickets = Ticket.joins(:details).where("room = ?", "#{params[:room]}").
+        where("name like ?", "#{params[:name].upcase}%").where(active: true).distinct.or(
+        Ticket.joins(:details).where("room = ?", "#{params[:room]}").
+        where("name like ?", "#{params[:name].upcase}%").where("tickets.updated_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day).distinct).paginate(:page => params[:page])
+    elsif params[:name].present?
+      @tickets = Ticket.where("name like ?", "#{params[:name].upcase}%").where(active: true).or(
+                 Ticket.where("name like ?", "#{params[:name].upcase}%").where("updated_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day)).paginate(:page => params[:page])
+    elsif params[:room].present?
+      @tickets = Ticket.joins(:details).where("room = ?", "#{params[:room]}").where(active: true).distinct.or(
+                 Ticket.joins(:details).where("room = ?", "#{params[:room]}").where("tickets.updated_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day).distinct).paginate(:page => params[:page])
+    end
   end
 
   def home_rnr

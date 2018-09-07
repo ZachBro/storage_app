@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   get  '/home',        to: 'pages#home',     as: :st
   get  '/home_rnr',    to: 'pages#home_rnr', as: :rnr
   get  '/home_lt',     to: 'pages#home_lt',  as: :lt
-  get  '/home_search', to: 'search#home',    as: :basic_search
   resources :pages
   resources :search
   resources :tickets do
