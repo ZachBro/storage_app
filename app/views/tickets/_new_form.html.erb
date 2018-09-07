@@ -33,7 +33,7 @@
     </noscript>
     <div class="text-center" id="js-radio-button">
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <%= d.label :aasm_state, 'ST', :class => "btn btn-secondary active" do %>ST
+        <%= d.label :aasm_state, 'ST', :id => "ST_button", :class => "btn btn-secondary active" do %>ST
           <%= d.radio_button :aasm_state, :ST, :id => "option1", :autocomplete => "off" %>
         <% end %>
 
@@ -42,7 +42,7 @@
           <%= d.radio_button :aasm_state, :RNR, :id => "option2", :autocomplete => "off" %>
         <% end %>
 
-        <%= d.label :aasm_state, 'LT', :class => "btn btn-secondary" do %>LT
+        <%= d.label :aasm_state, 'LT', :id => "LT_button", :class => "btn btn-secondary" do %>LT
           <%= d.radio_button :aasm_state, :LT, :id => "option3", :autocomplete => "off" %>
         <% end %>
       </div>
