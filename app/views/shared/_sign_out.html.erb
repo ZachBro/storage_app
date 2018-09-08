@@ -1,0 +1,34 @@
+<% if ticket.latest_details.retrieved_employee %>
+  <td class="align-middle"><%= ticket.latest_details.retrieved_employee.id_number %>
+   - <%= ticket.latest_details.retrieved_employee.name %>
+   @ <%= ticket.latest_details.updated_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
+<% else %>
+  <td class="align-middle">
+    <% if ticket.details.first.aasm_state == "RNR" %>
+      <%= form_for ticket do |f| %>
+        <%= f.fields_for :details, f.object.latest_details do |d| %>
+          <%= d.hidden_field :updated_at, value: Time.now %>
+          <div class="input-group input-group-sm">
+            <%= d.text_field :room, :placeholder => "Room", :autocomplete => "off", :class => "form-control sign-out-room" %>
+            <%= d.text_field :r_employee_id, :placeholder => "Employee ID", :autocomplete => "off", :class => "form-control" %>
+            <div class="input-group-append">
+              <%= f.submit "Sign out", :class => "btn btn-outline-secondary btn-sm" %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= form_for ticket do |f| %>
+        <%= f.fields_for :details, f.object.latest_details do |d| %>
+          <%= d.hidden_field :updated_at, value: Time.now %>
+          <div class="input-group input-group-sm">
+            <%= d.text_field :r_employee_id, :placeholder => "Employee ID", :autocomplete => "off", :class => "form-control" %>
+            <div class="input-group-append">
+              <%= f.submit "Sign out", :class => "btn btn-outline-secondary btn-sm" %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </td>
+<% end %>
