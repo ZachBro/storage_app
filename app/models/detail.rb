@@ -9,7 +9,7 @@ class Detail < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
   validates :amount, presence: true, length: { maximum: 3 }, numericality: { only_integer: true }, on: [:create, :edit]
   validates :location, presence: true, length: { maximum: 20 }, on: [:create, :edit]
-  validates :room, inclusion: { in: ApplicationHelper::ROOMS }, :allow_nil => true, on: [:create, :edit]
+  validates :room, inclusion: { in: ApplicationHelper::ROOMS }, :allow_nil => true, on: [:create, :edit, :update]
   validates :s_employee_id, inclusion:
           { in: Employee.where(active: true).pluck(:id_number).map!(&:to_s) }, on: [:create, :edit]
   validates :r_employee_id, inclusion:
@@ -23,18 +23,6 @@ class Detail < ApplicationRecord
     state :ST
     state :RNR
     state :LT
-
-    event :st do
-      transitions to: :ST
-    end
-
-    event :rnr do
-      transitions to: :RNR
-    end
-
-    event :lt do
-      transitions to: :LT
-    end
   end
 
   private

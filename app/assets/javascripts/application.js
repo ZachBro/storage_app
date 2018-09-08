@@ -12,21 +12,8 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
 //= require jquery3
 //= require popper
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require_tree .
-
-$( document ).ready(function() {
-  $("#ST_button").click(function(){
-    $("#ticket_details_attributes_0_room").prop('disabled', false);
-  })
-  $("#RNR_button").click(function() {
-    $("#ticket_details_attributes_0_room").prop('disabled', true);
-  })
-  $("#LT_button").click(function(){
-    $("#ticket_details_attributes_0_room").prop('disabled', false);
-  });
-});
