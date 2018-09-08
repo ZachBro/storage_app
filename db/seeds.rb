@@ -38,22 +38,22 @@ Ticket.create!(number: "300007", name: "McDonald. R", details_attributes:
 Employee.find(5).update_attribute(:active, false)
 
 
-# time_one = Time.now
-# 100000.times do |d|
-#   if (rand(1..1000) > 996)
-#     a = Ticket.create!(number: d.to_s.rjust(6, "100000"), name: Faker::Name.name[0..24], details_attributes:
-#     [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample),
-#     aasm_state: (rand(1..10) > 8 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"),
-#     s_employee_id: rand(300000..300003).to_s}])
-#     unless a.details.first.aasm_state == "RNR"
-#       a.details.first.update_attribute(:room, ApplicationHelper::ROOMS.sample)
-#     end
-#   else
-#     Ticket.create!(number: d.to_s.rjust(6, "100000"), name: Faker::Name.name[0..24], active: false, details_attributes:
-#     [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample), room: ApplicationHelper::ROOMS.sample,
-#     aasm_state: (rand(1..10) > 8 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"), s_employee_id: rand(300000..300003).to_s, retrieved_employee_id: ["1", "2", "3"].sample}])
-#   end
-# end
-# time_two = Time.now
-# total_time = time_two - time_one
-# puts total_time
+time_one = Time.now
+1000.times do |d|
+  if (rand(1..10) > 7)
+    a = Ticket.create!(number: d.to_s.rjust(6, "100000"), name: Faker::Name.name[0..24], details_attributes:
+    [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample),
+    aasm_state: (rand(1..10) > 7 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"),
+    s_employee_id: rand(300000..300003).to_s}])
+    unless a.details.first.aasm_state == "RNR"
+      a.details.first.update_attribute(:room, ApplicationHelper::ROOMS.sample)
+    end
+  else
+    Ticket.create!(number: d.to_s.rjust(6, "100000"), name: Faker::Name.name[0..24], active: false, details_attributes:
+    [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample), room: ApplicationHelper::ROOMS.sample,
+    aasm_state: (rand(1..10) > 8 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"), s_employee_id: rand(300000..300003).to_s, retrieved_employee_id: ["1", "2", "3"].sample}])
+  end
+end
+time_two = Time.now
+total_time = time_two - time_one
+puts total_time
