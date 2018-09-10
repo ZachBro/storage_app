@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get  '/home_rnr',    to: 'pages#home_rnr', as: :rnr
   get  '/home_lt',     to: 'pages#home_lt',  as: :lt
   resources :pages
+  resources :employees
   resources :search
   resources :tickets do
     resources :details

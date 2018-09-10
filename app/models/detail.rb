@@ -14,8 +14,10 @@ class Detail < ApplicationRecord
           { in: Employee.where(active: true).pluck(:id_number).map!(&:to_s) }, on: [:create, :edit]
   validates :r_employee_id, inclusion:
           { in: Employee.where(active: true).pluck(:id_number).map!(&:to_s) }, on: :update
+  validates :aasm_state, inclusion: { in: ["ST", "RNR", "LT"] }
   before_save { self.location = location.upcase }
   before_save :store_employee
+  before_save :remove_room_if_rnr
   before_update :store_employee
   before_update :retrieve_employee
 
@@ -26,6 +28,12 @@ class Detail < ApplicationRecord
   end
 
   private
+
+    def remove_room_if_rnr
+      if aasm_state == "RNR"
+        self.room = nil
+      end
+    end
 
     def store_employee
       return unless stored_employee_id.nil?

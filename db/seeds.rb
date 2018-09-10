@@ -1,12 +1,12 @@
-Employee.create!(id_number: "300000", name:  "Fred", active: true)
+Employee.create!(id_number: "300000", name:  "Fred Bartell", active: true)
 
-Employee.create!(id_number: "300001", name:  "Bob", active: true)
+Employee.create!(id_number: "300001", name:  "Bob Ziemann", active: true)
 
-Employee.create!(id_number: "300002", name:  "Steve", active: true)
+Employee.create!(id_number: "300002", name:  "Steve Nolan", active: true)
 
-Employee.create!(id_number: "300003", name:  "Nick", active: true)
+Employee.create!(id_number: "300003", name:  "Nick Winterville", active: true)
 
-Employee.create!(id_number: "300004", name: "Mitch", active: true)
+Employee.create!(id_number: "300004", name: "Mitch Zemlak", active: true)
 
 Ticket.create!(number: "300000", name: "Smith. J", details_attributes:
           [{amount: "1", location: "1A", room: "1010", aasm_state: "ST", s_employee_id: "300000"},
@@ -39,15 +39,13 @@ Employee.find(5).update_attribute(:active, false)
 
 
 time_one = Time.now
-100000.times do |d|
-  if (rand(1..1000) > 996)
-    a = Ticket.create!(number: d.to_s.rjust(6, "100000"), name: Faker::Name.name[0..24], details_attributes:
-    [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample),
-    aasm_state: (rand(1..10) > 8 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"),
+1000.times do |d|
+  if (rand(1..10) > 7)
+    Ticket.create!(number: d.to_s.rjust(6, "100000"), name: Faker::Name.name[0..24], details_attributes:
+    [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample), room: ApplicationHelper::ROOMS.sample,
+    aasm_state: (rand(1..10) > 7 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"),
     s_employee_id: rand(300000..300003).to_s}])
-    unless a.details.first.aasm_state == "RNR"
-      a.details.first.update_attribute(:room, ApplicationHelper::ROOMS.sample)
-    end
+
   else
     Ticket.create!(number: d.to_s.rjust(6, "100000"), name: Faker::Name.name[0..24], active: false, details_attributes:
     [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample), room: ApplicationHelper::ROOMS.sample,

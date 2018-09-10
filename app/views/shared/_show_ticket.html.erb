@@ -1,7 +1,7 @@
 <div class="text-center">
   <h1>
     <strong>
-      <a href="<%= ticket_path(@ticket.id) %>"> <%= @ticket.number %> </a>
+      <%= @ticket.number %>
     </strong>
   </h1>
 
@@ -30,12 +30,10 @@
             <td class="align-middle"><%= d.location %></td>
             <td class="align-middle"><%= d.room %></td>
             <td class="align-middle"><%= d.comment %></td>
-            <td class="align-middle"><%= d.stored_employee.id_number %>
-              - <%= d.stored_employee.name %>
+            <td class="align-middle"><a href="/employees/<%= d.stored_employee.id %>"><%= d.stored_employee.id_number %></a>
               @ <%= d.created_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
             <% if d.retrieved_employee %>
-              <td class="align-middle"><%= d.retrieved_employee.id_number %>
-               - <%= d.retrieved_employee.name %>
+              <td class="align-middle"><a href="/employees/<%= d.retrieved_employee.id %>"><%= d.retrieved_employee.id_number %></a>
                @ <%= d.updated_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
             <% else %>
             <td class="align-middle"> - </td>
@@ -56,7 +54,25 @@
 <div class="form-container">
   <%= form_for @ticket, method: "post" do |f| %>
     <%= f.fields_for :details, f.object.new_detail do |d| %>
-      <div class="text-center">
+      <noscript>
+        <div class="text-center">
+          <div class="btn-group btn-group-toggle">
+            <%= d.label :aasm_state, 'ST' %>
+            <%= d.radio_button :aasm_state, :ST, :autocomplete => "off" %>
+
+            <%= d.label :aasm_state, 'RNR' %>
+            <%= d.radio_button :aasm_state, :RNR, :autocomplete => "off" %>
+
+
+            <%= d.label :aasm_state, 'LT' %>
+            <%= d.radio_button :aasm_state, :LT, :autocomplete => "off" %>
+          </div>
+        </div>
+        <style type="text/css">
+          #js-radio-button { display:none; }
+        </style>
+      </noscript>
+      <div class="text-center" id="js-radio-button">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
           <%= d.label :aasm_state, 'ST', :id => "ST_button", :class => "btn btn-secondary active" do %>ST
             <%= d.radio_button :aasm_state, :ST, :id => "option1", :autocomplete => "off" %>
