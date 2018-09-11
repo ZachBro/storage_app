@@ -2,7 +2,7 @@
 
 <div class="text-center">
   <div class="btn-group btn-group-toggle btn-group-justified" data-toggle="buttons">
-    <%= link_to "ST", "/current_st", :class => "btn btn-group-toggle btn-secondary", :id => "st", remote: true %>
+    <%= link_to "ST", "/current_st", :class => "btn btn-group-toggle btn-secondary active", :id => "st", remote: true %>
     <%= link_to "RNR", "/current_rnr", :class => "btn btn-group-toggle btn-secondary", :id => "rnr", remote: true %>
     <%= link_to "LT", "/current_lt", :class => "btn  btn-group-toggle btn-secondary", :id => "lt", remote: true %>
   </div>
@@ -11,4 +11,5 @@
 
 
 <div id="content">
+  <%= render 'current_st' %>
 </div>

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get  '/current_st',  to: 'pages#current_st'
   get  '/current_rnr', to: 'pages#current_rnr'
   get  '/current_lt',  to: 'pages#current_lt'
-  get  '/home',        to: 'pages#home',     as: :st
+  get  '/home_st',     to: 'pages#home_st',  as: :st
   get  '/home_rnr',    to: 'pages#home_rnr', as: :rnr
   get  '/home_lt',     to: 'pages#home_lt',  as: :lt
   resources :pages
