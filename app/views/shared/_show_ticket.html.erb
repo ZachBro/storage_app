@@ -109,7 +109,10 @@
         </div>
         <%= d.text_field :room, :id => "ticket_details_attributes_0_room_num", :autocomplete => "off", :value =>
         (@ticket.errors.any? ? params[:ticket][:details_attributes]['0'][:room]
-          : @ticket.latest_details.room), :class => "form-control" %>
+          : @ticket.latest_details.room unless
+          @ticket.latest_details.r_employee_id.present? ||
+          @ticket.latest_details.errors[:r_employee_id].present?),
+          :class => "form-control" %>
       </div>
       <div class="input-group">
         <div class="input-group-prepend">

@@ -1,4 +1,4 @@
-<% unless @ticket.latest_details.errors[:r_employee_id].present? %>
+<% unless @ticket.latest_details.errors[:r_employee_id].present? || @ticket.latest_details.r_employee_id.present? %>
   <% if @ticket.errors.any? %>
     <div id="error_explanation">
       <div class="alert alert-danger">

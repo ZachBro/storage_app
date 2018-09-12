@@ -62,7 +62,7 @@ class SearchController < ApplicationController
         paginate(:page => params[:page])
     end
     respond_to do |format|
-      format.html { redirect_to root_path(params.permit(:room, :name)) }
+      format.html { redirect_to root_path(params.permit(:room, :name, :page)) }
       format.js
     end
   end
