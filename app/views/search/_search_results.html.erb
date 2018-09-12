@@ -12,7 +12,9 @@
     </table>
     <%= will_paginate @tickets %>
   <% else %>
-    <p> No Records Found </p>
+    <div class="form-container text-center alert alert-danger">
+      <p class="no-records">No Records Match</p>
+    </div>
   <% end %>
 <% end %>
 <br>

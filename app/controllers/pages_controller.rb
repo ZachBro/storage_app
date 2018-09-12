@@ -82,7 +82,7 @@ class PagesController < ApplicationController
   private
 
     def find_tickets(state)
-      @match_state = Ticket.where(active: true).includes(details: [:stored_employee, :retrieved_employee]).where("aasm_state = ?", state).references(:details).paginate(:page => params[:"page#{state}"]).distinct.to_a
+      @match_state = Ticket.where(active: true).includes(details: [:stored_employee]).where("aasm_state = ?", state).references(:details).paginate(:page => params[:"page#{state}"]).distinct.to_a
       only_details_first_match_state(state, @match_state)
     end
 
