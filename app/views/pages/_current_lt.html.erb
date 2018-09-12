@@ -4,6 +4,8 @@
     <%= render "current", current: @current_lt %>
   <%= will_paginate @match_state, :param_name => 'pageLT' %>
   <% else %>
-    <p>No LT right now</p>
+    <div class="form-container text-center alert alert-success">
+      <p class="no-records">No Long Term Storage at this time</p>
+    </div>
   <% end %>
 </div>

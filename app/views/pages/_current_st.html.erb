@@ -4,6 +4,8 @@
     <%= render "current", current: @current_st %>
   <%= will_paginate @match_state, :param_name => 'pageST' %>
   <% else %>
-    <p>No ST right now</p>
+    <div class="form-container text-center alert alert-success">
+      <p class="no-records">No Short Term Storage at this time</p>
+    </div>
   <% end %>
 </div>

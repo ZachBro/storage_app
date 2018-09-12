@@ -4,6 +4,8 @@
     <%= render "current", current: @current_rnr %>
   <%= will_paginate @match_state, :param_name => 'pageRNR' %>
   <% else %>
-    <p>No RNR right now</p>
+    <div class="form-container text-center alert alert-success">
+      <p class="no-records">No Room Not Ready Storage at this time</p>
+    </div>
   <% end %>
 </div>
