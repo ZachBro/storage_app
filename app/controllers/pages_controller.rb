@@ -4,37 +4,27 @@ class PagesController < ApplicationController
 
   def home
     if params[:name].present? && params[:room].present?
-      @tickets = Ticket.
-        includes(details: [:stored_employee, :retrieved_employee]).
-        where("room = ?", "#{params[:room]}").references(:details).
+      @tickets = Ticket.joins(:details).where("room = ?", "#{params[:room]}").
         where("tickets.name like ?", "#{params[:name].upcase}%").
         where(active: true).distinct.or(
-        Ticket.
-        includes(details: [:stored_employee, :retrieved_employee]).
-        where("room = ?", "#{params[:room]}").references(:details).
+        Ticket.joins(:details).where("room = ?", "#{params[:room]}").
         where("tickets.name like ?", "#{params[:name].upcase}%").
         where("tickets.updated_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day).
-        distinct).
+        distinct).preload(details: [:stored_employee, :retrieved_employee]).
         paginate(:page => params[:page])
     elsif params[:name].present?
-      @tickets = Ticket.
-        includes(details: [:stored_employee, :retrieved_employee]).
-        where("name like ?", "#{params[:name].upcase}%").where(active: true).or(
-        Ticket.
-        includes(details: [:stored_employee, :retrieved_employee]).
-        where("name like ?", "#{params[:name].upcase}%").
+      @tickets = Ticket.where("name like ?", "#{params[:name].upcase}%").
+        where(active: true).or(
+        Ticket.where("name like ?", "#{params[:name].upcase}%").
         where("updated_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day)).
+        preload(details: [:stored_employee, :retrieved_employee]).
         paginate(:page => params[:page])
     elsif params[:room].present?
-      @tickets = Ticket.
-        includes(details: [:stored_employee, :retrieved_employee]).
-        where("room = ?", "#{params[:room]}").references(:details).
+      @tickets = Ticket.joins(:details).where("room = ?", "#{params[:room]}").
         where(active: true).distinct.or(
-        Ticket.
-        includes(details: [:stored_employee, :retrieved_employee]).
-        where("room = ?", "#{params[:room]}").references(:details).
+        Ticket.joins(:details).where("room = ?", "#{params[:room]}").
         where("tickets.updated_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day).
-        distinct).
+        distinct).preload(details: [:stored_employee, :retrieved_employee]).
         paginate(:page => params[:page])
     end
   end
@@ -82,9 +72,8 @@ class PagesController < ApplicationController
   private
 
     def find_tickets(state)
-      @match_state = Ticket.where(active: true).joins(:details).where("aasm_state = ?", state).preload(details: [:stored_employee]).
-      distinct.select { |e| e.latest_details.aasm_state == state }
-      @match_state = @match_state.paginate(:page => params[:"page#{state}"])
+      @match_state = Ticket.where(active: true).where("aasm_state = ?", state).preload(details: [:stored_employee]).paginate(:page => params[:"page#{state}"])
+      # @match_state = @match_state.paginate(:page => params[:"page#{state}"])
     end
 
     # def only_details_first_match_state(state, match_state)

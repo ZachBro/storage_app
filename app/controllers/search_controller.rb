@@ -5,22 +5,22 @@ class SearchController < ApplicationController
       search_end = Date.parse(params[:de]).in_time_zone("Melbourne").at_end_of_day
       if params[:name].present? && params[:room].present?
         @tickets = Ticket.
-          includes(details: [:stored_employee, :retrieved_employee]).
-          where("room = ?", "#{params[:room]}").references(:details).
-          where("tickets.name like ?", "#{params[:name].upcase}%").
+          joins(:details).where("room = ?", "#{params[:room]}").
+          where("name like ?", "#{params[:name].upcase}%").
           where(:created_at => search_start..search_end).
+          preload(details: [:stored_employee, :retrieved_employee]).
           distinct.paginate(:page => params[:page])
       elsif params[:name].present?
         @tickets = Ticket.
-          includes(details: [:stored_employee, :retrieved_employee]).
           where("name like ?", "#{params[:name].upcase}%").
           where(:created_at => search_start..search_end).
-          distinct.paginate(:page => params[:page])
+          preload(details: [:stored_employee, :retrieved_employee]).
+          paginate(:page => params[:page])
       elsif params[:room].present?
         @tickets = Ticket.
-          includes(details: [:stored_employee, :retrieved_employee]).
-          where("room = ?", "#{params[:room]}").references(:details).
+          joins(:details).where("room = ?", "#{params[:room]}").
           where(:created_at => search_start..search_end).
+          preload(details: [:stored_employee, :retrieved_employee]).
           distinct.paginate(:page => params[:page])
       end
     end
@@ -28,37 +28,27 @@ class SearchController < ApplicationController
 
   def show
     if params[:name].present? && params[:room].present?
-      @tickets = Ticket.
-        includes(details: [:stored_employee, :retrieved_employee]).
-        where("room = ?", "#{params[:room]}").references(:details).
+      @tickets = Ticket.joins(:details).where("room = ?", "#{params[:room]}").
         where("tickets.name like ?", "#{params[:name].upcase}%").
         where(active: true).distinct.or(
-        Ticket.
-        includes(details: [:stored_employee, :retrieved_employee]).
-        where("room = ?", "#{params[:room]}").references(:details).
+        Ticket.joins(:details).where("room = ?", "#{params[:room]}").
         where("tickets.name like ?", "#{params[:name].upcase}%").
         where("tickets.updated_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day).
-        distinct).
+        distinct).preload(details: [:stored_employee, :retrieved_employee]).
         paginate(:page => params[:page])
     elsif params[:name].present?
-      @tickets = Ticket.
-        includes(details: [:stored_employee, :retrieved_employee]).
-        where("name like ?", "#{params[:name].upcase}%").where(active: true).or(
-        Ticket.
-        includes(details: [:stored_employee, :retrieved_employee]).
-        where("name like ?", "#{params[:name].upcase}%").
+      @tickets = Ticket.where("name like ?", "#{params[:name].upcase}%").
+        where(active: true).or(
+        Ticket.where("name like ?", "#{params[:name].upcase}%").
         where("updated_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day)).
+        preload(details: [:stored_employee, :retrieved_employee]).
         paginate(:page => params[:page])
     elsif params[:room].present?
-      @tickets = Ticket.
-        includes(details: [:stored_employee, :retrieved_employee]).
-        where("room = ?", "#{params[:room]}").references(:details).
+      @tickets = Ticket.joins(:details).where("room = ?", "#{params[:room]}").
         where(active: true).distinct.or(
-        Ticket.
-        includes(details: [:stored_employee, :retrieved_employee]).
-        where("room = ?", "#{params[:room]}").references(:details).
+        Ticket.joins(:details).where("room = ?", "#{params[:room]}").
         where("tickets.updated_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day).
-        distinct).
+        distinct).preload(details: [:stored_employee, :retrieved_employee]).
         paginate(:page => params[:page])
     end
     respond_to do |format|

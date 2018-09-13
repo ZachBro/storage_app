@@ -42,9 +42,11 @@ ActiveRecord::Schema.define(version: 2018_08_03_014226) do
   create_table "tickets", force: :cascade do |t|
     t.string "number"
     t.string "name"
+    t.string "aasm_state"
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["aasm_state"], name: "index_tickets_on_aasm_state"
     t.index ["created_at"], name: "index_tickets_on_created_at"
     t.index ["name"], name: "index_tickets_on_name"
     t.index ["number"], name: "index_tickets_on_number", unique: true

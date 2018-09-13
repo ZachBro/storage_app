@@ -1,5 +1,6 @@
 class Ticket < ApplicationRecord
-  attr_accessor :r_employee_id, :assigning_active
+  include AASM
+  attr_accessor :r_employee_id, :state_counter
   validates :number, presence: true, length: { is: 6 }, uniqueness: true, on: :create
   validates :name,   presence: true, length: { maximum: 25 }, on: :create
   has_many :details
@@ -7,9 +8,17 @@ class Ticket < ApplicationRecord
   has_many :retrieved_employees, through: :details
   accepts_nested_attributes_for :details
   before_save  { self.name = name.upcase }
+  after_create :assign_current_state, unless: :state_counter
   after_update :assign_active
   default_scope -> { order(updated_at: :desc) }
+  after_update :assign_current_state, unless: :state_counter
 
+  aasm do
+    state :ST
+    state :RNR
+    state :LT
+    state :Deactive
+  end
 
   def latest_details
     details.first
@@ -28,6 +37,15 @@ class Ticket < ApplicationRecord
   def assign_active
     unless active == !latest_details_has_retrieved_employee?
       update_attribute(:active, !latest_details_has_retrieved_employee?)
+    end
+  end
+
+  def assign_current_state
+    self.state_counter = true
+    if !active
+      self.update_attribute(:aasm_state, "Deactive")
+    else
+      self.update_attribute(:aasm_state, latest_details.aasm_state)
     end
   end
 end
