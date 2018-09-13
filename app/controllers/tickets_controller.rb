@@ -73,6 +73,6 @@ class TicketsController < ApplicationController
     end
 
     def set_ticket
-      @ticket = Ticket.includes(details: [:stored_employee, :retrieved_employee]).find(params[:id])
+      @ticket = Ticket.find(params[:id])
     end
 end
