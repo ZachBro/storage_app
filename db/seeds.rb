@@ -40,7 +40,7 @@ Employee.find(5).update_attribute(:active, false)
 
 time_one = Time.now
 1000.times do |d|
-  if (rand(1..100) > 96)
+  if (rand(1..10) > 6)
     Ticket.create!(number: d.to_s.rjust(6, "000000"), name: Faker::Name.name[0..24], details_attributes:
     [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample), room: ApplicationHelper::ROOMS.sample,
     aasm_state: (rand(1..10) > 7 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"),
