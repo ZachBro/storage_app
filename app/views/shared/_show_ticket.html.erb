@@ -6,7 +6,10 @@
   </h1>
 
   <h3><strong><%= @ticket.name %></strong></h3>
-  <%= link_to("Edit name", {:action => 'show_name', :id => @ticket.id}) %><br><br>
+  <% if @ticket.active %>
+    <%= link_to("Edit name", {:action => 'show_name', :id => @ticket.id}) %><br>
+  <% end %>
+  <br>
   <h3>Current details</h3>
 </div>
 <div class="form-container">
@@ -73,16 +76,34 @@
       </noscript>
       <div class="text-center" id="js-radio-button">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <%= d.label :aasm_state, 'ST', :id => "ST_button", :class => "btn btn-secondary active" do %>ST
-            <%= d.radio_button :aasm_state, :ST, :id => "option1", :autocomplete => "off" %>
+          <%= d.label :aasm_state, 'ST', :id => "ST_button",
+          :class => "btn btn-secondary" + (params.has_key?(:ticket) ?
+          ((params[:ticket][:details_attributes]['0'][:aasm_state] == "ST") ?
+          " active" : "") : " active") do %>ST
+            <%= d.radio_button :aasm_state, :ST, :checked =>
+            (params.has_key?(:ticket) ?
+            (params[:ticket][:details_attributes]['0'][:aasm_state] == "ST") : true),
+            :id => "option1", :autocomplete => "off" %>
           <% end %>
 
-          <%= d.label :aasm_state, 'RNR', :id => "RNR_button", :class => "btn btn-secondary" do %>RNR
-            <%= d.radio_button :aasm_state, :RNR, :id => "option2", :autocomplete => "off" %>
+          <%= d.label :aasm_state, 'RNR', :id => "RNR_button",
+          :class => "btn btn-secondary" + ((params.has_key?(:ticket) &&
+          (params[:ticket][:details_attributes]['0'][:aasm_state] == "RNR")) ?
+          " active" : "") do %>RNR
+            <%= d.radio_button :aasm_state, :RNR, :checked =>
+            (params.has_key?(:ticket) ?
+            (params[:ticket][:details_attributes]['0'][:aasm_state] == "RNR") : false),
+            :id => "option2", :autocomplete => "off" %>
           <% end %>
 
-          <%= d.label :aasm_state, 'LT', :id => "LT_button", :class => "btn btn-secondary" do %>LT
-            <%= d.radio_button :aasm_state, :LT, :id => "option3", :autocomplete => "off" %>
+          <%= d.label :aasm_state, 'LT', :id => "LT_button",
+          :class => "btn btn-secondary" + ((params.has_key?(:ticket) &&
+          (params[:ticket][:details_attributes]['0'][:aasm_state] == "LT")) ?
+          " active" : "") do %>LT
+            <%= d.radio_button :aasm_state, :LT, :checked =>
+            (params.has_key?(:ticket) ?
+            (params[:ticket][:details_attributes]['0'][:aasm_state] == "LT") : false),
+            :id => "option3", :autocomplete => "off" %>
           <% end %>
         </div>
       </div><br>
@@ -92,7 +113,8 @@
         </div>
         <%= d.text_field :amount, :autocomplete => "off", :value =>
         (@ticket.errors.any? ? params[:ticket][:details_attributes]['0'][:amount]
-          : @ticket.latest_details.amount), :class => "form-control" %>
+          : @ticket.latest_details.amount),
+          :class => (@ticket.errors[:"details.amount"].present? ? "is-invalid form-control" : "form-control") %>
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
@@ -100,7 +122,8 @@
         </div>
         <%= d.text_field :location, :autocomplete => "off", :value =>
         (@ticket.errors.any? ? params[:ticket][:details_attributes]['0'][:location]
-          : @ticket.latest_details.location), :class => "form-control" %>
+          : @ticket.latest_details.location),
+          :class => (@ticket.errors[:"details.location"].present? ? "is-invalid form-control" : "form-control") %>
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
@@ -111,7 +134,7 @@
           : @ticket.latest_details.room unless
           @ticket.latest_details.r_employee_id.present? ||
           @ticket.latest_details.errors[:r_employee_id].present?),
-          :class => "form-control" %>
+          :class => (@ticket.errors[:"details.room"].present? ? "is-invalid form-control" : "form-control") %>
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
@@ -119,15 +142,16 @@
         </div>
         <%= d.text_field :comment, :autocomplete => "off", :value =>
         (@ticket.errors.any? ? params[:ticket][:details_attributes]['0'][:comment]
-          : @ticket.latest_details.comment), :class => "form-control" %>
+          : @ticket.latest_details.comment),
+          :class => (@ticket.errors[:"details.comment"].present? ? "is-invalid form-control" : "form-control") %>
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
           <%= d.label :s_employee_id, "Employee", :class => "input-group-text input-group-addon" %>
         </div>
         <%= d.text_field :s_employee_id, :autocomplete => "off", :value =>
-        (@ticket.errors.any? ? params[:ticket][:details_attributes]['0'][:s_employee_id]
-          : nil), :class => "form-control" %>
+        (@ticket.errors.any? ? params[:ticket][:details_attributes]['0'][:s_employee_id] : nil),
+          :class => (@ticket.errors[:"details.s_employee_id"].present? ? "is-invalid form-control" : "form-control") %>
       </div>
     <% end %><br>
     <div class="text-center">

@@ -72,17 +72,6 @@ class PagesController < ApplicationController
   private
 
     def find_tickets(state)
-      @match_state = Ticket.where(active: true).where("aasm_state = ?", state).preload(details: [:stored_employee]).paginate(:page => params[:"page#{state}"])
-      # @match_state = @match_state.paginate(:page => params[:"page#{state}"])
+      Ticket.where(active: true).where("aasm_state = ?", state).preload(details: [:stored_employee]).paginate(:page => params[:"page#{state}"], :per_page => 50)
     end
-
-    # def only_details_first_match_state(state, match_state)
-    #   details_first_match_state = []
-    #   match_state.each do |f|
-    #     if f.latest_details.aasm_state == state
-    #       details_first_match_state.push(f)
-    #     end
-    #   end
-    # return details_first_match_state
-    # end
 end

@@ -2,7 +2,7 @@ class Ticket < ApplicationRecord
   include AASM
   attr_accessor :r_employee_id, :state_counter
   validates :number, presence: true, length: { is: 6 }, uniqueness: true, on: :create
-  validates :name,   presence: true, length: { maximum: 25 }, on: :create
+  validates :name,   presence: true, length: { maximum: 25 }, on: [:create, :update]
   has_many :details
   has_many :stored_employees,    through: :details
   has_many :retrieved_employees, through: :details

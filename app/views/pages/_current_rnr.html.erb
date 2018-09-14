@@ -1,8 +1,11 @@
 <div>
   <% if @current_rnr.any? %>
-  <%= will_paginate @match_state, :param_name => 'pageRNR' %>
+  <div class="text-center">
+    <h2>Room Not Ready</h2>
+  </div>
+  <%= will_paginate @current_rnr, :param_name => 'pageRNR' %>
     <%= render "current", current: @current_rnr %>
-  <%= will_paginate @match_state, :param_name => 'pageRNR' %>
+  <%= will_paginate @current_rnr, :param_name => 'pageRNR' %>
   <% else %>
     <div class="form-container text-center alert alert-success">
       <p class="no-records">No Room Not Ready Storage at this time</p>

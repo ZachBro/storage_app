@@ -1,8 +1,11 @@
 <div>
   <% if @current_lt.any? %>
-  <%= will_paginate @match_state, :param_name => 'pageLT' %>
+  <div class="text-center">
+    <h2>Long Term</h2>
+  </div>
+  <%= will_paginate @current_lt, :param_name => 'pageLT' %>
     <%= render "current", current: @current_lt %>
-  <%= will_paginate @match_state, :param_name => 'pageLT' %>
+  <%= will_paginate @current_lt, :param_name => 'pageLT' %>
   <% else %>
     <div class="form-container text-center alert alert-success">
       <p class="no-records">No Long Term Storage at this time</p>

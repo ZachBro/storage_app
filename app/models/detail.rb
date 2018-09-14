@@ -7,9 +7,10 @@ class Detail < ApplicationRecord
   belongs_to :retrieved_employee, class_name: 'Employee',
               foreign_key: 'retrieved_employee_id', optional: true
   default_scope -> { order(created_at: :desc) }
-  validates :amount, presence: true, length: { maximum: 3 }, numericality: { only_integer: true }, on: [:create, :edit]
+  validates :amount, presence: true, length: { maximum: 2 }, numericality: { only_integer: true }, on: [:create, :edit]
   validates :location, presence: true, length: { maximum: 20 }, on: [:create, :edit]
   validates :room, inclusion: { in: ApplicationHelper::ROOMS }, :allow_nil => true, on: [:create, :edit, :update]
+  validates :comment, length: { maximum: 40 }
   validates :s_employee_id, inclusion:
           { in: Employee.where(active: true).pluck(:id_number).map!(&:to_s) }, on: [:create, :edit]
   validates :r_employee_id, inclusion:

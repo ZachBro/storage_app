@@ -1,8 +1,11 @@
 <div>
   <% if @current_st.any? %>
-  <%= will_paginate @match_state, :param_name => 'pageST' %>
+  <div class="text-center">
+    <h2>Short Term</h2>
+  </div>
+  <%= will_paginate @current_st, :param_name => 'pageST' %>
     <%= render "current", current: @current_st %>
-  <%= will_paginate @match_state, :param_name => 'pageST' %>
+  <%= will_paginate @current_st, :param_name => 'pageST' %>
   <% else %>
     <div class="form-container text-center alert alert-success">
       <p class="no-records">No Short Term Storage at this time</p>

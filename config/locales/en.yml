@@ -40,12 +40,14 @@ en:
               blank: "Amount is required"
               not_a_number: "Amount must be a number"
               not_an_integer: "Amount must be a number"
-              too_long: "Amount is too long (Max 3 characters)"
+              too_long: "Amount is too high (Max 99)"
             location:
               blank: "Location is required"
               too_long: "Location is too long (Max 20 characters)"
             room:
               inclusion: "Invalid Room No."
+            comment:
+              too_long: "Comment is too long (Max 40 characters)"
             s_employee_id:
               inclusion: "Invalid Employee ID"
             r_employee_id:

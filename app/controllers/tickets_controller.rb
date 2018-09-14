@@ -56,12 +56,19 @@ class TicketsController < ApplicationController
   end
 
   def show_name
+    unless @ticket.active
+      redirect_to @ticket
+    end
   end
 
   def edit_name
-    if @ticket.active && @ticket.update(edit_name_params)
-      flash[:success] = "Successfully updated name for ticket #{@ticket.number}"
-      redirect_to @ticket
+    if @ticket.active
+      if @ticket.update(edit_name_params)
+        flash[:success] = "Successfully updated name for ticket #{@ticket.number}"
+        redirect_to @ticket
+      else
+        render :action => "show_name"
+      end
     else
       flash[:danger] = "Please sign ticket in before changing name"
       redirect_to @ticket
