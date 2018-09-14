@@ -57,3 +57,6 @@ en:
             name:
               blank: "Name is required"
               too_long: "Name is too long (Max 25 characters)"
+            number:
+              blank: "Number is required"
+              wrong_length: "Number is the wrong length (Must be 6 characters)"

@@ -1,10 +1,11 @@
 class TicketsController < ApplicationController
   attr_accessor :number
-  before_action :set_ticket, only: [:show, :edit, :show_name, :edit_name, :update, :destroy]
+  before_action :set_ticket, only: [:edit, :show_name, :edit_name, :update, :destroy]
 
   def new
     @ticket = Ticket.new
     @ticket.new_detail
+    redirect_to root_path unless params.has_key?(:number) && params[:number].length == 6
   end
 
   def create
@@ -35,6 +36,7 @@ class TicketsController < ApplicationController
   end
 
   def show
+    @ticket = Ticket.preload(details: [:stored_employee, :retrieved_employee]).find(params[:id])
   end
 
   def update
