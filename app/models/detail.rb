@@ -30,6 +30,7 @@ class Detail < ApplicationRecord
   private
 
     def remove_room_if_rnr
+      return if r_employee_id.present?
       if aasm_state == "RNR"
         self.room = nil
       end

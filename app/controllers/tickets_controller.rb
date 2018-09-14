@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   attr_accessor :number
-  before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  before_action :set_ticket, only: [:show, :edit, :show_name, :edit_name, :update, :destroy]
 
   def new
     @ticket = Ticket.new
@@ -55,6 +55,20 @@ class TicketsController < ApplicationController
     end
   end
 
+  def show_name
+  end
+
+  def edit_name
+    if @ticket.active && @ticket.update(edit_name_params)
+      flash[:success] = "Successfully updated name for ticket #{@ticket.number}"
+      redirect_to @ticket
+    else
+      flash[:danger] = "Please sign ticket in before changing name"
+      redirect_to @ticket
+    end
+  end
+
+
   private
 
     def ticket_params
@@ -70,6 +84,10 @@ class TicketsController < ApplicationController
     def update_detail_params
       params.require(:ticket).permit(details_attributes:
                               [:amount, :location, :room, :comment, :aasm_state, :s_employee_id, :id])
+    end
+
+    def edit_name_params
+      params.require(:ticket).permit(:id, :name)
     end
 
     def set_ticket

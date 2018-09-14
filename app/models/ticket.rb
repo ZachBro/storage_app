@@ -10,8 +10,8 @@ class Ticket < ApplicationRecord
   before_save  { self.name = name.upcase }
   after_create :assign_current_state, unless: :state_counter
   after_update :assign_active
-  default_scope -> { order(updated_at: :desc) }
   after_update :assign_current_state, unless: :state_counter
+  default_scope -> { order(updated_at: :desc) }
 
   aasm do
     state :ST
@@ -43,9 +43,9 @@ class Ticket < ApplicationRecord
   def assign_current_state
     self.state_counter = true
     if !active
-      self.update_attribute(:aasm_state, "Deactive")
+      update_attribute(:aasm_state, "Deactive")
     else
-      self.update_attribute(:aasm_state, latest_details.aasm_state)
+      update_attribute(:aasm_state, latest_details.aasm_state)
     end
   end
 end

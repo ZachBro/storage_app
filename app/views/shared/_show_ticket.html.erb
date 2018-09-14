@@ -5,9 +5,8 @@
     </strong>
   </h1>
 
-  <h3>
-    <strong><%= @ticket.name %></strong>
-  </h3>
+  <h3><strong><%= @ticket.name %></strong></h3>
+  <%= link_to("Edit name", {:action => 'show_name', :id => @ticket.id}) %><br><br>
   <h3>Current details</h3>
 </div>
 <div class="form-container">
