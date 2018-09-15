@@ -1,7 +1,7 @@
 <div>
   <% if @current_rnr.any? %>
   <div class="text-center">
-    <h2>Room Not Ready</h2>
+    <h2 class="current-heading">Room Not Ready</h2>
   </div>
   <%= will_paginate @current_rnr, :param_name => 'pageRNR' %>
     <%= render "current", current: @current_rnr %>

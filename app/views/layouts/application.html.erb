@@ -17,10 +17,10 @@
             <li class="nav-item <%= ((current_page?('/') || current_page?('/home_st') || current_page?('/home_rnr') || current_page?('/home_lt')) ? "active" : "") %>">
               <a class="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item <%= (current_page?('/search') ? "active" : "") %>">
+            <li class="nav-item <%= ((current_page?('/search') || (current_page?('/search/index'))) ? "active" : "") %>">
               <a class="nav-link" href="/search">Advanced Search</a>
             </li>
-            <li class="nav-item <%= (current_page?('/employees') ? "active" : "") %>">
+            <li class="nav-item <%= ((current_page?('/employees') || (current_page?('/employees/'))) ? "active" : "") %>">
               <a class="nav-link" href="/employees">Employees</a>
             </li>
           </ul>

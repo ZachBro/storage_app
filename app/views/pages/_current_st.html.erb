@@ -1,7 +1,7 @@
 <div>
   <% if @current_st.any? %>
   <div class="text-center">
-    <h2>Short Term</h2>
+    <h2 class="current-heading">Short Term</h2>
   </div>
   <%= will_paginate @current_st, :param_name => 'pageST' %>
     <%= render "current", current: @current_st %>
