@@ -5,19 +5,19 @@
   <%= form_tag("/search", :autocomplete => "off", remote: true, method: :get) do %>
     <div class="input-group">
       <div class="input-group-prepend">
-        <%= label_tag(:name, "Guest name", :class => "input-group-text search-form-addon") %>
+        <%= label_tag(:name, "Guest name", :class => "input-group-text search-form-label") %>
       </div>
       <%= text_field_tag(:name, params[:name], :class => "form-control") %>
     </div>
     <div class="input-group">
       <div class="input-group-prepend">
-        <%= label_tag(:room, "Room number", :class => "input-group-text search-form-addon") %>
+        <%= label_tag(:room, "Room number", :class => "input-group-text search-form-label") %>
       </div>
       <%= text_field_tag(:room, params[:room], :class => "form-control") %>
     </div>
     <div class="input-group input-daterange">
       <div class="input-group-prepend">
-        <%= label_tag(:ds, "Created from", :class => "input-group-text search-form-addon") %>
+        <%= label_tag(:ds, "Created from", :class => "input-group-text search-form-label") %>
       </div>
       <%= text_field_tag(:ds, params[:ds], data:{ provide:'datepicker' },
           :value => (params[:ds] ||=
