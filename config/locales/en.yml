@@ -44,6 +44,7 @@ en:
             location:
               blank: "Location is required"
               too_long: "Location is too long (Max 20 characters)"
+              too_short: "Location is too short (Min 2 characters)"
             room:
               inclusion: "Invalid Room No."
             comment:

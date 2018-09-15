@@ -8,8 +8,8 @@ class Detail < ApplicationRecord
               foreign_key: 'retrieved_employee_id', optional: true
   default_scope -> { order(created_at: :desc) }
   validates :amount, presence: true, length: { maximum: 2 }, numericality: { only_integer: true }, on: [:create, :edit]
-  validates :location, presence: true, length: { maximum: 20 }, on: [:create, :edit]
-  validates :room, inclusion: { in: ApplicationHelper::ROOMS }, :allow_nil => true, on: [:create, :edit, :update]
+  validates :location, presence: true, length: { minimum: 2, maximum: 15 }, on: [:create, :edit]
+  validates :room, inclusion: { in: ApplicationHelper::Rooms }, :allow_nil => true, on: [:create, :edit, :update]
   validates :comment, length: { maximum: 40 }
   validates :s_employee_id, inclusion:
           { in: Employee.where(active: true).pluck(:id_number).map!(&:to_s) }, on: [:create, :edit]
