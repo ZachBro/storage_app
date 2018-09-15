@@ -11,11 +11,26 @@
 
   <body>
     <div class="container">
+      <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="collapse navbar-collapse container" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item <%= ((current_page?('/') || current_page?('/home_st') || current_page?('/home_rnr') || current_page?('/home_lt')) ? "active" : "") %>">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item <%= (current_page?('/search') ? "active" : "") %>">
+              <a class="nav-link" href="/search">Advanced Search</a>
+            </li>
+            <li class="nav-item <%= (current_page?('/employees') ? "active" : "") %>">
+              <a class="nav-link" href="/employees">Employees</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <div class="form-container text-center">
         <% flash.each do |message_type, message| %>
           <div class="alert alert-<%= message_type %>"><%= message %></div>
         <% end %>
-      </div>
+      </div><br>
       <%= yield %>
     </div>
   </body>
