@@ -1,0 +1,14 @@
+<% if @employee.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      The form contains <%= pluralize(@employee.errors.keys.count, "error") %>.
+    </div>
+    <ul>
+    <% @employee.errors.each do |attr, msg| %>
+      <% if @employee.errors[attr].first == msg %>
+        <li><%= msg %></li>
+      <% end %>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

@@ -1,0 +1,22 @@
+<div class="text-center">
+  <h1 class="headings">Log In</h1>
+</div>
+<div class="form-container">
+  <%= form_for(:session, url: login_path) do |f| %>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <%= f.label :name, :class => "input-group-text input-group-addon" %>
+      </div>
+      <%= f.text_field :name, :autocomplete => "off", :class => "form-control", :autofocus => true %>
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <%= f.label :password, :class => "input-group-text input-group-addon" %>
+      </div>
+      <%= f.password_field :password, :autocomplete => "off", :class => "form-control" %>
+    </div><br>
+    <div class="text-center">
+      <%= f.submit "Log in", :class => "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>

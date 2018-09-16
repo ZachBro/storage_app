@@ -17,7 +17,7 @@ class Ticket < ApplicationRecord
     state :ST
     state :RNR
     state :LT
-    state :Deactive
+    state :Inactive
   end
 
   def latest_details
@@ -43,7 +43,7 @@ class Ticket < ApplicationRecord
   def assign_current_state
     self.state_counter = true
     if !active
-      update_attribute(:aasm_state, "Deactive")
+      update_attribute(:aasm_state, "Inactive")
     else
       update_attribute(:aasm_state, latest_details.aasm_state)
     end

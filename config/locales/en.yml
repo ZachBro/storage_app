@@ -61,3 +61,11 @@ en:
             number:
               blank: "Number is required"
               wrong_length: "Number is the wrong length (Must be 6 characters)"
+        employee:
+          attributes:
+            name:
+              blank: "Name is required"
+            id_number:
+              blank: "Id number is required"
+              taken: "ID number must be unique"
+              wrong_length: "ID number is the wrong length (Must be 6 characters)"

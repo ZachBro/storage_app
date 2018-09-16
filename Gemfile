@@ -24,6 +24,8 @@ gem 'will_paginate', '~> 3.1.0'
 
 gem 'will_paginate-bootstrap4'
 
+gem 'bcrypt',         '3.1.12'
+
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

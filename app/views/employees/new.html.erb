@@ -1,0 +1,23 @@
+<div class="text-center">
+  <h1 class="headings">New Employee</h1>
+</div>
+<div class="form-container">
+  <%= render 'employees/error_messages' %>
+  <%= form_for @employee do |e| %>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <%= e.label :id_number, "ID number", :class => "input-group-text input-group-addon" %>
+      </div>
+      <%= e.text_field :id_number, :autocomplete => "off", :class => "form-control", :autofocus => true %>
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <%= e.label :name, :class => "input-group-text input-group-addon"%>
+      </div>
+      <%= e.text_field :name, :autocomplete => "off", :class => "form-control" %>
+    </div><br>
+    <div class="text-center">
+      <%= e.submit "Create employee", :class => "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>
