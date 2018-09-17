@@ -8,10 +8,8 @@ class Ticket < ApplicationRecord
   has_many :retrieved_employees, through: :details
   accepts_nested_attributes_for :details
   before_save  { self.name = name.upcase }
-  after_create :assign_current_state, unless: :state_counter
   after_update :assign_active
   after_update :assign_current_state, unless: :state_counter
-  default_scope -> { order(updated_at: :desc) }
 
   aasm do
     state :ST

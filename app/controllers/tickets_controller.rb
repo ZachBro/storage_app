@@ -40,7 +40,10 @@ class TicketsController < ApplicationController
   end
 
   def update
-    if @ticket.update(sign_out_params)
+    if params[:ticket][:details_attributes]['0'][:r_employee_id] == "000000" && @ticket.update(sign_out_params)
+      flash[:success] = "Successfully signed out ticket #{@ticket.number}"
+      redirect_back fallback_location: '/relog'
+    elsif @ticket.update(sign_out_params)
       flash[:success] = "Successfully signed out ticket #{@ticket.number}"
       redirect_to '/'
     else

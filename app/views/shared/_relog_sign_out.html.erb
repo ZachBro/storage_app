@@ -1,0 +1,13 @@
+<td class="align-middle">
+  <%= form_for ticket do |f| %>
+    <%= f.fields_for :details, f.object.latest_details do |d| %>
+      <%= d.hidden_field :updated_at, value: Time.now %>
+      <%= d.hidden_field :r_employee_id, :value => "000000" %>
+      <div class="input-group input-group-sm">        
+        <div class="input-group-append">
+          <%= f.submit "Not signed out - luggage gone", :class => "btn btn-outline-secondary btn-sm" %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</td>

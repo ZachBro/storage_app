@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post   '/login',            to: 'sessions#create'
   delete '/logout',           to: 'sessions#destroy'
   get    '/logout',           to: 'sessions#destroy'
+  get    '/relog',            to: 'pages#relog'
   resources :pages
   resources :employees
   resources :search

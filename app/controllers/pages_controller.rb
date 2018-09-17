@@ -69,9 +69,30 @@ class PagesController < ApplicationController
     @current_lt = find_tickets("LT")
   end
 
+  def relog
+    unordered = Ticket.where(active:true).where("tickets.aasm_state != ?", "LT").
+    joins(:details).preload(details: [:stored_employee]).distinct.to_a
+    @tickets = reorder(unordered).paginate(:page => params[:page])
+  end
+
   private
 
     def find_tickets(state)
-      Ticket.where(active: true).where("aasm_state = ?", state).preload(details: [:stored_employee]).paginate(:page => params[:"page#{state}"], :per_page => 50)
+      Ticket.where(active: true).where("tickets.aasm_state = ?", state).
+      preload(details: [:stored_employee]).order(updated_at: :desc).
+      paginate(:page => params[:"page#{state}"], :per_page => 50)
+    end
+
+    def reorder(unordered)
+      arr = []
+      unordered.each do |d|
+        arr.push([d, d.details.first.location])
+      end
+      arr.sort! { |a, b| a[1] <=> b[1] }
+      tickets = []
+      arr.each do |f|
+        tickets.push(f[0])
+      end
+      return tickets
     end
 end

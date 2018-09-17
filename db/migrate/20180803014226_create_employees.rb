@@ -3,7 +3,7 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
     create_table :employees do |t|
       t.string :id_number
       t.string :name
-      t.boolean :active
+      t.boolean :active, default: true
 
       t.timestamps
     end

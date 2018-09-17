@@ -1,3 +1,7 @@
+User.create!(name: "Bell", password: "foobar", password_confirmation: "foobar")
+
+Employee.create!(id_number: "000000", name: "Not Signed Out", active: true)
+
 Employee.create!(id_number: "300000", name:  "Fred Bartell", active: true)
 
 Employee.create!(id_number: "300001", name:  "Bob Ziemann", active: true)
@@ -39,8 +43,8 @@ Employee.find(5).update_attribute(:active, false)
 
 
 time_one = Time.now
-1000.times do |d|
-  if (rand(1..10) > 6)
+100000.times do |d|
+  if (rand(1..1000) > 996)
     a = (rand(1..10) > 7 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST")
     Ticket.create!(number: d.to_s.rjust(6, "100000"), aasm_state: a, name: Faker::Name.name[0..24], details_attributes:
     [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample), room: ApplicationHelper::Rooms.sample,
@@ -48,7 +52,7 @@ time_one = Time.now
   else
     Ticket.create!(number: d.to_s.rjust(6, "100000"), aasm_state: "Inactive", name: Faker::Name.name[0..24], active: false, details_attributes:
     [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample), room: ApplicationHelper::Rooms.sample,
-    aasm_state: (rand(1..10) > 8 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"), s_employee_id: rand(300000..300003).to_s, retrieved_employee_id: ["1", "2", "3"].sample}])
+    aasm_state: (rand(1..10) > 8 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"), s_employee_id: rand(300000..300003).to_s, retrieved_employee_id: ["2", "3", "4", "5"].sample}])
   end
 end
 time_two = Time.now

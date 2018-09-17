@@ -7,4 +7,8 @@
 <td class="align-middle"><%= ticket.latest_details.comment %></td>
 <td class="align-middle"><a href="/employees/<%= ticket.latest_details.stored_employee.id %>"><%= ticket.latest_details.stored_employee.id_number %></a>
   @ <%= ticket.latest_details.created_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
-<%= render 'shared/sign_out', ticket: ticket %>
+<% if (params[:controller] == 'pages' && %w(relog).include?(params[:action])) %>
+  <%= render 'shared/relog_sign_out', ticket: ticket %>
+<% else %>
+  <%= render 'shared/sign_out', ticket: ticket %>
+<% end %>
