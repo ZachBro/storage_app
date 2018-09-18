@@ -1,0 +1,14 @@
+<%= form_tag sign_out_relog_tickets_path, method: :put do %>
+  <%= render 'current_table_head' %>
+    <tbody>
+      <% current.each do |ticket| %>
+        <tr>
+          <%= render 'tickets/search', ticket: ticket %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="text-center">
+    <%= submit_tag "Sign Out All Checked", :class => "btn btn-secondary btn-lg" %>
+  </div>
+<% end %>

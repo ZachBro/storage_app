@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   resources :search
   resources :tickets do
     resources :details
+    collection do
+      put :sign_out_relog
+    end
   end
   post  '/tickets/:id'      => 'tickets#edit', :as => :create_detail
   patch '/tickets/:id/name' => 'tickets#edit_name'

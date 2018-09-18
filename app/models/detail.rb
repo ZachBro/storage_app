@@ -1,6 +1,6 @@
 class Detail < ApplicationRecord
   include AASM
-  attr_accessor :s_employee_id, :r_employee_id
+  attr_accessor :s_employee_id, :r_employee_id, :relog
   belongs_to :ticket
   belongs_to :stored_employee, class_name: 'Employee',
               foreign_key: 'stored_employee_id', optional: true
