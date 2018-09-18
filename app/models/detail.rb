@@ -7,14 +7,14 @@ class Detail < ApplicationRecord
   belongs_to :retrieved_employee, class_name: 'Employee',
               foreign_key: 'retrieved_employee_id', optional: true
   default_scope -> { order(created_at: :desc) }
-  validates :amount, presence: true, length: { maximum: 2 }, numericality: { only_integer: true }, on: [:create, :edit]
-  validates :location, presence: true, length: { minimum: 2, maximum: 15 }, on: [:create, :edit]
-  validates :room, inclusion: { in: ApplicationHelper::Rooms }, :allow_nil => true, on: [:create, :edit, :update]
+  validates :amount, presence: true, length: { maximum: 2 }, numericality: { only_integer: true }
+  validates :location, presence: true, length: { minimum: 2, maximum: 15 }
+  validates :room, inclusion: { in: ApplicationHelper::Rooms }, :allow_nil => true
   validates :comment, length: { maximum: 40 }
   validates :s_employee_id, inclusion:
-          { in: Employee.where(active: true).pluck(:id_number).map!(&:to_s) }, on: [:create, :edit]
+          { :in => lambda { |foo| foo.allowed_employees } }, on: [:create, :edit]
   validates :r_employee_id, inclusion:
-          { in: Employee.where(active: true).pluck(:id_number).map!(&:to_s) }, on: :update
+          { :in => lambda { |foo| foo.allowed_employees } }, on: :update
   validates :aasm_state, inclusion: { in: ["ST", "RNR", "LT"] }
   before_save { self.location = location.upcase }
   before_save :store_employee
@@ -26,6 +26,10 @@ class Detail < ApplicationRecord
     state :ST
     state :RNR
     state :LT
+  end
+
+  def allowed_employees
+    Employee.where(active: true).pluck(:id_number).map!(&:to_s)
   end
 
   private
