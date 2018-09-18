@@ -70,7 +70,7 @@ class PagesController < ApplicationController
   end
 
   def relog
-    unordered = Ticket.where(active:true).where("tickets.aasm_state != ?", "LT").
+    unordered = Ticket.where(active:true).where(:"tickets.aasm_state" => ["ST", "RNR"]).
     joins(:details).preload(details: [:stored_employee]).distinct.to_a
     @tickets = reorder(unordered).paginate(:page => params[:page])
   end

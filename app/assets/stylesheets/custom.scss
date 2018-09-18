@@ -129,12 +129,19 @@ html {
   overflow-y: scroll;
 }
 
-.checkbox_forms {
+.check-box-forms {
   width: 20px;
   height: 20px;
 }
 
-.relog_checkbox {
+.relog-check-box {
   display: flex;
-  justify-content: center;  
+  justify-content: center;
+}
+
+.check-box-employee {
+  vertical-align: bottom;
+  display: inline;
+  width: 28px;
+  height: 28px;
 }

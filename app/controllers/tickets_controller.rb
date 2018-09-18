@@ -83,7 +83,7 @@ class TicketsController < ApplicationController
   def sign_out_relog
     tickets = Ticket.where(id: params[:ticket_ids])
     tickets.each do |f|
-      f.latest_details.update_attribute(:retrieved_employee_id, "1")
+      f.latest_details.update_attributes(:r_employee_id => "000000", :updated_at => Time.now)
       f.update_attributes(:aasm_state => "Inactive", :active => "false")
     end
     redirect_back fallback_location: '/relog'

@@ -33,13 +33,14 @@
         </div>
         <%= e.text_field :name, :value => emp_name, :autocomplete => "off", :class => "form-control" %>
       </div><br>
+      <div>Currently active? <%= e.check_box :active, :class => "check-box-employee" %></div>
       <div class="text-center">
         <%= e.submit :class => "btn btn-secondary" %>
       </div>
     <% end %><br>
     <p>Amount of tickets stored: <%= Detail.where(stored_employee: @employee.id).count %></p>
     <p>Amount of tickets retrieved: <%= Detail.where(retrieved_employee: @employee.id).count %></p>
-    <p>Amount of tickets stored today: <%= Detail.where(stored_employee: @employee.id).where("created_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day).count %>
-    <p>Amount of tickets retrieved today: <%= Detail.where(retrieved_employee: @employee.id).where("created_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day).count %>
+    <p>Amount of tickets stored today: <%= Detail.where(stored_employee: @employee.id).where("created_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day).count %></p>
+    <p>Amount of tickets retrieved today: <%= Detail.where(retrieved_employee: @employee.id).where("updated_at > ?", Time.now.in_time_zone("Melbourne").at_beginning_of_day).count %></p>
   </div>
   <% end %>
