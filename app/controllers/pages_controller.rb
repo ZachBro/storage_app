@@ -70,9 +70,18 @@ class PagesController < ApplicationController
   end
 
   def relog
-    unordered = Ticket.where(active:true).where(:"tickets.aasm_state" => ["ST", "RNR"]).
-    joins(:details).preload(details: [:stored_employee]).distinct.to_a
     @tickets = reorder(unordered).paginate(:page => params[:page])
+  end
+
+  def relog2
+    if (1..7).include? params[:location].to_i
+      @loc = params[:location]
+    elsif params[:location] == "hanging"
+      @loc = "H"
+    else
+      @loc = "O"
+    end
+    @tickets = reorder2(unordered2)
   end
 
   private
@@ -83,16 +92,36 @@ class PagesController < ApplicationController
       paginate(:page => params[:"page#{state}"], :per_page => 50)
     end
 
+    def unordered
+      Ticket.where(active:true).where(:"tickets.aasm_state" => ["ST", "RNR"]).
+      joins(:details).preload(details: [:stored_employee]).distinct.to_a
+    end
+
     def reorder(unordered)
-      arr = []
-      unordered.each do |d|
-        arr.push([d, d.details.first.location])
-      end
+      arr = unordered.map { |a| [a, a.latest_details.location] }
       arr.sort! { |a, b| a[1] <=> b[1] }
-      tickets = []
-      arr.each do |f|
-        tickets.push(f[0])
+      arr.map(&:shift)
+    end
+
+    def unordered2
+      if @loc == "O"
+        Ticket.where(active:true).where(:"tickets.aasm_state" => ["ST", "RNR"]).
+        joins(:details).preload(details: [:stored_employee]).where('location !~* ?', '[1234567H]').distinct.to_a
+      else
+        Ticket.where(active:true).where(:"tickets.aasm_state" => ["ST", "RNR"]).
+        joins(:details).preload(details: [:stored_employee]).where("location like ?", "#{@loc}%").distinct.to_a
       end
-      return tickets
+    end
+
+    def reorder2(unordered2)
+      if @loc == "O"
+        arr = unordered2.map { |a| [a, a.latest_details.location] }
+        arr.sort! { |a, b| a[1] <=> b[1] }
+        arr.map(&:shift)
+      else
+        arr = unordered2.map { |a| [a, a.latest_details.location] if a.latest_details.location[0] == "#{@loc}" }.compact
+        arr.sort! { |a, b| a[1] <=> b[1] }
+        arr.map(&:shift)
+      end
     end
 end

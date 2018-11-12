@@ -9,6 +9,8 @@
   @ <%= ticket.latest_details.created_at.in_time_zone("Melbourne").strftime('%H:%M - %d/%m/%y') %></td>
 <% if (params[:controller] == 'pages' && %w(relog).include?(params[:action])) %>
   <%= render 'shared/relog_sign_out', ticket: ticket %>
+<% elsif (params[:controller] == 'pages' && %w(relog2).include?(params[:action])) %>
+  <%= render 'shared/relog_sign_out', ticket: ticket %>
 <% else %>
   <%= render 'shared/sign_out', ticket: ticket %>
 <% end %>

@@ -11,6 +11,8 @@
       <th style="width: 15%">Stored by</th>
       <% if (params[:controller] == 'pages' && %w(relog).include?(params[:action])) %>
         <th style="width: 8%">Not signed out?</th>
+      <% elsif (params[:controller] == 'pages' && %w(relog2).include?(params[:action])) %>
+        <th style="width: 8%">Not signed out?</th>
       <% else %>
         <th style="width: 20%">Retrieved by</th>
       <% end %>
