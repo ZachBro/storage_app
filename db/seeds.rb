@@ -39,20 +39,25 @@ Ticket.create!(number: "300006", name: "Allen. L", aasm_state: "LT", details_att
 Ticket.create!(number: "300007", name: "McDonald. R", aasm_state: "RNR", details_attributes:
           [{amount: "2", location: "4B", aasm_state: "RNR", s_employee_id: "300002"}])
 
-Employee.find(5).update_attribute(:active, false)
+Employee.find(6).update_attribute(:active, false)
 
 
 time_one = Time.now
 1000.times do |d|
   if (rand(1..10) > 6)
     a = (rand(1..10) > 7 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST")
-    Ticket.create!(number: d.to_s.rjust(6, "100000"), aasm_state: a, name: Faker::Name.name[0..24], details_attributes:
-    [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample), room: ApplicationHelper::Rooms.sample,
-    aasm_state: a, s_employee_id: rand(300000..300003).to_s}])
+    Ticket.create!(number: d.to_s.rjust(6, "000000"), aasm_state: a, name: Faker::Name.name[0..24],
+    details_attributes: [{amount: rand(1..10),
+    location: (rand(1..10) > 4 ? (rand(1..7).to_s + ["A", "B", "C"].sample) : (rand(1..4) > 1 ? "H" + rand(1..6).to_s : "Trolley" )),
+    room: ApplicationHelper::Rooms.sample, aasm_state: a, s_employee_id: rand(300000..300003).to_s}])
   else
-    Ticket.create!(number: d.to_s.rjust(6, "100000"), aasm_state: "Inactive", name: Faker::Name.name[0..24], active: false, details_attributes:
-    [{amount: rand(1..10), location: (rand(1..7).to_s + ["A", "B", "C"].sample), room: ApplicationHelper::Rooms.sample,
-    aasm_state: (rand(1..10) > 8 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"), s_employee_id: rand(300000..300003).to_s, retrieved_employee_id: ["2", "3", "4", "5"].sample}])
+    Ticket.create!(number: d.to_s.rjust(6, "100000"), aasm_state: "Inactive", name: Faker::Name.name[0..24], active: false,
+    details_attributes: [{amount: rand(1..10),
+    location: (rand(1..10) > 4 ? (rand(1..7).to_s + ["A", "B", "C"].sample) : (rand(1..4) > 1 ? "H" + rand(1..6).to_s : "Trolley" )),
+    room: ApplicationHelper::Rooms.sample,
+    aasm_state: (rand(1..10) > 8 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"),
+    s_employee_id: rand(300000..300003).to_s,
+    retrieved_employee_id: ["2", "3", "4", "5"].sample}])
   end
 end
 time_two = Time.now

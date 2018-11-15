@@ -14,5 +14,8 @@ class CreateDetails < ActiveRecord::Migration[5.2]
     end
     add_index :details, :room
     add_index :details, :aasm_state
+    add_index :details, :location
+    add_index :details, :created_at
+    add_index :details, :updated_at
   end
 end

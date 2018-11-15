@@ -27,7 +27,10 @@ ActiveRecord::Schema.define(version: 2018_09_15_130357) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["aasm_state"], name: "index_details_on_aasm_state"
+    t.index ["created_at"], name: "index_details_on_created_at"
+    t.index ["location"], name: "index_details_on_location"
     t.index ["room"], name: "index_details_on_room"
+    t.index ["updated_at"], name: "index_details_on_updated_at"
   end
 
   create_table "employees", force: :cascade do |t|
