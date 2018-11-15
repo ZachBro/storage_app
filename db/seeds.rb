@@ -48,12 +48,12 @@ time_one = Time.now
     a = (rand(1..10) > 7 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST")
     Ticket.create!(number: d.to_s.rjust(6, "000000"), aasm_state: a, name: Faker::Name.name[0..24],
     details_attributes: [{amount: rand(1..10),
-    location: (rand(1..10) > 4 ? (rand(1..7).to_s + ["A", "B", "C"].sample) : (rand(1..4) > 1 ? "H" + rand(1..6).to_s : "Trolley" )),
+    location: (rand(1..10) > 4 ? (rand(1..7).to_s + ["A", "B", "C"].sample) : (rand(1..4) > 1 ? "H" + rand(1..6).to_s : ["Trolley", "Fridge", "Freezer"].sample)),
     room: ApplicationHelper::Rooms.sample, aasm_state: a, s_employee_id: rand(300000..300003).to_s}])
   else
-    Ticket.create!(number: d.to_s.rjust(6, "100000"), aasm_state: "Inactive", name: Faker::Name.name[0..24], active: false,
+    Ticket.create!(number: d.to_s.rjust(6, "000000"), aasm_state: "Inactive", name: Faker::Name.name[0..24], active: false,
     details_attributes: [{amount: rand(1..10),
-    location: (rand(1..10) > 4 ? (rand(1..7).to_s + ["A", "B", "C"].sample) : (rand(1..4) > 1 ? "H" + rand(1..6).to_s : "Trolley" )),
+    location: (rand(1..10) > 4 ? (rand(1..7).to_s + ["A", "B", "C"].sample) : (rand(1..4) > 1 ? "H" + rand(1..6).to_s : ["Trolley", "Fridge", "Freezer"].sample)),
     room: ApplicationHelper::Rooms.sample,
     aasm_state: (rand(1..10) > 8 ? (rand(1..2) > 1 ?  "LT" : "RNR") : "ST"),
     s_employee_id: rand(300000..300003).to_s,

@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   delete '/logout',           to: 'sessions#destroy'
   get    '/logout',           to: 'sessions#destroy'
   get    '/relog',            to: 'pages#relog'
-  get    '/relog2',            to: 'pages#relog2'
   resources :pages
   resources :employees
   resources :search

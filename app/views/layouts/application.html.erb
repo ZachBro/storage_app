@@ -21,10 +21,7 @@
               <a class="nav-link" href="/search">Advanced Search</a>
             </li>
             <li class="nav-item <%= params[:controller] == 'pages' && %w(relog).include?(params[:action]) ? "active" : "" %>">
-              <a class="nav-link" href="/relog">Relog</a>
-            </li>
-            <li class="nav-item <%= params[:controller] == 'pages' && %w(relog2).include?(params[:action]) ? "active" : "" %>">
-              <a class="nav-link" href="/relog2?location=1">Relog 2</a>
+              <a class="nav-link" href="/relog?location=1">Relog</a>
             </li>
             <li class="nav-item <%= params[:controller] == 'employees' && %w(index show new update create).include?(params[:action]) ? "active" : "" %>">
               <a class="nav-link" href="/employees">Employees</a>
