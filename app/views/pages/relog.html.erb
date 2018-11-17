@@ -1,14 +1,15 @@
 <div class="text-center">
-  <h1 class="headings">Relog 2</h1>
+  <h1 class="headings">Relog</h1>
+  <a href="/report", class="btn btn-secondary">Printing Report</a><br><br>
 
   <div class="btn-group btn-group-toggle btn-group-justified">
     <%= link_to "1", "/relog?location=1", :class => "btn btn-group-toggle btn-secondary #{params[:location] == '1' ? 'active' : ''}" %>
     <%= link_to "2", "/relog?location=2", :class => "btn btn-group-toggle btn-secondary #{params[:location] == '2' ? 'active' : ''}" %>
-    <%= link_to "3", "/relog?location=3", :class => "btn  btn-group-toggle btn-secondary #{params[:location] == '3' ? 'active' : ''}" %>
-    <%= link_to "4", "/relog?location=4", :class => "btn  btn-group-toggle btn-secondary #{params[:location] == '4' ? 'active' : ''}" %>
-    <%= link_to "5", "/relog?location=5", :class => "btn  btn-group-toggle btn-secondary #{params[:location] == '5' ? 'active' : ''}" %>
-    <%= link_to "6", "/relog?location=6", :class => "btn  btn-group-toggle btn-secondary #{params[:location] == '6' ? 'active' : ''}" %>
-    <%= link_to "7", "/relog?location=7", :class => "btn  btn-group-toggle btn-secondary #{params[:location] == '7' ? 'active' : ''}" %>
+    <%= link_to "3", "/relog?location=3", :class => "btn btn-group-toggle btn-secondary #{params[:location] == '3' ? 'active' : ''}" %>
+    <%= link_to "4", "/relog?location=4", :class => "btn btn-group-toggle btn-secondary #{params[:location] == '4' ? 'active' : ''}" %>
+    <%= link_to "5", "/relog?location=5", :class => "btn btn-group-toggle btn-secondary #{params[:location] == '5' ? 'active' : ''}" %>
+    <%= link_to "6", "/relog?location=6", :class => "btn btn-group-toggle btn-secondary #{params[:location] == '6' ? 'active' : ''}" %>
+    <%= link_to "7", "/relog?location=7", :class => "btn btn-group-toggle btn-secondary #{params[:location] == '7' ? 'active' : ''}" %>
     <%= link_to "Hanging", "/relog?location=hanging", :class => "btn  btn-group-toggle btn-secondary #{params[:location] == 'hanging' ? 'active' : ''}" %>
     <%= link_to "Fridge/Freezer", "/relog?location=fridge", :class => "btn  btn-group-toggle btn-secondary #{params[:location] == 'fridge' ? 'active' : ''}" %>
     <%= link_to "Other", "/relog?location=other", :class => "btn  btn-group-toggle btn-secondary #{params[:location] == 'other' ? 'active' : ''}" %>

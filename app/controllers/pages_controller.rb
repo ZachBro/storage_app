@@ -70,19 +70,19 @@ class PagesController < ApplicationController
   end
 
   def relog
-    if (1..7).include? params[:location].to_i
-      @loc = params[:location]
+    if %w{ 1 2 3 4 5 6 7 hanging fridge }.include? params[:location]
+      @loc = params[:location][0].upcase
       @tickets = reorder(unordered)
-    elsif params[:location] == "hanging"
-      @loc = "H"
-      @tickets = reorder(unordered)
-    elsif params[:location] == "fridge"
-      @loc = "F"
-      @tickets = reorder(unordered)
-    else
+    elsif params[:location] == "other"
       @loc = "O"
       @tickets = reorder_other(unordered_other)
+    else
+      redirect_to "/relog?location=1"
     end
+  end
+
+  def relog_report
+    @array_of_tickets = tickets_for_report(unordered_tickets_for_report)
   end
 
   private
@@ -116,5 +116,16 @@ class PagesController < ApplicationController
     def unordered_other
       Ticket.where(active:true).where(:"tickets.aasm_state" => ["ST", "RNR"]).
       joins(:details).preload(details: [:stored_employee]).where('location !~* ?', '[1234567HF]').distinct.to_a
+    end
+
+    def tickets_for_report(unordered)
+      arr = unordered.map { |a| [a, a.latest_details.location] }
+      arr.sort! { |a, b| a[1] <=> b[1] }
+      arr.map(&:shift).in_groups(2).map(&:compact)
+    end
+
+    def unordered_tickets_for_report
+      Ticket.where(active:true).where(:"tickets.aasm_state" => ["ST", "RNR"]).
+      joins(:details).preload(details: [:stored_employee]).distinct.to_a
     end
 end
