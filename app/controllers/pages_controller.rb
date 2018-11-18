@@ -34,7 +34,6 @@ class PagesController < ApplicationController
       format.html {redirect_to st_path(params.permit(:pageST))}
       format.js
     end
-
     home_st
   end
 
@@ -43,17 +42,14 @@ class PagesController < ApplicationController
       format.html {redirect_to rnr_path(params.permit(:pageRNR))}
       format.js
     end
-
     home_rnr
   end
 
   def current_lt
-
     respond_to do |format|
       format.html {redirect_to lt_path(params.permit(:pageLT))}
       format.js
     end
-
     home_lt
   end
 
@@ -71,10 +67,9 @@ class PagesController < ApplicationController
 
   def relog
     if %w{ 1 2 3 4 5 6 7 hanging fridge }.include? params[:location]
-      @loc = params[:location][0].upcase
+      @location = params[:location][0].upcase
       @tickets = reorder(unordered)
     elsif params[:location] == "other"
-      @loc = "O"
       @tickets = reorder_other(unordered_other)
     else
       redirect_to "/relog?location=1"
@@ -82,7 +77,8 @@ class PagesController < ApplicationController
   end
 
   def relog_report
-    @array_of_tickets = tickets_for_report(unordered_tickets_for_report)
+    @array_of_tickets = (report_order_tickets(report_unordered) +
+    reorder_other(unordered_other)).in_groups(2).map(&:compact)
   end
 
   private
@@ -93,24 +89,16 @@ class PagesController < ApplicationController
       paginate(:page => params[:"page#{state}"], :per_page => 50)
     end
 
-    def reorder(unordered)
-      arr = unordered.map { |a| [a, a.latest_details.location] if
-      a.latest_details.location[0] == "#{@loc}" }.compact
-      arr.sort! { |a, b| a[1] <=> b[1] }
-      arr.map(&:shift)
-    end
-
     def unordered
       Ticket.where(active:true).where(:"tickets.aasm_state" => ["ST", "RNR"]).
       joins(:details).preload(details: [:stored_employee]).
-      where("location like ?", "#{@loc}%").distinct.to_a
+      where("location like ?", "#{@location}%").distinct.to_a
     end
 
-    def reorder_other(unordered_other)
-      arr = unordered_other.map { |a| [a, a.latest_details.location] unless
-      ["1", "2", "3", "4", "5", "6", "7", "H", "F"].include? a.latest_details.location[0] }.compact
-      arr.sort! { |a, b| a[1] <=> b[1] }
-      arr.map(&:shift)
+    def reorder(unordered)
+      arr = unordered.map { |a| [a, a.latest_details.location] if
+      a.latest_details.location[0] == "#{@location}" }.compact
+      sort_and_pop(arr)
     end
 
     def unordered_other
@@ -118,14 +106,25 @@ class PagesController < ApplicationController
       joins(:details).preload(details: [:stored_employee]).where('location !~* ?', '[1234567HF]').distinct.to_a
     end
 
-    def tickets_for_report(unordered)
-      arr = unordered.map { |a| [a, a.latest_details.location] }
-      arr.sort! { |a, b| a[1] <=> b[1] }
-      arr.map(&:shift).in_groups(2).map(&:compact)
+    def reorder_other(unordered_other)
+      arr = unordered_other.map { |a| [a, a.latest_details.location] unless
+      ["1", "2", "3", "4", "5", "6", "7", "H", "F"].include? a.latest_details.location[0] }.compact
+      sort_and_pop(arr)
     end
 
-    def unordered_tickets_for_report
+    def sort_and_pop(arr)
+      arr.sort! { |a, b| a[1] <=> b[1] }
+      arr.map(&:shift)
+    end
+
+    def report_unordered
       Ticket.where(active:true).where(:"tickets.aasm_state" => ["ST", "RNR"]).
-      joins(:details).preload(details: [:stored_employee]).distinct.to_a
+      joins(:details).preload(details: [:stored_employee]).where('location ~* ?', '[1234567HF]').distinct.to_a
+    end
+
+    def report_order_tickets(report_unordered)
+      arr = report_unordered.map { |a| [a, a.latest_details.location] if
+      ["1", "2", "3", "4", "5", "6", "7", "H", "F"].include? a.latest_details.location[0] }.compact
+      sort_and_pop(arr)
     end
 end
