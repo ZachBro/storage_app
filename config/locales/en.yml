@@ -61,6 +61,7 @@ en:
             number:
               blank: "Number is required"
               wrong_length: "Number is the wrong length (Must be 6 characters)"
+              taken: "Ticket number already exists"
         employee:
           attributes:
             name:

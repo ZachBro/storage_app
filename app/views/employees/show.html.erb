@@ -1,7 +1,7 @@
 <% emp_num = @employee.id_number %>
 <% emp_name = @employee.name %>
 <div class="text-center">
-  <h1>
+  <h1 class="headings">
     <strong>
       <% if @employee.changed? %>
         <%= @employee.reload.id_number %>
