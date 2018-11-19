@@ -84,7 +84,7 @@
     </div>
     <div class="input-group">
       <div class="input-group-prepend">
-        <%= d.label :room, :class => "input-group-text input-group-addon" %>
+        <%= d.label :room_num, "Room", :class => "input-group-text input-group-addon" %>
       </div>
       <%= d.text_field :room, :id => "ticket_details_attributes_0_room_num",
       :disabled => (params.has_key?(:ticket) ?

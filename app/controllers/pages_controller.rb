@@ -75,7 +75,7 @@ class PagesController < ApplicationController
   end
 
   def relog
-    if %w{ 1 2 3 4 5 6 7 hanging fridge }.include? params[:location]
+    if %w{ 1 2 3 4 5 6 7 hanging fridge/freezer }.include? params[:location]
       @location = params[:location][0].upcase
       @tickets = reorder(unordered)
     elsif params[:location] == "other"

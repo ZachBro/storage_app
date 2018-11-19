@@ -8,7 +8,7 @@
       <% end %>
     </tbody>
   </table>
-  <p>Total signed in tickets: <%= @tickets.count %></p>
+  <p>Total signed in tickets in Section <%= params[:location].capitalize %>: <%= @tickets.count %></p>
   <div class="text-center">
     <%= submit_tag "Sign Out All Checked", :class => "btn btn-secondary btn-lg" %>
   </div>

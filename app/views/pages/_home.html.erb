@@ -1,8 +1,8 @@
 <div class="text-center">
   <h1 class="headings">Storage</h1>
-
+  <h3>Search or Enter New Tickets</h3>
   <%= render 'tickets/new_ticket' %>
-
+  <h3>Search Today's Tickets</h3>
   <div class="form-container">
     <%= form_tag("/search/show", :autocomplete => "off", remote: true, method: :get) do %>
       <div class="input-group">
